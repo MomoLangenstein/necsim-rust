@@ -107,7 +107,7 @@ fn fix_habitat_map(
             if h_before <= 1 {
                 // If there is no turnover, there cannot be habitat at this location
                 // If there is any dispersal from this location, it must be habitat
-                #[allow(clippy::bool_to_int_with_if)]
+                #[expect(clippy::bool_to_int_with_if)]
                 let h_fixed = if turnover.map_or(false, |turnover| turnover[(y, x)] == 0.0_f64) {
                     0
                 } else if dispersal

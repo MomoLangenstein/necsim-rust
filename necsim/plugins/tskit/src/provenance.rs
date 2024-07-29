@@ -4,7 +4,7 @@ use findshlibs::{SharedLibrary, TargetSharedLibrary};
 use serde::Serialize;
 
 /// tskit's provenance JSON schema format root for version 1.0.0
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Serialize)]
 pub struct TskitProvenance {
     schema_version: String,
@@ -73,7 +73,7 @@ impl TskitProvenanceParameters {
 #[derive(Serialize)]
 struct TskitProvenanceEnvironment {
     os: TskitProvenanceEnvironmentOs,
-    #[allow(clippy::zero_sized_map_values)]
+    #[expect(clippy::zero_sized_map_values)]
     libraries: HashMap<String, TskitProvenanceEnvironmentLibrary>,
     #[serde(with = "self::rustc_version::VersionMetaDef")]
     rustc: ::rustc_version::VersionMeta,
@@ -81,7 +81,7 @@ struct TskitProvenanceEnvironment {
 
 impl TskitProvenanceEnvironment {
     pub fn try_new() -> io::Result<Self> {
-        #[allow(clippy::zero_sized_map_values)]
+        #[expect(clippy::zero_sized_map_values)]
         let mut libraries = HashMap::new();
 
         // Create a map of all dynamically loaded libraries
@@ -126,7 +126,7 @@ impl TskitProvenanceEnvironmentOs {
 struct TskitProvenanceEnvironmentLibrary {}
 
 impl TskitProvenanceEnvironmentLibrary {
-    #[allow(clippy::unnecessary_wraps)]
+    #[expect(clippy::unnecessary_wraps)]
     pub fn try_new(_library: &std::ffi::OsStr) -> io::Result<Self> {
         // TODO: Future work might deduce version information etc.
 
@@ -156,7 +156,7 @@ mod rustc_version {
         pub llvm_version: Option<LlvmVersion>,
     }
 
-    #[allow(clippy::trivially_copy_pass_by_ref)]
+    #[expect(clippy::trivially_copy_pass_by_ref)]
     fn serialize_channel<S: serde::Serializer>(
         channel: &Channel,
         serializer: S,
@@ -168,7 +168,6 @@ mod rustc_version {
         llvm_version: &Option<LlvmVersion>,
         serializer: S,
     ) -> Result<S::Ok, S::Error> {
-        #[allow(clippy::option_if_let_else)]
         if let Some(llvm_version) = llvm_version {
             serializer.collect_str(llvm_version)
         } else {

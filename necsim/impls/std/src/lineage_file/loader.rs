@@ -11,7 +11,7 @@ use necsim_core::lineage::Lineage;
 
 #[derive(Debug, Deserialize, Clone)]
 #[serde(try_from = "LineageFileLoaderRaw")]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct LineageFileLoader {
     lineages: Vec<Lineage>,
     path: PathBuf,

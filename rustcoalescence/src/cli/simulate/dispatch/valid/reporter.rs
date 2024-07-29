@@ -12,7 +12,7 @@ use crate::{
 
 use super::{super::super::BufferingSimulateArgsBuilder, algorithm_scenario};
 
-#[allow(clippy::too_many_arguments)]
+#[expect(clippy::too_many_arguments)]
 pub(super) fn dispatch(
     partitioning: Partitioning,
     event_log: Option<EventLogConfig>,

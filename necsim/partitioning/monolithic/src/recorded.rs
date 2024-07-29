@@ -18,7 +18,7 @@ use necsim_partitioning_core::{
     iterator::ImmigrantPopIterator, partition::Partition, LocalPartition, MigrationMode,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct RecordedMonolithicLocalPartition<R: Reporter> {
     reporter: FilteredReporter<R, False, False, True>,
     recorder: EventLogRecorder,

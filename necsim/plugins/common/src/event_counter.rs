@@ -8,7 +8,7 @@ use necsim_core::{
 };
 use necsim_core_bond::NonNegativeF64;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Default)]
 pub struct EventCounterReporter {
     last_parent_prior_time: Option<NonNegativeF64>,

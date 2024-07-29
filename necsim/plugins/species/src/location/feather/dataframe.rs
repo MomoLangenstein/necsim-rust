@@ -74,7 +74,7 @@ impl LocationSpeciesFeatherReporter {
         }
     }
 
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     pub(super) fn output_to_dataframe(mut self) -> arrow2::error::Result<()> {
         let file = File::options()
             .write(true)

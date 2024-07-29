@@ -57,7 +57,7 @@ impl<'de> DeserializeState<'de, PartitionSize> for ParallelismMode {
 }
 
 #[derive(Clone, Debug, Serialize)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct CudaArguments {
     pub device: u32,
     pub ptx_jit: bool,

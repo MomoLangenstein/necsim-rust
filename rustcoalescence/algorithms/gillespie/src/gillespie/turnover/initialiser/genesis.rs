@@ -16,7 +16,7 @@ use rustcoalescence_scenarios::Scenario;
 
 use super::GillespieLineageStoreSampleInitialiser;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct GenesisInitialiser;
 
 impl<M: MathsCore, G: RngCore<M>, O: Scenario<M, G>>

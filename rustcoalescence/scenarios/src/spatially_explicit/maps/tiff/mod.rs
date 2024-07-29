@@ -10,11 +10,11 @@ use necsim_impls_no_std::array2d::Array2D;
 
 mod data_type;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait TiffDataType: data_type::TiffDataType {}
 impl<T: data_type::TiffDataType> TiffDataType for T {}
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 /// Loads a 2D map from TIFF file at `path` with the data type `D`.
 ///
 /// This function assumes that normal, non-sparse TIFF files are read.

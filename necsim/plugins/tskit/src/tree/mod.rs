@@ -19,7 +19,6 @@ mod table;
 const TSK_SEQUENCE_MIN: f64 = 0.0_f64;
 const TSK_SEQUENCE_MAX: f64 = 1.0_f64;
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Deserialize)]
 #[serde(try_from = "TskitTreeReporterArgs")]
 pub struct TskitTreeReporter {

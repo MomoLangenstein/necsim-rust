@@ -16,7 +16,7 @@ mod weight;
 #[cfg(test)]
 mod test;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct EqualDecomposition<M: MathsCore, H: Habitat<M>> {
     subdomain: Partition,
@@ -58,7 +58,7 @@ impl<M: MathsCore, H: Habitat<M>> Decomposition<M, H> for EqualDecomposition<M, 
 
         let morton_index = Self::map_x_y_to_morton(self.morton.0, self.morton.1, dx, dy);
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         match self.indices.binary_search(&morton_index) {
             Ok(index) => (index + 1) as u32,
             Err(index) => index as u32,
@@ -68,7 +68,7 @@ impl<M: MathsCore, H: Habitat<M>> Decomposition<M, H> for EqualDecomposition<M, 
 
 impl<M: MathsCore, H: Habitat<M>> EqualDecomposition<M, H> {
     fn next_log2(coord: OffByOneU32) -> u8 {
-        #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         if coord.get() > 1 {
             M::ceil(M::ln(f64::from(coord)) / core::f64::consts::LN_2) as u8
         } else {

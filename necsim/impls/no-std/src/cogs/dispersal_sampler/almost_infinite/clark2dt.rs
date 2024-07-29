@@ -8,7 +8,6 @@ use necsim_core_bond::{ClosedUnitF64, NonNegativeF64, PositiveF64};
 
 use crate::cogs::habitat::almost_infinite::AlmostInfiniteHabitat;
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M", free = "G"))]
@@ -26,7 +25,7 @@ impl<M: MathsCore, G: RngCore<M>> AlmostInfiniteClark2DtDispersalSampler<M, G> {
 
         // For now, we numerically integrate the self-dispersal probability
         //  using polar coordinates
-        #[allow(clippy::useless_conversion)] // prepare for new range iterators
+        #[expect(clippy::useless_conversion)] // prepare for new range iterators
         let self_dispersal = (0..N)
             .into_iter()
             .map(|i| {
@@ -132,7 +131,7 @@ impl<M: MathsCore, G: RngCore<M>> SeparableDispersalSampler<M, AlmostInfiniteHab
     }
 }
 
-#[allow(clippy::doc_markdown, clippy::module_inception)]
+#[expect(clippy::doc_markdown, clippy::module_inception)]
 /// Clark2Dt dispersal:
 ///
 /// Clark, J.S., Silman, M., Kern, R., Macklin, E. and HilleRisLambers, J.
@@ -179,7 +178,7 @@ mod clark2dt {
     }
 
     fn pow_fast_one<M: MathsCore>(x: f64, exp: f64) -> f64 {
-        #[allow(clippy::float_cmp)]
+        #[expect(clippy::float_cmp)]
         if exp == 1.0 {
             return x;
         }
@@ -263,7 +262,7 @@ mod tests {
     }
 
     #[test]
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     fn test_cdf() {
         assert_eq_bits!(
             cdf::<ReproducibleMathsCore>(
@@ -559,7 +558,7 @@ mod tests {
     }
 
     #[test]
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     fn test_cdf_inverse() {
         assert_eq_bits!(
             cdf_inverse::<ReproducibleMathsCore>(

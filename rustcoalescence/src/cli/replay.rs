@@ -10,7 +10,7 @@ use crate::args::{
     utils::parse::{try_parse, try_print},
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub fn replay_with_logger(replay_args: CommandArgs) -> Result<()> {
     log::set_max_level(LevelFilter::Info);
 

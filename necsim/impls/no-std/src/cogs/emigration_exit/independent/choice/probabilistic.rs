@@ -6,7 +6,7 @@ use necsim_core_bond::{ClosedUnitF64, PositiveF64};
 
 use super::EmigrationChoice;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct ProbabilisticEmigrationChoice {
     probability: ClosedUnitF64,
@@ -39,7 +39,7 @@ impl<M: MathsCore, H: Habitat<M>> EmigrationChoice<M, H> for ProbabilisticEmigra
         let hash = diffuse(time.get().to_bits());
 
         // http://prng.di.unimi.it -> Generating uniform doubles in the unit interval
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let u01 = ((hash >> 11) as f64) * f64::from_bits(0x3CA0_0000_0000_0000_u64); // 0x1.0p-53
 
         u01 <= self.probability.get()

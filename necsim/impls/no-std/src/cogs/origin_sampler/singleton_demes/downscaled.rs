@@ -13,7 +13,6 @@ use crate::cogs::{
     origin_sampler::{pre_sampler::OriginPreSampler, TrustedOriginSampler, UntrustedOriginSampler},
 };
 
-#[allow(clippy::module_name_repetitions)]
 pub struct AlmostInfiniteDownscaledOriginSampler<
     'h,
     M: MathsCore,

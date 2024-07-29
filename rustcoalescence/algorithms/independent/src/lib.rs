@@ -36,7 +36,7 @@ use initialiser::{
     fixup::FixUpInitialiser, genesis::GenesisInitialiser, resume::ResumeInitialiser,
 };
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
+#[expect(clippy::empty_enum)]
 pub enum IndependentAlgorithm {}
 
 impl AlgorithmParamters for IndependentAlgorithm {

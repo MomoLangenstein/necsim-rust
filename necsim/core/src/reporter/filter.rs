@@ -10,7 +10,6 @@ use crate::{
     },
 };
 
-#[allow(clippy::module_name_repetitions)]
 #[repr(transparent)]
 pub struct FilteredReporter<
     R: Reporter,

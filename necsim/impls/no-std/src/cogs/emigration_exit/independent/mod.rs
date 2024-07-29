@@ -18,7 +18,7 @@ use crate::{
 pub mod choice;
 use choice::EmigrationChoice;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct IndependentEmigrationExit<
     M: MathsCore,

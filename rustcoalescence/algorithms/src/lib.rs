@@ -82,7 +82,7 @@ pub trait Algorithm<
     ///
     /// Returns a `ContinueError<Self::Error>` if initialising the resuming
     ///  simulation or running the algorithm failed
-    #[allow(clippy::type_complexity, clippy::too_many_arguments)]
+    #[expect(clippy::too_many_arguments)]
     fn resume_and_simulate<I: Iterator<Item = u64>, L: ExactSizeIterator<Item = Lineage>>(
         args: Self::Arguments,
         rng: G,
@@ -98,7 +98,7 @@ pub trait Algorithm<
     ///
     /// Returns a `ContinueError<Self::Error>` if fixing up the restarting
     ///  simulation (incl. running the algorithm) failed
-    #[allow(clippy::type_complexity, clippy::too_many_arguments)]
+    #[expect(clippy::too_many_arguments)]
     fn fixup_for_restart<I: Iterator<Item = u64>, L: ExactSizeIterator<Item = Lineage>>(
         args: Self::Arguments,
         rng: G,

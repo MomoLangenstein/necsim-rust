@@ -2,7 +2,7 @@ use std::fmt;
 
 use necsim_core::{event::SpeciationEvent, impl_finalise, impl_report, reporter::Reporter};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct BiodiversityReporter {
     last_event: Option<SpeciationEvent>,
 

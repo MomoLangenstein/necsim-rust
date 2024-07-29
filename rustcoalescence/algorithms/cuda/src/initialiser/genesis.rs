@@ -19,7 +19,7 @@ use crate::CudaError;
 
 use super::CudaLineageStoreSampleInitialiser;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct GenesisInitialiser;
 
 impl<M: MathsCore + Sync, G: PrimeableRng<M> + RustToCuda + Sync, O: Scenario<M, G>>

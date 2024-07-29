@@ -15,7 +15,7 @@ use necsim_core::{
 
 use crate::decomposition::Decomposition;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct DomainEmigrationExit<M: MathsCore, H: Habitat<M>, C: Decomposition<M, H>> {
     decomposition: C,

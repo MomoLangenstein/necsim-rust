@@ -2,7 +2,7 @@ use alloc::vec::Vec;
 
 use necsim_core::lineage::MigratingLineage;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ImmigrantPopIterator<'i> {
     immigrants: &'i mut Vec<MigratingLineage>,
 }

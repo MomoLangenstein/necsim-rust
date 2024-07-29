@@ -16,7 +16,7 @@ mod store;
 
 /// Marker trait which declares that all locations have <= 1 habitat
 ///  i.e. all indexed locations have index 0
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait SingletonDemesHabitat<M: MathsCore>: Habitat<M> {
     #[must_use]
     #[inline]
@@ -27,7 +27,7 @@ pub trait SingletonDemesHabitat<M: MathsCore>: Habitat<M> {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct SingletonDemesLineageStore<M: MathsCore, H: SingletonDemesHabitat<M>> {
     lineages_store: Slab<Lineage>,

@@ -1,7 +1,7 @@
 use necsim_core::cogs::MathsCore;
 
 #[derive(Clone, Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub enum ReproducibleMathsCore {}
 
 impl MathsCore for ReproducibleMathsCore {

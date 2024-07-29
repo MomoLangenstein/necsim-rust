@@ -8,7 +8,7 @@ use necsim_core_bond::ClosedUnitF64;
 
 use crate::cogs::habitat::non_spatial::NonSpatialHabitat;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M", free = "G"))]
@@ -49,7 +49,7 @@ impl<M: MathsCore, G: RngCore<M>> DispersalSampler<M, NonSpatialHabitat<M>, G>
 
         let dispersal_target_index = rng.sample_index_u64(habitat.get_extent().area());
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat
                 .get_extent()
@@ -98,7 +98,7 @@ impl<M: MathsCore, G: RngCore<M>> SeparableDispersalSampler<M, NonSpatialHabitat
             }
         };
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat
                 .get_extent()

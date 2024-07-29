@@ -5,7 +5,7 @@ use necsim_core::cogs::{Backup, MathsCore, RngCore};
 use rand_core::{RngCore as RandRngCore, SeedableRng as RandSeedableRng};
 use serde::{de::DeserializeOwned, Deserialize, Deserializer, Serialize, Serializer};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, TypeLayout)]
 #[layout(free = "M")]
 #[repr(transparent)]

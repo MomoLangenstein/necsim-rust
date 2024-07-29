@@ -9,7 +9,7 @@ use necsim_partitioning_core::{
 };
 
 #[derive(Clone, Serialize, Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct GillespieArguments {
     pub parallelism_mode: ParallelismMode,
 }

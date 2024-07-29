@@ -25,7 +25,6 @@ use necsim_impls_no_std::{
 
 use crate::{Scenario, ScenarioCogs, ScenarioParameters};
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
 pub struct AlmostInfiniteDownscaledScenario<
     M: MathsCore,
     G: RngCore<M>,
@@ -53,7 +52,6 @@ fn default_non_self_dispersal() -> NonSelfDispersal {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(clippy::module_name_repetitions)]
 #[serde(rename = "AlmostInfiniteDownscaled")]
 #[serde(bound = "O::Arguments: serde::Serialize + serde::de::DeserializeOwned")]
 pub struct AlmostInfiniteDownscaledArguments<O: ScenarioParameters> {

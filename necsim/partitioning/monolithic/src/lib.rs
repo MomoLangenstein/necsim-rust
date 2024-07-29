@@ -26,7 +26,6 @@ use necsim_impls_std::event_log::recorder::EventLogConfig;
 pub mod live;
 pub mod recorded;
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Default)]
 pub struct MonolithicPartitioning(());
 
@@ -88,7 +87,6 @@ impl Partitioning for MonolithicPartitioning {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub enum MonolithicLocalPartition<R: Reporter> {
     Live(Box<live::LiveMonolithicLocalPartition<R>>),

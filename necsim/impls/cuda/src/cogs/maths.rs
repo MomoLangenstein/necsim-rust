@@ -1,7 +1,6 @@
 use necsim_core::cogs::MathsCore;
 
 #[derive(Clone, Debug)]
-#[allow(clippy::module_name_repetitions)]
 pub enum NvptxMathsCore {}
 
 impl MathsCore for NvptxMathsCore {
@@ -25,7 +24,7 @@ impl MathsCore for NvptxMathsCore {
         unsafe {
             const FRAC_1_LOG2_E: f64 = 1.0_f64 / core::f64::consts::LOG2_E;
 
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let x: f32 = x as f32;
             let f: f32;
 
@@ -53,7 +52,7 @@ impl MathsCore for NvptxMathsCore {
 
         #[cfg(target_os = "cuda")]
         unsafe {
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let x: f32 = (x * core::f64::consts::LOG2_E) as f32;
             let f: f32;
 
@@ -87,9 +86,9 @@ impl MathsCore for NvptxMathsCore {
             // https://stackoverflow.com/a/54273307
             // by https://stackoverflow.com/users/2341466/andars
             // Licensed under CC BY-SA 4.0
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let x: f32 = x as f32;
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let exp: f32 = exp as f32;
 
             let log2_x: f32;
@@ -118,7 +117,7 @@ impl MathsCore for NvptxMathsCore {
 
         #[cfg(target_os = "cuda")]
         unsafe {
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let x: f32 = x as f32;
             let f: f32;
 
@@ -142,7 +141,7 @@ impl MathsCore for NvptxMathsCore {
 
         #[cfg(target_os = "cuda")]
         unsafe {
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let x: f32 = x as f32;
             let f: f32;
 

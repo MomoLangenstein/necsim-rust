@@ -4,7 +4,7 @@ use tskit::metadata::{IndividualMetadata, MetadataError, MetadataRoundtrip, Node
 
 use necsim_core::lineage::GlobalLineageReference;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[repr(transparent)]
 pub struct GlobalLineageMetadata(GlobalLineageReference);
 

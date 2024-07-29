@@ -10,7 +10,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> InMemoryCumulativeDispersalSamp
         let habitat_width = habitat.get_extent().width();
 
         for target_index in self.valid_dispersal_targets.iter().filter_map(|x| *x) {
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let dispersal_target = Location::new(
                 (target_index % usize::from(habitat_width)) as u32,
                 (target_index / usize::from(habitat_width)) as u32,

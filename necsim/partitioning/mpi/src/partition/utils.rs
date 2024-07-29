@@ -115,7 +115,7 @@ impl MpiMigratingLineage {
 unsafe impl Equivalence for MpiMigratingLineage {
     type Out = UserDatatype;
 
-    #[allow(clippy::cast_possible_wrap)]
+    #[expect(clippy::cast_possible_wrap)]
     fn equivalent_datatype() -> Self::Out {
         // Ensure compilation breaks if a new field is added
         let MigratingLineage {

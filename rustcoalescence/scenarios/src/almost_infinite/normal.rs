@@ -24,12 +24,11 @@ use crate::{Scenario, ScenarioCogs, ScenarioParameters};
 
 use super::Sample;
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
+#[expect(clippy::empty_enum)]
 #[derive(Debug)]
 pub enum AlmostInfiniteNormalDispersalScenario {}
 
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(clippy::module_name_repetitions)]
 #[serde(rename = "AlmostInfiniteNormalDispersal")]
 pub struct AlmostInfiniteNormalDispersalArguments {
     pub sample: Sample,

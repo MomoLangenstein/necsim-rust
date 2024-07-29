@@ -16,7 +16,7 @@ use necsim_core_bond::{NonNegativeF64, PositiveF64};
 
 use super::GillespieEventSampler;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct UnconditionalGillespieEventSampler<
     M: MathsCore,
@@ -29,7 +29,7 @@ pub struct UnconditionalGillespieEventSampler<
     T: TurnoverRate<M, H>,
     N: SpeciationProbability<M, H>,
 > {
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     marker: PhantomData<(M, H, G, S, X, D, C, T, N)>,
 }
 

@@ -1,5 +1,5 @@
 #[macro_export]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 macro_rules! ReporterGroup {
     () => {
         $crate::reporter::NullReporter
@@ -15,7 +15,7 @@ macro_rules! ReporterGroup {
 }
 
 #[macro_export]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 macro_rules! ReporterUnGroup {
     ($reporter:expr => []) => {};
     ($reporter:expr => [$first_reporter:ident $(,$reporter_tail:ident)*]) => {

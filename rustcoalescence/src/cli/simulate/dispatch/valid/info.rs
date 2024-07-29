@@ -24,8 +24,7 @@ use crate::args::{
 
 use super::{super::super::BufferingSimulateArgsBuilder, partitioning};
 
-#[allow(dead_code)]
-#[allow(clippy::too_many_arguments, clippy::too_many_lines)]
+#[expect(clippy::too_many_arguments, clippy::too_many_lines)]
 pub(super) fn dispatch<
     M: MathsCore,
     G: RngCore<M>,

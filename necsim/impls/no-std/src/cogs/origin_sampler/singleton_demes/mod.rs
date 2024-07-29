@@ -11,7 +11,7 @@ pub mod circle;
 pub mod downscaled;
 pub mod rectangle;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub enum SingletonDemesOriginSampler<
     'h,
     M: MathsCore,

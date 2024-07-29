@@ -24,7 +24,7 @@ pub mod fixup;
 pub mod genesis;
 pub mod resume;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait CudaLineageStoreSampleInitialiser<
     M: MathsCore,
     G: PrimeableRng<M> + RustToCuda + Sync,
@@ -53,7 +53,7 @@ pub trait CudaLineageStoreSampleInitialiser<
         >, NeverImmigrationEntry,
     > + RustToCuda + Sync;
 
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     fn init<
         'h,
         T: TrustedOriginSampler<'h, M, Habitat = O::Habitat>,

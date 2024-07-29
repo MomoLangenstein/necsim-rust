@@ -21,11 +21,11 @@ use necsim_impls_no_std::{
 
 use crate::{Scenario, ScenarioCogs, ScenarioParameters};
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
+#[expect(clippy::module_name_repetitions, clippy::empty_enum)]
 pub enum SpatiallyImplicitScenario {}
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "SpatiallyImplicit")]
 pub struct SpatiallyImplicitArguments {

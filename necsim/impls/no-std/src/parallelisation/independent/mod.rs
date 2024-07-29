@@ -40,7 +40,7 @@ impl DedupCache {
         DirectMappedCache::with_capacity(match self {
             DedupCache::Absolute(AbsoluteCapacity { capacity }) => capacity.get(),
             DedupCache::Relative(RelativeCapacity { factor }) => {
-                #[allow(
+                #[expect(
                     clippy::cast_precision_loss,
                     clippy::cast_sign_loss,
                     clippy::cast_possible_truncation
@@ -54,7 +54,7 @@ impl DedupCache {
     }
 }
 
-#[allow(clippy::unsafe_derive_deserialize)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub enum EventSlice {
     Absolute(AbsoluteCapacity),
@@ -67,7 +67,7 @@ impl EventSlice {
         match self {
             EventSlice::Absolute(AbsoluteCapacity { capacity }) => capacity,
             EventSlice::Relative(RelativeCapacity { factor }) => {
-                #[allow(
+                #[expect(
                     clippy::cast_precision_loss,
                     clippy::cast_sign_loss,
                     clippy::cast_possible_truncation

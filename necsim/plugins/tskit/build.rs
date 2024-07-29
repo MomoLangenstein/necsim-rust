@@ -19,13 +19,13 @@ use semver::{{BuildMetadata, Prerelease}};\n"
 
     writeln!(
         file,
-        "#[allow(dead_code)]
+        "#[expect(dead_code)]
 /// Returns the `rustc` `SemVer` version.
 pub fn version() -> Version {{
     version_meta().semver
 }}
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 /// Returns the `rustc` `SemVer` version and additional metadata
 /// like the git short hash and build date.
 pub fn version_meta() -> VersionMeta {{

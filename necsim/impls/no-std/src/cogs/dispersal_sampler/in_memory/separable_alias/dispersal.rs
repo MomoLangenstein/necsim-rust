@@ -54,7 +54,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> SeparableDispersalSampler<M, H,
 
         let dispersal_target_index = alias_dispersal_at_location.sample_event(rng);
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat.get_extent().origin().x().wrapping_add(
                 (dispersal_target_index % usize::from(habitat.get_extent().width())) as u32,

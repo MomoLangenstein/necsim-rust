@@ -1,6 +1,6 @@
 use necsim_core::reporter::{boolean::Boolean, FilteredReporter, Reporter};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait ReporterContext: core::fmt::Debug {
     type Reporter: Reporter;
 
@@ -12,12 +12,12 @@ pub trait ReporterContext: core::fmt::Debug {
     ) -> anyhow::Result<FilteredReporter<Self::Reporter, KeepSpeciation, KeepDispersal, KeepProgress>>;
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait FinalisableReporter {
     fn finalise(self);
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct OpaqueFinalisableReporter<R: Reporter> {
     reporter: R,
 }

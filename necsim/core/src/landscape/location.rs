@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[allow(clippy::module_name_repetitions)]
+#[allow(clippy::module_name_repetitions)] // FIXME: use expect
 #[derive(
     Eq, PartialEq, PartialOrd, Ord, Clone, Hash, Debug, Serialize, Deserialize, TypeLayout,
 )]
@@ -39,7 +39,7 @@ impl From<IndexedLocation> for Location {
 #[derive(
     Eq, PartialEq, PartialOrd, Ord, Clone, Hash, Debug, Serialize, Deserialize, TypeLayout,
 )]
-#[allow(clippy::module_name_repetitions)]
+#[allow(clippy::module_name_repetitions)] // FIXME: use expect
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[repr(C)]
 #[cfg_attr(feature = "cuda", cuda(ignore))]

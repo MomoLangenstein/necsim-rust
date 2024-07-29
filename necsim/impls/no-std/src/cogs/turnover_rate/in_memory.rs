@@ -10,7 +10,7 @@ use necsim_core_bond::NonNegativeF64;
 
 use crate::{array2d::Array2D, cogs::habitat::in_memory::InMemoryHabitat};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 pub struct InMemoryTurnoverRate {
@@ -40,7 +40,7 @@ impl<M: MathsCore> TurnoverRate<M, InMemoryHabitat<M>> for InMemoryTurnoverRate 
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(displaydoc::Display, Debug)]
 pub enum InMemoryTurnoverRateError {
     /// There is some location with zero turnover and non-zero habitat.

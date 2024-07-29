@@ -10,7 +10,7 @@ use necsim_core_bond::{OffByOneU32, OffByOneU64};
 
 use crate::array2d::Array2D;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M"))]
@@ -87,7 +87,7 @@ impl<M: MathsCore> Habitat<M> for InMemoryHabitat<M> {
             .enumerate()
             .filter_map(move |(location_index, habitat)| {
                 if *habitat > 0 {
-                    #[allow(clippy::cast_possible_truncation)]
+                    #[expect(clippy::cast_possible_truncation)]
                     Some(Location::new(
                         self.extent.origin().x().wrapping_add(
                             (location_index % usize::from(self.extent.width())) as u32,
@@ -117,7 +117,7 @@ impl<M: MathsCore, G: RngCore<M>> UniformlySampleableHabitat<M, G> for InMemoryH
             Err(index) => index - 1,
         };
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         IndexedLocation::new(
             Location::new(
                 self.extent
@@ -167,7 +167,6 @@ impl<M: MathsCore> InMemoryHabitat<M> {
             return None;
         }
 
-        #[allow(clippy::cast_possible_truncation)]
         let extent = LandscapeExtent::new(Location::new(0, 0), width, height);
 
         Some(Self {

@@ -7,7 +7,7 @@ use necsim_core::{
     lineage::Lineage,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait SingularActiveLineageSampler<
     M: MathsCore,
     H: Habitat<M>,

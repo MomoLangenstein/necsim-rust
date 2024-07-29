@@ -6,7 +6,7 @@ use necsim_core::{
     lineage::MigratingLineage,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Default)]
 pub struct BufferedImmigrationEntry {
     immigrants: BinaryHeap<Reverse<MigratingLineage>>,

@@ -5,7 +5,7 @@ use serde::{Deserialize, Deserializer};
 
 use super::segment::SortedSegment;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct GlobbedSortedSegments {
     segments: Vec<SortedSegment>,
 }

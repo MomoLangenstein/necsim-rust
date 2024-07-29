@@ -17,7 +17,7 @@ use crate::{
     landscape::IndexedLocation,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait RngCore<M: MathsCore>:
     crate::cogs::Backup + Sized + Send + Clone + core::fmt::Debug + Serialize + DeserializeOwned
 {
@@ -30,7 +30,7 @@ pub trait RngCore<M: MathsCore>:
     fn sample_u64(&mut self) -> u64;
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait SeedableRng<M: MathsCore>: RngCore<M> {
     #[must_use]
     fn seed_from_u64(mut state: u64) -> Self {
@@ -48,9 +48,8 @@ pub trait SeedableRng<M: MathsCore>: RngCore<M> {
             state = state.wrapping_mul(MUL).wrapping_add(INC);
 
             // Use PCG output function with to_le to generate x:
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             let xorshifted = (((state >> 18) ^ state) >> 27) as u32;
-            #[allow(clippy::cast_possible_truncation)]
             let rot = (state >> 59) as u32;
             let x = xorshifted.rotate_right(rot).to_le();
 
@@ -66,8 +65,7 @@ pub trait SeedableRng<M: MathsCore>: RngCore<M> {
 
 impl<M: MathsCore, R: RngCore<M>> SeedableRng<M> for R {}
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[contract_trait]
 pub trait RngSampler<M: MathsCore>: RngCore<M> {
     #[must_use]
@@ -75,7 +73,7 @@ pub trait RngSampler<M: MathsCore>: RngCore<M> {
     /// Samples a uniform sample within `[0.0, 1.0)`, i.e. `0.0 <= X < 1.0`
     fn sample_uniform_closed_open(&mut self) -> ClosedOpenUnitF64 {
         // http://prng.di.unimi.it -> Generating uniform doubles in the unit interval
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let u01 = ((self.sample_u64() >> 11) as f64) * f64::from_bits(0x3CA0_0000_0000_0000_u64); // 0x1.0p-53
 
         unsafe { ClosedOpenUnitF64::new_unchecked(u01) }
@@ -86,7 +84,7 @@ pub trait RngSampler<M: MathsCore>: RngCore<M> {
     /// Samples a uniform sample within `(0.0, 1.0]`, i.e. `0.0 < X <= 1.0`
     fn sample_uniform_open_closed(&mut self) -> OpenClosedUnitF64 {
         // http://prng.di.unimi.it -> Generating uniform doubles in the unit interval
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let u01 =
             (((self.sample_u64() >> 11) + 1) as f64) * f64::from_bits(0x3CA0_0000_0000_0000_u64); // 0x1.0p-53
 
@@ -99,7 +97,7 @@ pub trait RngSampler<M: MathsCore>: RngCore<M> {
     fn sample_index(&mut self, length: NonZeroUsize) -> usize {
         // attributes on expressions are experimental
         // see https://github.com/rust-lang/rust/issues/15701
-        #[allow(
+        #[expect(
             clippy::cast_precision_loss,
             clippy::cast_possible_truncation,
             clippy::cast_sign_loss
@@ -116,11 +114,7 @@ pub trait RngSampler<M: MathsCore>: RngCore<M> {
     fn sample_index_u32(&mut self, length: OffByOneU32) -> u32 {
         // attributes on expressions are experimental
         // see https://github.com/rust-lang/rust/issues/15701
-        #[allow(
-            clippy::cast_precision_loss,
-            clippy::cast_possible_truncation,
-            clippy::cast_sign_loss
-        )]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         let index =
             M::floor(self.sample_uniform_closed_open().get() * (f64::from(length.sub_one()) + 1.0))
                 as u32;
@@ -134,7 +128,7 @@ pub trait RngSampler<M: MathsCore>: RngCore<M> {
     fn sample_index_u64(&mut self, length: OffByOneU64) -> u64 {
         // attributes on expressions are experimental
         // see https://github.com/rust-lang/rust/issues/15701
-        #[allow(
+        #[expect(
             clippy::cast_precision_loss,
             clippy::cast_possible_truncation,
             clippy::cast_sign_loss
@@ -152,7 +146,7 @@ pub trait RngSampler<M: MathsCore>: RngCore<M> {
     fn sample_index_u128(&mut self, length: NonZeroU128) -> u128 {
         // attributes on expressions are experimental
         // see https://github.com/rust-lang/rust/issues/15701
-        #[allow(
+        #[expect(
             clippy::cast_precision_loss,
             clippy::cast_possible_truncation,
             clippy::cast_sign_loss
@@ -202,12 +196,12 @@ pub trait RngSampler<M: MathsCore>: RngCore<M> {
 
 impl<M: MathsCore, R: RngCore<M>> RngSampler<M> for R {}
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait PrimeableRng<M: MathsCore>: RngCore<M> {
     fn prime_with(&mut self, location_index: u64, time_index: u64);
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait HabitatPrimeableRng<M: MathsCore, H: Habitat<M>>: PrimeableRng<M> {
     #[inline]
     fn prime_with_habitat(
@@ -225,7 +219,7 @@ pub trait HabitatPrimeableRng<M: MathsCore, H: Habitat<M>>: PrimeableRng<M> {
 
 impl<M: MathsCore, R: PrimeableRng<M>, H: Habitat<M>> HabitatPrimeableRng<M, H> for R {}
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait SplittableRng<M: MathsCore>: RngCore<M> {
     #[must_use]
     fn split(self) -> (Self, Self);

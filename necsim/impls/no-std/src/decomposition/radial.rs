@@ -8,7 +8,7 @@ use necsim_partitioning_core::partition::Partition;
 
 use crate::decomposition::Decomposition;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct RadialDecomposition {
     subdomain: Partition,
@@ -42,7 +42,7 @@ impl<M: MathsCore, H: Habitat<M>> Decomposition<M, H> for RadialDecomposition {
         let neutral_x = location.x().wrapping_sub(extent.origin().x());
         let neutral_y = location.y().wrapping_sub(extent.origin().y());
 
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let fraction = (atan2(
             (i64::from(neutral_y) - i64::from(extent.height()) / 2) as f64,
             (i64::from(neutral_x) - i64::from(extent.width()) / 2) as f64,
@@ -50,7 +50,7 @@ impl<M: MathsCore, H: Habitat<M>> Decomposition<M, H> for RadialDecomposition {
             * 0.5_f64)
             + 0.5_f64;
 
-        #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         {
             (M::floor(f64::from(self.subdomain.size().get()) * fraction) as u32)
                 .min(self.subdomain.size().get() - 1)

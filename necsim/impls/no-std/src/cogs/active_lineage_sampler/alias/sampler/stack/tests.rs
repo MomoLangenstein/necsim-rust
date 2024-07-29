@@ -109,7 +109,7 @@ fn sample_single_group() {
         tally[sample as usize] += 1;
     }
 
-    #[allow(clippy::cast_precision_loss)]
+    #[expect(clippy::cast_precision_loss)]
     for (i, c) in tally.iter().enumerate() {
         let target = (((6 + i) as f64) / 51.0_f64) * 1000.0;
         let measure = ((*c as f64) / (N as f64)) * 1000.0;
@@ -170,7 +170,7 @@ fn singular_event_group_full() {
 }
 
 #[test]
-#[allow(clippy::too_many_lines)]
+#[expect(clippy::too_many_lines)]
 fn add_remove_event_full() {
     let mut sampler = DynamicAliasMethodStackSampler::default();
     assert_eq!(sampler.total_weight(), NonNegativeF64::zero());
@@ -432,7 +432,7 @@ fn sample_single_group_full() {
         tally[sample as usize] += 1;
     }
 
-    #[allow(clippy::cast_precision_loss)]
+    #[expect(clippy::cast_precision_loss)]
     for (i, c) in tally.iter().enumerate() {
         let target = (((6 + i) as f64) / 51.0_f64) * 1000.0;
         let measure = ((*c as f64) / (N as f64)) * 1000.0;
@@ -478,7 +478,7 @@ fn sample_three_groups_full() {
         tally[sample as usize - 1] += 1;
     }
 
-    #[allow(clippy::cast_precision_loss)]
+    #[expect(clippy::cast_precision_loss)]
     for (i, c) in tally.iter().enumerate() {
         let target = (((i + 1) as f64) / 21.0_f64) * 1000.0;
         let measure = ((*c as f64) / (N as f64)) * 1000.0;
@@ -520,7 +520,7 @@ fn sample_three_groups_full_reverse() {
         tally[sample as usize - 1] += 1;
     }
 
-    #[allow(clippy::cast_precision_loss)]
+    #[expect(clippy::cast_precision_loss)]
     for (i, c) in tally.iter().enumerate() {
         let target = (((i + 1) as f64) / 21.0_f64) * 1000.0;
         let measure = ((*c as f64) / (N as f64)) * 1000.0;
@@ -576,7 +576,7 @@ impl DummyRng {
     fn new(mut vec: Vec<f64>) -> Self {
         vec.reverse();
 
-        #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         Self(
             vec.into_iter()
                 .map(|u01| ((u01 / f64::from_bits(0x3CA0_0000_0000_0000_u64)) as u64) << 11)

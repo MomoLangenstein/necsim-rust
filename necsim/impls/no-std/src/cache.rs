@@ -3,7 +3,7 @@ use core::hash::{BuildHasher, Hash};
 
 use fnv::FnvBuildHasher;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct DirectMappedCache<T: Hash + PartialEq, S: BuildHasher = FnvBuildHasher> {
     cache: Box<[Option<T>]>,
     build_hasher: S,
@@ -43,7 +43,7 @@ impl<T: Hash + PartialEq, B: BuildHasher> DirectMappedCache<T, B> {
 
         let hash = self.build_hasher.hash_one(&value);
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         let index = (hash % (self.capacity() as u64)) as usize;
 
         let bucket = &mut self.cache[index];

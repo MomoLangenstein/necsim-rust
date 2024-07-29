@@ -77,7 +77,7 @@ impl<'de> DeserializeState<'de, PartitionSize> for ParallelismMode {
 }
 
 #[derive(Clone, Debug, Serialize)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct IndependentArguments {
     pub delta_t: PositiveF64,
     pub step_slice: NonZeroU64,

@@ -33,7 +33,7 @@ pub struct RestartFixUpActiveLineageSampler<
     inner: A,
     restart_time: PositiveF64,
     fixable_lineages: Vec<Lineage>,
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     _marker: PhantomData<(M, H, G, S, X, D, C, T, N, E, I)>,
 }
 

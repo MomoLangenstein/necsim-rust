@@ -16,7 +16,7 @@ use crate::cogs::{
     lineage_store::coherent::globally::singleton_demes::SingletonDemesHabitat, rng::wyhash::WyHash,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M"))]
 pub struct WrappingNoiseHabitat<M: MathsCore> {
@@ -78,9 +78,9 @@ impl<M: MathsCore> WrappingNoiseHabitat<M> {
 
         samples.sort_unstable_by(f64::total_cmp);
 
-        #[allow(clippy::cast_possible_truncation)]
-        #[allow(clippy::cast_sign_loss)]
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let threshold = samples
             [(M::floor((samples.len() as f64) * coverage.get()) as usize).min(samples.len() - 1)];
 

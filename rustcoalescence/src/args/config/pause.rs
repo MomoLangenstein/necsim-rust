@@ -21,7 +21,7 @@ pub struct Pause {
     pub mode: PauseMode,
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Serialize, Deserialize)]
 pub enum PauseMode {
     Resume,
@@ -49,7 +49,7 @@ pub struct ResumeConfig {
     temp: bool,
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Serialize)]
 #[serde(rename = "Pause")]
 pub struct FuturePause {
@@ -85,7 +85,7 @@ impl<'de> DeserializeState<'de, PartitionSize> for Pause {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "Pause")]

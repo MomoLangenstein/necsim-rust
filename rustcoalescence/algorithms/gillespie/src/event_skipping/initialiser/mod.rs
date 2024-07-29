@@ -19,7 +19,7 @@ pub mod fixup;
 pub mod genesis;
 pub mod resume;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait EventSkippingLineageStoreSampleInitialiser<
     M: MathsCore,
     G: RngCore<M>,
@@ -56,7 +56,7 @@ pub trait EventSkippingLineageStoreSampleInitialiser<
         I,
     >;
 
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     fn init<
         'h,
         'p,

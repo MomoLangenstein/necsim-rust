@@ -4,7 +4,6 @@ use necsim_core::cogs::{MathsCore, PrimeableRng, RngCore};
 
 use serde::{Deserialize, Serialize};
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug, Serialize, Deserialize, TypeLayout)]
 #[serde(deny_unknown_fields)]
 #[layout(free = "M")]

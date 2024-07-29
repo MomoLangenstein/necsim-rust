@@ -7,9 +7,6 @@ use crate::{
 
 use super::Habitat;
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
-#[allow(clippy::no_effect_underscore_binding)]
-#[allow(clippy::module_name_repetitions)]
 #[contract_trait]
 pub trait DispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>>:
     crate::cogs::Backup + core::fmt::Debug
@@ -25,9 +22,7 @@ pub trait DispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>>:
     ) -> Location;
 }
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
-#[allow(clippy::no_effect_underscore_binding)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[contract_trait]
 pub trait SeparableDispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>>:
     DispersalSampler<M, H, G>

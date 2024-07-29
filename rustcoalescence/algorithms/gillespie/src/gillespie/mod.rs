@@ -17,7 +17,7 @@ use crate::arguments::{get_gillespie_logical_partition_size, GillespieArguments}
 mod classical;
 mod turnover;
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
+#[expect(clippy::module_name_repetitions, clippy::empty_enum)]
 pub enum GillespieAlgorithm {}
 
 impl AlgorithmParamters for GillespieAlgorithm {

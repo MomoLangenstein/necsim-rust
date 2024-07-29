@@ -11,7 +11,7 @@ use crate::{
 
 use super::super::BufferingSimulateArgsBuilder;
 
-#[allow(clippy::too_many_arguments, clippy::needless_pass_by_value)]
+#[expect(clippy::too_many_arguments, clippy::needless_pass_by_value)]
 pub(in super::super) fn dispatch(
     _partitioning: Partitioning,
     _event_log: Option<EventLogConfig>,

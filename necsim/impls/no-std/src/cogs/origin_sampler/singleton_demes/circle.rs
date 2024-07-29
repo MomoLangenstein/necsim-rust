@@ -12,7 +12,6 @@ use crate::cogs::{
     origin_sampler::{pre_sampler::OriginPreSampler, TrustedOriginSampler, UntrustedOriginSampler},
 };
 
-#[allow(clippy::module_name_repetitions)]
 pub struct SingletonDemesCircleOriginSampler<
     'h,
     M: MathsCore,
@@ -68,7 +67,7 @@ impl<'h, M: MathsCore, H: SingletonDemesHabitat<M>, I: Iterator<Item = u64>>
             diameter,
         );
 
-        #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         let upper_bound_size_hint = M::ceil(
             f64::from(radius)
                 * f64::from(radius)

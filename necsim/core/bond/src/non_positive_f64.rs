@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 use crate::NonNegativeF64;
 
 #[derive(Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct NonPositiveF64Error(f64);
 
 impl fmt::Display for NonPositiveF64Error {
@@ -20,7 +20,7 @@ impl fmt::Display for NonPositiveF64Error {
     }
 }
 
-#[allow(clippy::unsafe_derive_deserialize)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Copy, Clone, Serialize, Deserialize, TypeLayout)]
 #[repr(transparent)]
 #[serde(try_from = "f64", into = "f64")]
@@ -94,7 +94,6 @@ impl NonPositiveF64 {
 }
 
 impl PartialEq for NonPositiveF64 {
-    #[allow(clippy::unconditional_recursion)]
     fn eq(&self, other: &Self) -> bool {
         self.0.eq(&other.0)
     }

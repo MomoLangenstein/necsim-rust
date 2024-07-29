@@ -15,7 +15,6 @@ use crate::{
     },
 };
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M", free = "G"))]
@@ -27,7 +26,6 @@ pub struct AlmostInfiniteDownscaledDispersalSampler<
     #[cfg_attr(feature = "cuda", cuda(embed))]
     dispersal: D,
     self_dispersal: ClosedUnitF64,
-    #[allow(clippy::type_complexity)]
     #[cfg_attr(feature = "cuda", cuda(embed))]
     non_self_dispersal: Option<Arc<[AliasMethodSamplerAtom<DispersalOffset>]>>,
     marker: PhantomData<(M, G)>,

@@ -8,7 +8,6 @@ pub mod map;
 pub mod uniform;
 
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(clippy::module_name_repetitions)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "SpatiallyExplicit")]
 pub struct SpatiallyExplicitArguments {
@@ -26,7 +25,6 @@ pub struct SpatiallyExplicitArguments {
     loading_mode: MapLoadingMode,
 }
 
-#[allow(clippy::empty_enum)]
 pub enum SpatiallyExplicitArgumentVariants {
     #[cfg(feature = "spatially-explicit-uniform-turnover")]
     UniformTurnover(uniform::SpatiallyExplicitUniformTurnoverArguments),
@@ -35,7 +33,7 @@ pub enum SpatiallyExplicitArgumentVariants {
 }
 
 impl SpatiallyExplicitArguments {
-    #[allow(clippy::missing_errors_doc)]
+    #[expect(clippy::missing_errors_doc)]
     pub fn try_load(self) -> Result<SpatiallyExplicitArgumentVariants, String> {
         match self {
             #[cfg(feature = "spatially-explicit-uniform-turnover")]

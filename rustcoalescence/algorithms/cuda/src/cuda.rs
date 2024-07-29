@@ -7,7 +7,7 @@ use rust_cuda::host::CudaDropWrapper;
 
 use crate::{error::CudaError, info};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub fn with_initialised_cuda<O, E: Into<CudaError>, F: FnOnce() -> Result<O, E>>(
     device: u32,
     inner: F,

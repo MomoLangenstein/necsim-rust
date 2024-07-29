@@ -30,7 +30,7 @@ impl Default for Sample {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Serialize)]
 pub enum SampleOrigin {
     Habitat,
@@ -38,7 +38,7 @@ pub enum SampleOrigin {
     Bincode(LineageFileLoader),
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum SampleMode {
     Genesis,
@@ -53,7 +53,7 @@ impl Default for SampleMode {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct SampleModeRestart {
     pub after: NonNegativeF64,

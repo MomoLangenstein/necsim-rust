@@ -33,7 +33,7 @@ pub enum Scenario {
 }
 
 impl Serialize for Scenario {
-    #[allow(unused_variables)]
+    #[allow(unused_variables)] // FIXME: use expect
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         let scenario: ScenarioRaw = match *self {
             #[cfg(feature = "spatially-explicit-uniform-turnover-scenario")]
@@ -74,7 +74,7 @@ impl Serialize for Scenario {
             Self::WrappingNoise(ref args) => ScenarioRaw::WrappingNoise(args.clone()),
         };
 
-        #[allow(unreachable_code)]
+        #[allow(unreachable_code)] // FIXME: use expect
         scenario.serialize(serializer)
     }
 }

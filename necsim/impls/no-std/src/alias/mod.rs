@@ -7,8 +7,8 @@ use necsim_core_bond::{ClosedUnitF64, NonNegativeF64};
 
 pub mod packed;
 
-#[allow(clippy::module_name_repetitions)]
-#[allow(non_snake_case)]
+#[expect(clippy::module_name_repetitions)]
+#[allow(non_snake_case)] // FIXME: use expect
 #[derive(Clone)]
 pub struct AliasMethodSampler<E: Copy + PartialEq> {
     Us: Vec<ClosedUnitF64>,
@@ -17,7 +17,6 @@ pub struct AliasMethodSampler<E: Copy + PartialEq> {
 }
 
 impl<E: Copy + PartialEq> AliasMethodSampler<E> {
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_requires(!event_weights.is_empty(), "event_weights is non-empty")]
     #[debug_ensures(
         ret.Es.iter().eq(old(event_weights).iter().map(|(e, _p)| e)),
@@ -31,11 +30,11 @@ impl<E: Copy + PartialEq> AliasMethodSampler<E> {
         "full buckets sample the same event just in case"
     )]
     pub fn new(event_weights: &[(E, NonNegativeF64)]) -> Self {
-        #[allow(non_snake_case)]
+        #[allow(non_snake_case)] // FIXME: use expect
         let mut Us = Vec::with_capacity(event_weights.len());
-        #[allow(non_snake_case)]
+        #[allow(non_snake_case)] // FIXME: use expect
         let mut Es = Vec::with_capacity(event_weights.len());
-        #[allow(non_snake_case)]
+        #[allow(non_snake_case)] // FIXME: use expect
         let mut Ks = Vec::with_capacity(event_weights.len());
 
         let total_weight: NonNegativeF64 = event_weights.iter().map(|(_e, p)| *p).sum();
@@ -83,7 +82,7 @@ impl<E: Copy + PartialEq> AliasMethodSampler<E> {
             .for_each(|i| Us[i] = NonNegativeF64::one());
 
         // Safety: The bucket weights are now probabilities in [0.0; 1.0]
-        #[allow(non_snake_case)]
+        #[allow(non_snake_case)] // FIXME: use expect
         let Us = unsafe { core::mem::transmute::<Vec<NonNegativeF64>, Vec<ClosedUnitF64>>(Us) };
 
         Self { Us, Es, Ks }
@@ -95,14 +94,10 @@ impl<E: Copy + PartialEq> AliasMethodSampler<E> {
 
         let x = rng.sample_uniform_closed_open();
 
-        #[allow(
-            clippy::cast_precision_loss,
-            clippy::cast_possible_truncation,
-            clippy::cast_sign_loss
-        )]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         let i = M::floor(x.get() * (self.Es.len() as f64)) as usize; // index into events
 
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let y = x.get() * (self.Es.len() as f64) - (i as f64); // U(0,1) to compare against U[i]
 
         if y < self.Us[i].get() {

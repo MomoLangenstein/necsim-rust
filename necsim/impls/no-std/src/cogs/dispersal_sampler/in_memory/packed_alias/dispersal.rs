@@ -40,7 +40,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> DispersalSampler<M, H, G>
         let dispersal_target_index: usize =
             AliasMethodSamplerAtom::sample_event(alias_dispersals_at_location, rng);
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat.get_extent().origin().x().wrapping_add(
                 (dispersal_target_index % usize::from(habitat.get_extent().width())) as u32,

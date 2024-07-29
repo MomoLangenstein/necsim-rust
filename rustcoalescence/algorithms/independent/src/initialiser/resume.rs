@@ -18,7 +18,7 @@ use rustcoalescence_scenarios::Scenario;
 
 use super::IndependentLineageStoreSampleInitialiser;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ResumeInitialiser<L: ExactSizeIterator<Item = Lineage>> {
     pub lineages: L,
     pub resume_after: Option<NonNegativeF64>,

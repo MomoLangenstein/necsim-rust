@@ -64,7 +64,7 @@ impl IndividualSpeciesSQLiteReporter {
         }
     }
 
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     pub(super) fn initialise_sqlite_connection(&mut self) -> rusqlite::Result<()> {
         self.connection
             .pragma_update(None, "cache_size", self.cache.get())?;

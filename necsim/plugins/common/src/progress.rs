@@ -17,7 +17,7 @@ struct ProgressUpdater {
     sender: Sender<()>,
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ProgressReporter {
     updater: Option<ProgressUpdater>,
     last_remaining: Arc<AtomicU64>,
@@ -141,7 +141,7 @@ impl Default for ProgressReporter {
 fn display_progress(total: u64, remaining: u64) {
     const UPDATE_PRECISION: usize = 50;
 
-    #[allow(clippy::cast_possible_truncation)]
+    #[expect(clippy::cast_possible_truncation)]
     let display_progress =
         ((total - remaining) * (UPDATE_PRECISION as u64) / total.max(1)) as usize;
 

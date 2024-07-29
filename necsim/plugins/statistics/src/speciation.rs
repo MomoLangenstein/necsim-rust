@@ -10,7 +10,6 @@ use serde::{Deserialize, Serialize};
 
 use necsim_core::{event::SpeciationEvent, impl_finalise, impl_report, reporter::Reporter};
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Deserialize)]
 #[serde(try_from = "GlobalSpeciationReporterArgs")]
 pub struct GlobalSpeciationReporter {

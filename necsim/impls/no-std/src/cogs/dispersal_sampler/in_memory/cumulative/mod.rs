@@ -15,7 +15,6 @@ use super::{contract::check_in_memory_dispersal_contract, InMemoryDispersalSampl
 mod contract;
 mod dispersal;
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct InMemoryCumulativeDispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>> {
     cumulative_dispersal: Arc<[ClosedUnitF64]>,
@@ -26,7 +25,6 @@ pub struct InMemoryCumulativeDispersalSampler<M: MathsCore, H: Habitat<M>, G: Rn
 impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> InMemoryDispersalSampler<M, H, G>
     for InMemoryCumulativeDispersalSampler<M, H, G>
 {
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_ensures(ret.as_ref().map_or(true, |ret| {
         ret.explicit_only_valid_targets_dispersal_contract(old(habitat))
     }), "valid_dispersal_targets only allows dispersal to habitat")]
@@ -46,7 +44,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> InMemoryDispersalSampler<M, H, 
             let sum: NonNegativeF64 =
                 row.enumerate()
                     .map(|(col_index, dispersal_probability)| {
-                        #[allow(clippy::cast_possible_truncation)]
+                        #[expect(clippy::cast_possible_truncation)]
                         let location = Location::new(
                             habitat_extent.origin().x().wrapping_add(
                                 (col_index % usize::from(habitat_extent.width())) as u32,
@@ -67,7 +65,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> InMemoryDispersalSampler<M, H, 
                 let mut last_valid_target: Option<usize> = None;
 
                 for col_index in 0..dispersal.num_columns() {
-                    #[allow(clippy::cast_possible_truncation)]
+                    #[expect(clippy::cast_possible_truncation)]
                     let location =
                         Location::new(
                             habitat_extent.origin().x().wrapping_add(

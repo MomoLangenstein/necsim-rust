@@ -12,7 +12,7 @@ use necsim_core::lineage::Lineage;
 
 #[derive(Deserialize)]
 #[serde(try_from = "LineageFileSaverRaw")]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct LineageFileSaver {
     file: File,
     path: PathBuf,

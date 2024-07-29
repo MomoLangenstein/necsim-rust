@@ -5,7 +5,6 @@ use crate::{
     landscape::Location,
 };
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
 #[contract_trait]
 pub trait TurnoverRate<M: MathsCore, H: Habitat<M>>:
     crate::cogs::Backup + core::fmt::Debug

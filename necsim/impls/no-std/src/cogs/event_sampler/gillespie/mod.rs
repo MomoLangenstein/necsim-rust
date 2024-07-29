@@ -10,9 +10,8 @@ use necsim_core_bond::NonNegativeF64;
 pub mod conditional;
 pub mod unconditional;
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
 #[contract_trait]
-#[allow(clippy::module_name_repetitions, clippy::too_many_arguments)]
+#[expect(clippy::module_name_repetitions, clippy::too_many_arguments)]
 pub trait GillespieEventSampler<
     M: MathsCore,
     H: Habitat<M>,

@@ -43,7 +43,7 @@ use crate::error::CudaError;
 
 type Result<T, E = CudaError> = std::result::Result<T, E>;
 
-#[allow(clippy::type_complexity, clippy::too_many_lines)]
+#[expect(clippy::type_complexity, clippy::too_many_lines)]
 pub fn simulate<
     'l,
     'p,
@@ -116,7 +116,6 @@ pub fn simulate<
 
     let (dedup_cache, step_slice) = config;
 
-    #[allow(clippy::or_fun_call)]
     let intial_max_time = slow_lineages
         .iter()
         .map(|(lineage, _)| lineage.last_event_time)
@@ -159,7 +158,6 @@ pub fn simulate<
 
     let mut min_spec_samples = dedup_cache.construct(slow_lineages.len());
 
-    #[allow(clippy::or_fun_call)]
     let mut level_time = slow_lineages
         .iter()
         .map(|(lineage, _)| lineage.last_event_time)

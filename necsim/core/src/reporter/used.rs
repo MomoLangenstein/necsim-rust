@@ -2,7 +2,7 @@ use core::marker::PhantomData;
 
 use crate::reporter::boolean::{Boolean, False, True};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[repr(transparent)]
 pub struct MaybeUsed<T, B: Boolean> {
     inner: T,

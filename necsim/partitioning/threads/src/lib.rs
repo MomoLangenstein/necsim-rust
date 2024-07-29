@@ -136,7 +136,7 @@ impl Partitioning for ThreadsPartitioning {
         self.num_threads
     }
 
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     /// # Errors
     ///
     /// Returns `MissingEventLog` if the local partition is non-monolithic and

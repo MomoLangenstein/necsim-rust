@@ -8,9 +8,6 @@ use necsim_core_bond::ClosedUnitF64;
 
 pub mod uniform;
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
-#[allow(clippy::no_effect_underscore_binding)]
-#[allow(clippy::module_name_repetitions)]
 #[contract_trait]
 pub trait AntiTrespassingDispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>>:
     Backup + core::fmt::Debug
@@ -26,7 +23,7 @@ pub trait AntiTrespassingDispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCor
     ) -> Location;
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M"))]
@@ -90,7 +87,6 @@ impl<
 {
     #[must_use]
     #[inline]
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_ensures(old(habitat).is_location_habitable(&ret), "target is habitable")]
     fn sample_dispersal_from_location(
         &self,
@@ -133,7 +129,6 @@ impl<
 {
     #[must_use]
     #[inline]
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_ensures(old(habitat).is_location_habitable(&ret), "target is habitable")]
     #[debug_ensures(&ret != location, "disperses to a different location")]
     fn sample_non_self_dispersal_from_location(

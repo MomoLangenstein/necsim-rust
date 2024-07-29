@@ -26,7 +26,7 @@ pub mod downscaled;
 #[cfg(feature = "almost-infinite-normal-dispersal")]
 pub mod normal;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "AlmostInfinite")]
@@ -38,7 +38,7 @@ pub struct AlmostInfiniteArguments {
     downscale: Option<downscaled::Downscale>,
 }
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
+#[expect(clippy::module_name_repetitions)]
 pub enum AlmostInfiniteArgumentVariants {
     #[cfg(feature = "almost-infinite-normal-dispersal")]
     Normal(normal::AlmostInfiniteNormalDispersalArguments),

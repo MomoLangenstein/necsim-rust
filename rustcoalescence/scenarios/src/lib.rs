@@ -1,7 +1,7 @@
 #![deny(clippy::pedantic)]
 #![feature(never_type)]
 
-#[allow(unused_imports)]
+#[allow(unused_imports)] // FIXME: use expect
 #[macro_use]
 extern crate log;
 

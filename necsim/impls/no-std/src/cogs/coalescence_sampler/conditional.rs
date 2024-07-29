@@ -12,7 +12,7 @@ use necsim_core_bond::ClosedUnitF64;
 
 use super::optional_coalescence;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct ConditionalCoalescenceSampler<
     M: MathsCore,
@@ -62,7 +62,6 @@ impl<M: MathsCore, H: Habitat<M>, S: GloballyCoherentLineageStore<M, H>>
     ConditionalCoalescenceSampler<M, H, S>
 {
     #[must_use]
-    #[allow(clippy::unused_self)]
     pub fn sample_coalescence_at_location(
         &self,
         location: Location,
@@ -73,7 +72,7 @@ impl<M: MathsCore, H: Habitat<M>, S: GloballyCoherentLineageStore<M, H>>
         let lineages_at_location =
             lineage_store.get_local_lineage_references_at_location_unordered(&location, habitat);
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         let population = lineages_at_location.len() as u32;
 
         let chosen_coalescence_index =
@@ -89,7 +88,6 @@ impl<M: MathsCore, H: Habitat<M>, S: GloballyCoherentLineageStore<M, H>>
 
     #[must_use]
     #[debug_requires(habitat.get_habitat_at_location(location) > 0, "location is habitable")]
-    #[allow(clippy::unused_self)]
     pub fn get_coalescence_probability_at_location(
         &self,
         location: &Location,
@@ -100,7 +98,7 @@ impl<M: MathsCore, H: Habitat<M>, S: GloballyCoherentLineageStore<M, H>>
         // If the lineage store includes self, the population must be decremented
         //  to avoid coalescence with the currently active lineage
 
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let population = (lineage_store
             .get_local_lineage_references_at_location_unordered(location, habitat)
             .len()

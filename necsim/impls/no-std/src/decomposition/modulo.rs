@@ -6,7 +6,7 @@ use necsim_partitioning_core::partition::Partition;
 
 use crate::decomposition::Decomposition;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct ModuloDecomposition {
     subdomain: Partition,
@@ -41,7 +41,7 @@ impl<M: MathsCore, H: Habitat<M>> Decomposition<M, H> for ModuloDecomposition {
             * u64::from(extent.width())
             + u64::from(location.x() - extent.origin().x());
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         {
             (location_index % u64::from(self.subdomain.size().get())) as u32
         }

@@ -18,7 +18,7 @@ mod partitioning;
 mod reporter;
 mod rng;
 
-#[allow(clippy::too_many_arguments)]
+#[expect(clippy::too_many_arguments)]
 pub(in super::super) fn dispatch(
     partitioning: Partitioning,
     event_log: Option<EventLogConfig>,

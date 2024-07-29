@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(default)]
 pub struct RestartFixUpStrategy {
@@ -22,14 +22,14 @@ impl Default for RestartFixUpStrategy {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum OutOfDemeStrategy {
     Abort,
     Dispersal,
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum OutOfHabitatStrategy {
     Abort,
@@ -37,7 +37,7 @@ pub enum OutOfHabitatStrategy {
     UniformDispersal,
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum CoalescenceStrategy {
     Abort,

@@ -13,7 +13,7 @@ use necsim_impls_no_std::cogs::{
 
 use rust_cuda::lend::RustToCuda;
 
-#[allow(clippy::type_complexity)]
+#[expect(clippy::type_complexity)]
 pub struct SimulationKernelPtx<
     M: MathsCore + Sync,
     H: Habitat<M> + RustToCuda + Sync,
@@ -48,7 +48,7 @@ pub struct SimulationKernelPtx<
     )>,
 );
 
-#[allow(unused_macros)]
+#[allow(unused_macros)] // FIXME: use expect
 macro_rules! link_kernel {
     ($habitat:ty, $dispersal:ty, $turnover:ty, $speciation:ty) => {
         link_kernel! {

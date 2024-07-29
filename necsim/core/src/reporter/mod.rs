@@ -12,11 +12,11 @@ use used::MaybeUsed;
 pub mod boolean;
 pub mod used;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub use combinator::ReporterCombinator;
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub use filter::FilteredReporter;
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub use null::NullReporter;
 
 pub trait Reporter: core::fmt::Debug {

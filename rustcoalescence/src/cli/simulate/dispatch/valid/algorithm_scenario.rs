@@ -123,7 +123,7 @@ macro_rules! match_scenario_algorithm {
     };
 }
 
-#[allow(clippy::too_many_arguments, clippy::too_many_lines)]
+#[expect(clippy::too_many_arguments, clippy::too_many_lines)]
 pub(super) fn dispatch<R: Reporter, P: ReporterContext<Reporter = R>>(
     partitioning: Partitioning,
     event_log: Option<EventLogConfig>,

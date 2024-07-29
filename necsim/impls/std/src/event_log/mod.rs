@@ -7,7 +7,7 @@ pub mod recorder;
 pub mod replay;
 
 #[derive(Serialize, Deserialize, PartialEq)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct EventLogHeader {
     min_time: PositiveF64,
     max_time: PositiveF64,

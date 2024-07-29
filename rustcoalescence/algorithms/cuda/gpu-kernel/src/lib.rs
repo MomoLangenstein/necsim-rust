@@ -42,8 +42,7 @@ use rust_cuda::{
     allow(ptx::local_memory_use), // FIXME
     forbid(ptx::register_spills),
 )]
-#[allow(clippy::too_many_arguments)]
-#[allow(clippy::type_complexity)]
+#[expect(clippy::type_complexity)]
 pub fn simulate<
     M: MathsCore + Sync,
     H: Habitat<M> + RustToCuda + Sync,

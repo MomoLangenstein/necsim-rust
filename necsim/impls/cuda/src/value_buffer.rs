@@ -20,7 +20,7 @@ use super::utils::MaybeSome;
 
 #[derive(rust_cuda::lend::LendRustToCuda)]
 #[cuda(free = "T")]
-#[allow(clippy::module_name_repetitions)]
+#[allow(clippy::module_name_repetitions)] // FIXME: use expect
 pub struct ValueBuffer<T, const M2D: bool, const M2H: bool>
 where
     T: StackOnly + PortableBitSemantics + TypeGraphLayout,
@@ -140,7 +140,6 @@ impl<T: StackOnly + PortableBitSemantics + TypeGraphLayout, const M2H: bool>
     ValueBuffer<T, true, M2H>
 {
     pub fn take_value_for_core(&mut self) -> Option<T> {
-        #[allow(clippy::option_if_let_else)]
         if let Some(mask) = self.mask.get_mut(0) {
             mask.write(false);
 

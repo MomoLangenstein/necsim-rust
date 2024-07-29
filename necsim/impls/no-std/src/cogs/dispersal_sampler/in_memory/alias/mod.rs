@@ -18,7 +18,6 @@ use super::{contract::check_in_memory_dispersal_contract, InMemoryDispersalSampl
 
 mod dispersal;
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct InMemoryAliasDispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>> {
     alias_dispersal: ArcArray2D<Option<AliasMethodSampler<usize>>>,
@@ -44,7 +43,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> InMemoryDispersalSampler<M, H, 
                 event_weights.clear();
 
                 for (col_index, dispersal_probability) in row.enumerate() {
-                    #[allow(clippy::cast_possible_truncation)]
+                    #[expect(clippy::cast_possible_truncation)]
                     let location =
                         Location::new(
                             habitat_extent.origin().x().wrapping_add(

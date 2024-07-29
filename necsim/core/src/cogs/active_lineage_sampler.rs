@@ -9,8 +9,6 @@ use super::{
 
 use crate::{lineage::Lineage, simulation::partial::active_lineage_sampler::PartialSimulation};
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
-#[allow(clippy::no_effect_underscore_binding)]
 #[contract_trait]
 pub trait ActiveLineageSampler<
     M: MathsCore,

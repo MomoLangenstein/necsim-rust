@@ -2,7 +2,7 @@ use necsim_core_bond::{OffByOneU32, OffByOneU64};
 
 use super::Location;
 
-#[allow(clippy::module_name_repetitions, clippy::unsafe_derive_deserialize)]
+#[allow(clippy::module_name_repetitions, clippy::unsafe_derive_deserialize)] // FIXME: use expect
 #[derive(PartialEq, Eq, Clone, Debug, serde::Deserialize, serde::Serialize, TypeLayout)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(ignore))]

@@ -33,7 +33,7 @@ use initialiser::{
     fixup::FixUpInitialiser, genesis::GenesisInitialiser, resume::ResumeInitialiser,
 };
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
+#[expect(clippy::module_name_repetitions)]
 pub struct EventSkippingAlgorithm {}
 
 impl AlgorithmParamters for EventSkippingAlgorithm {

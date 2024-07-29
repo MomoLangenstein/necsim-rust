@@ -2,7 +2,7 @@ use necsim_impls_no_std::cogs::dispersal_sampler::in_memory::InMemoryDispersalSa
 
 use thiserror::Error;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Error, Debug)]
 #[error("{0}")]
 pub struct InMemoryDispersalSamplerError(pub InMemoryDispersalSamplerErrorNoStd);

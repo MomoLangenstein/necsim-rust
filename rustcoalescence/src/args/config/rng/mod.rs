@@ -18,7 +18,6 @@ pub enum Rng<M: MathsCore, G: RngCore<M>> {
     State(Base32RngState<M, G>),
 }
 
-#[allow(dead_code)]
 pub struct Base32RngState<M: MathsCore, G: RngCore<M>> {
     rng: G,
     marker: PhantomData<M>,
@@ -84,7 +83,6 @@ impl<M: MathsCore, G: RngCore<M>> From<G> for Base32RngState<M, G> {
 
 impl<M: MathsCore, G: RngCore<M>> Base32RngState<M, G> {
     #[must_use]
-    #[allow(dead_code)]
     pub fn into(self) -> G {
         self.rng
     }

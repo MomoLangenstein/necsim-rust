@@ -6,7 +6,7 @@ use necsim_core_bond::NonNegativeF64;
 
 use super::EventTimeSampler;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, Default)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 pub struct FixedEventTimeSampler([u8; 0]);
@@ -27,8 +27,8 @@ impl<M: MathsCore, H: Habitat<M>, G: PrimeableRng<M>, T: TurnoverRate<M, H>>
         let lambda =
             turnover_rate.get_turnover_rate_at_location(indexed_location.location(), habitat);
 
-        #[allow(clippy::cast_possible_truncation)]
-        #[allow(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_sign_loss)]
         let time_step = M::floor(time.get() * lambda.get()) as u64 + 1;
 
         rng.prime_with_habitat(habitat, indexed_location, time_step);

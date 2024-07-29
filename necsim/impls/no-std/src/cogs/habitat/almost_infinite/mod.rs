@@ -13,7 +13,7 @@ pub mod downscaled;
 const ALMOST_INFINITE_EXTENT: LandscapeExtent =
     LandscapeExtent::new(Location::new(0, 0), OffByOneU32::max(), OffByOneU32::max());
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M"))]
 pub struct AlmostInfiniteHabitat<M: MathsCore> {
@@ -105,13 +105,13 @@ impl<M: MathsCore> AlmostInfiniteHabitat<M> {
         // Discrete dispersal assumes lineage positions are centred on (0.5, 0.5),
         // i.e. |dispersal| >= 0.5 changes the cell
         // (dx and dy must be rounded to nearest int away from 0.0)
-        #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation)]
         let (dx, dy): (i64, i64) = (M::round(dx) as i64, M::round(dy) as i64);
 
         let new_x = (i64::from(location.x()) + dx) % WRAP;
         let new_y = (i64::from(location.y()) + dy) % WRAP;
 
-        #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
         Location::new(
             ((new_x + WRAP) % WRAP) as u32,
             ((new_y + WRAP) % WRAP) as u32,

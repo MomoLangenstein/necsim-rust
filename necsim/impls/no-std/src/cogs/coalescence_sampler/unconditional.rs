@@ -11,7 +11,7 @@ use necsim_core::{
 
 use super::optional_coalescence;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct UnconditionalCoalescenceSampler<
     M: MathsCore,

@@ -48,7 +48,7 @@ use crate::{
     parallelisation,
 };
 
-#[allow(clippy::too_many_lines)]
+#[expect(clippy::too_many_lines)]
 pub fn initialise_and_simulate<
     'p,
     M: MathsCore + Sync,

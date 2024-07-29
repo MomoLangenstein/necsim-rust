@@ -12,7 +12,7 @@ use crate::{
     decomposition::Decomposition,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct DecompositionOriginSampler<
     'd,
@@ -54,7 +54,7 @@ impl<'d, M: MathsCore, O: UntrustedOriginSampler<'d, M>, D: Decomposition<M, O::
     }
 
     fn full_upper_bound_size_hint(&self) -> u64 {
-        #[allow(
+        #[expect(
             clippy::cast_possible_truncation,
             clippy::cast_sign_loss,
             clippy::cast_precision_loss
@@ -77,7 +77,6 @@ impl<'d, M: MathsCore, O: UntrustedOriginSampler<'d, M>, D: Decomposition<M, O::
     type Item = Lineage;
 
     fn next(&mut self) -> Option<Self::Item> {
-        #[allow(clippy::while_let_on_iterator)]
         while let Some(lineage) = self.origin_sampler.next() {
             // Forward any out-of-habitat or out-of-deme lineages
             //  (but only on the root subdomain -> no duplication)

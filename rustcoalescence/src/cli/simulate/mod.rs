@@ -13,7 +13,7 @@ mod pause;
 
 use dispatch::dispatch;
 
-#[allow(dead_code)]
+#[allow(dead_code)] // FIXME: use expect
 enum SimulationOutcome {
     Done {
         time: NonNegativeF64,
@@ -26,7 +26,7 @@ enum SimulationOutcome {
     },
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub fn simulate_with_logger(simulate_args: CommandArgs) -> anyhow::Result<()> {
     log::set_max_level(LevelFilter::Info);
 

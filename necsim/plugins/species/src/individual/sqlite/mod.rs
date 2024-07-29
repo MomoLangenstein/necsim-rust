@@ -16,7 +16,6 @@ use crate::SpeciesIdentity;
 mod database;
 mod reporter;
 
-#[allow(clippy::module_name_repetitions)]
 pub struct IndividualSpeciesSQLiteReporter {
     last_parent_prior_time: Option<(GlobalLineageReference, NonNegativeF64)>,
     last_speciation_event: Option<SpeciationEvent>,

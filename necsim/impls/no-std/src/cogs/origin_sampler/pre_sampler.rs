@@ -11,7 +11,7 @@ use necsim_partitioning_core::partition::Partition;
 
 const INV_PHI: f64 = 6.180_339_887_498_949e-1_f64;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct OriginPreSampler<M: MathsCore, I: Iterator<Item = u64>> {
     inner: I,
     proportion: ClosedUnitF64,
@@ -91,7 +91,7 @@ impl<M: MathsCore, I: Iterator<Item = u64>> OriginPreSampler<M, I> {
                 *quasi_random += INV_PHI;
                 *quasi_random -= M::floor(*quasi_random);
 
-                #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
+                #[expect(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
                 let skip = M::floor(M::ln(*quasi_random) * inv_geometric_sample_rate) as usize;
 
                 self.nth(skip)

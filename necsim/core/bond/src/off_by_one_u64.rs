@@ -10,7 +10,7 @@ use serde::{Deserialize, Deserializer, Serialize};
 use crate::{ClosedUnitF64, OffByOneU32};
 
 #[derive(Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct OffByOneU64Error(u128);
 
 impl fmt::Display for OffByOneU64Error {
@@ -40,7 +40,7 @@ impl OffByOneU64 {
         //     Err(_) => Err(OffByOneU64Error(value)),
         // }
         match value.wrapping_sub(1) {
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             value if value < (u64::MAX as u128) => Ok(Self(value as u64)),
             _ => Err(OffByOneU64Error(value)),
         }
@@ -53,7 +53,7 @@ impl OffByOneU64 {
     ///
     /// The value must be in {1, .., 2^64}.
     pub const unsafe fn new_unchecked(value: u128) -> Self {
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Self(value.wrapping_sub(1) as u64)
     }
 
@@ -128,7 +128,7 @@ impl From<OffByOneU64> for NonZeroU64 {
 }
 
 impl From<OffByOneU64> for f64 {
-    #[allow(clippy::cast_precision_loss)]
+    #[expect(clippy::cast_precision_loss)]
     fn from(val: OffByOneU64) -> Self {
         (val.0 as f64) + 1.0_f64
     }
@@ -166,9 +166,9 @@ impl Mul<ClosedUnitF64> for OffByOneU64 {
     type Output = Self;
 
     fn mul(self, other: ClosedUnitF64) -> Self::Output {
-        #[allow(clippy::cast_possible_truncation)]
-        #[allow(clippy::cast_sign_loss)]
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_precision_loss)]
         Self(((((self.get() as f64) * other.get()) as u128) - 1) as u64)
     }
 }

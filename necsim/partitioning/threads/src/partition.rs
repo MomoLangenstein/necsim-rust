@@ -25,7 +25,7 @@ use necsim_partitioning_core::{partition::Partition, LocalPartition, MigrationMo
 
 use crate::vote::{AsyncVote, Vote};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ThreadsLocalPartition<R: Reporter> {
     partition: Partition,
     vote_any: Vote<bool>,
@@ -54,7 +54,7 @@ impl<R: Reporter> fmt::Debug for ThreadsLocalPartition<R> {
 }
 
 impl<R: Reporter> ThreadsLocalPartition<R> {
-    #[allow(clippy::too_many_arguments)]
+    #[expect(clippy::too_many_arguments)]
     #[must_use]
     pub(crate) fn new(
         partition: Partition,

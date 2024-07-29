@@ -35,7 +35,7 @@ pub enum Algorithm {
 
 impl Serialize for Algorithm {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
-        #[allow(unreachable_patterns, clippy::single_match_else)]
+        #[allow(unreachable_patterns)] // FIXME: use expect
         match self {
             #[cfg(feature = "gillespie-algorithms")]
             Self::Gillespie(args) => {

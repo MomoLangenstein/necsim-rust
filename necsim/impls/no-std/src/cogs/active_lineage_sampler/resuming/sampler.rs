@@ -136,7 +136,6 @@ impl<
         Some((fixable_lineage, self.restart_time))
     }
 
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_ensures(
         self.number_active_lineages() == old(self.number_active_lineages()) + 1,
         "adds an active lineage"

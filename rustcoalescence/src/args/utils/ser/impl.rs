@@ -520,7 +520,7 @@ impl Serializer for BufferingSerializer {
 }
 
 impl Serialize for BufferingSerialize {
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         match self {
             Self::Bool(v) => serializer.serialize_bool(*v),

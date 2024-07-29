@@ -9,7 +9,6 @@ use super::AlmostInfiniteHabitat;
 const ALMOST_INFINITE_EXTENT: LandscapeExtent =
     LandscapeExtent::new(Location::new(0, 0), OffByOneU32::max(), OffByOneU32::max());
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M"))]

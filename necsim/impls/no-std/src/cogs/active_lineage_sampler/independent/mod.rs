@@ -23,7 +23,7 @@ pub mod event_time_sampler;
 
 use event_time_sampler::EventTimeSampler;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M"))]
@@ -89,7 +89,7 @@ impl<
     where
         H: 'h,
     {
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         let capacity = origin_sampler.full_upper_bound_size_hint() as usize;
 
         let mut lineages = Vec::with_capacity(capacity);

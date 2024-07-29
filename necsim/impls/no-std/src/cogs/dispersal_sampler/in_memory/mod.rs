@@ -13,7 +13,7 @@ pub mod packed_alias;
 pub mod packed_separable_alias;
 pub mod separable_alias;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait InMemoryDispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>>:
     DispersalSampler<M, H, G> + Sized
 {
@@ -40,7 +40,7 @@ pub trait InMemoryDispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>>:
     ) -> Result<Self, InMemoryDispersalSamplerError>;
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, displaydoc::Display)]
 pub enum InMemoryDispersalSamplerError {
     /** The size of the dispersal map is inconsistent with the size of the
