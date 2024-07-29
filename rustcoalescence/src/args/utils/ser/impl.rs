@@ -558,7 +558,7 @@ impl Serialize for BufferingSerialize {
             Self::Seq { len, elements } => {
                 let mut seq = serializer.serialize_seq(*len)?;
 
-                for element in elements.iter() {
+                for element in elements {
                     seq.serialize_element(element)?;
                 }
 
@@ -567,7 +567,7 @@ impl Serialize for BufferingSerialize {
             Self::Tuple { len, fields } => {
                 let mut tuple = serializer.serialize_tuple(*len)?;
 
-                for field in fields.iter() {
+                for field in fields {
                     tuple.serialize_element(field)?;
                 }
 
@@ -576,7 +576,7 @@ impl Serialize for BufferingSerialize {
             Self::TupleStruct { name, len, fields } => {
                 let mut tuple_struct = serializer.serialize_tuple_struct(name, *len)?;
 
-                for field in fields.iter() {
+                for field in fields {
                     tuple_struct.serialize_field(field)?;
                 }
 
@@ -592,7 +592,7 @@ impl Serialize for BufferingSerialize {
                 let mut tuple_variant =
                     serializer.serialize_tuple_variant(name, *variant_index, variant, *len)?;
 
-                for field in fields.iter() {
+                for field in fields {
                     tuple_variant.serialize_field(field)?;
                 }
 
@@ -601,7 +601,7 @@ impl Serialize for BufferingSerialize {
             Self::Map { len, entries } => {
                 let mut map = serializer.serialize_map(*len)?;
 
-                for (key, value) in entries.iter() {
+                for (key, value) in entries {
                     match (key, value) {
                         (None, None) => (),
                         (Some(key), None) => map.serialize_key(key)?,
@@ -615,7 +615,7 @@ impl Serialize for BufferingSerialize {
             Self::Struct { name, len, fields } => {
                 let mut r#struct = serializer.serialize_struct(name, *len)?;
 
-                for (key, value) in fields.iter() {
+                for (key, value) in fields {
                     if let Some(value) = value {
                         r#struct.serialize_field(key, value)?;
                     } else {
@@ -635,7 +635,7 @@ impl Serialize for BufferingSerialize {
                 let mut struct_variant =
                     serializer.serialize_struct_variant(name, *variant_index, variant, *len)?;
 
-                for (key, value) in fields.iter() {
+                for (key, value) in fields {
                     if let Some(value) = value {
                         struct_variant.serialize_field(key, value)?;
                     } else {

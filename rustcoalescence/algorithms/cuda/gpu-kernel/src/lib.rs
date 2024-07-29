@@ -138,7 +138,7 @@ mod cuda_prelude {
     #[cfg(debug_assertions)]
     #[panic_handler]
     fn panic(info: &::core::panic::PanicInfo) -> ! {
-        rust_cuda::device::utils::pretty_print_panic_info(info, true, true);
+        rust_cuda::device::utils::pretty_print_panic_info(info, true);
         rust_cuda::device::utils::abort()
     }
 

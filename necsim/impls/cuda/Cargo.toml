@@ -15,7 +15,7 @@ contracts = "0.6.3"
 serde = { version = "1.0", default-features = false, features = ["derive"] }
 
 [target.'cfg(target_os = "cuda")'.dependencies]
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "f2a377d", features = ["derive"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "57a16a9", features = ["derive"] }
 
 [target.'cfg(not(target_os = "cuda"))'.dependencies]
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "f2a377d", features = ["derive", "host"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "57a16a9", features = ["derive", "host"] }

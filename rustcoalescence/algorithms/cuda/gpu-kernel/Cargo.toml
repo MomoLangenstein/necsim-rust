@@ -17,7 +17,7 @@ necsim-impls-no-std = { path = "../../../../necsim/impls/no-std", features = ["c
 necsim-impls-cuda = { path = "../../../../necsim/impls/cuda" }
 
 [target.'cfg(target_os = "cuda")'.dependencies]
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "f2a377d", features = ["derive", "device", "kernel"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "57a16a9", features = ["derive", "device", "kernel"] }
 
 [target.'cfg(not(target_os = "cuda"))'.dependencies]
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "f2a377d", features = ["derive", "kernel"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "57a16a9", features = ["derive", "kernel"] }

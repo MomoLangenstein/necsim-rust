@@ -72,8 +72,8 @@ impl<M: MathsCore> PrimeableRng<M> for WyHash<M> {
         // wyhash state repriming
         // https://docs.rs/wyhash/0.5.0/src/wyhash/functions.rs.html#67-70
         let hash = wymum(
-            ((location_index << 32) | (location_index >> 32)) ^ (self.seed ^ P0),
-            ((time_index << 32) | (time_index >> 32)) ^ P2,
+            location_index.rotate_right(32) ^ (self.seed ^ P0),
+            time_index.rotate_right(32) ^ P2,
         );
 
         self.state = wymum(hash, 16 ^ P5);

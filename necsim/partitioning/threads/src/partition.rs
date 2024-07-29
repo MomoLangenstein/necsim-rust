@@ -220,7 +220,7 @@ impl<'p, R: Reporter> LocalPartition<'p, R> for ThreadsLocalPartition<R> {
         let mut local_wait = ControlFlow::Break(());
 
         // This partition can only terminate once all emigrations have been processed
-        for buffer in self.emigration_buffers.iter() {
+        for buffer in &self.emigration_buffers {
             if !buffer.is_empty() {
                 local_wait = ControlFlow::Continue(());
                 break;

@@ -240,7 +240,7 @@ impl<'p> MpiCommonPartition<'p> {
     #[must_use]
     pub fn wait_for_termination(&mut self) -> ControlFlow<(), ()> {
         // This partition can only terminate once all migrations have been processed
-        for buffer in self.migration_buffers.iter() {
+        for buffer in &self.migration_buffers {
             if !buffer.is_empty() {
                 return ControlFlow::Continue(());
             }
@@ -248,7 +248,7 @@ impl<'p> MpiCommonPartition<'p> {
 
         // This partition can only terminate if all emigrations have been
         //  sent and acknowledged (request finished + empty buffers)
-        for buffer in self.mpi_emigration_buffers.iter() {
+        for buffer in &self.mpi_emigration_buffers {
             if !buffer.get_data().map_or(false, Vec::is_empty) {
                 return ControlFlow::Continue(());
             }

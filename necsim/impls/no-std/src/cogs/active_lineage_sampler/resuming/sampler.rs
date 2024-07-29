@@ -48,8 +48,11 @@ impl<
         habitat: &'a H,
         lineage_store: &'a S,
     ) -> Self::LineageIterator<'a> {
-        // All pre- and post-conditions are maintained
-        self.__contracts_impl_iter_active_lineages_ordered(habitat, lineage_store)
+        // Note: inlined from __contracts_impl_iter_active_lineages_ordered
+        self.fixable_lineages.iter().chain(
+            self.inner
+                .iter_active_lineages_ordered(habitat, lineage_store),
+        )
     }
 
     #[must_use]
