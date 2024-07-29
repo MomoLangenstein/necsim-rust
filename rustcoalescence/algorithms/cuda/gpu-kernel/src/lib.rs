@@ -43,6 +43,7 @@ use rust_cuda::{
     forbid(ptx::register_spills),
 )]
 #[expect(clippy::type_complexity)]
+#[allow(clippy::too_many_arguments)] // FIXME: use expect
 pub fn simulate<
     M: MathsCore + Sync,
     H: Habitat<M> + RustToCuda + Sync,
