@@ -10,12 +10,12 @@ edition = "2021"
 [dependencies]
 necsim-core = { path = "../../core", features = ["cuda"] }
 
-const-type-layout = { version = "0.3.1", features = ["derive"] }
+const-type-layout = { version = "0.3.2", features = ["derive"] }
 contracts = "0.6.3"
 serde = { version = "1.0", default-features = false, features = ["derive"] }
 
 [target.'cfg(target_os = "cuda")'.dependencies]
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "57a16a9", features = ["derive"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "9059713", features = ["derive"] }
 
 [target.'cfg(not(target_os = "cuda"))'.dependencies]
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "57a16a9", features = ["derive", "host"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "9059713", features = ["derive", "host"] }

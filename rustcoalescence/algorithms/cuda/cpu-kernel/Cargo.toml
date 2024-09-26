@@ -24,4 +24,4 @@ necsim-impls-no-std = { path = "../../../../necsim/impls/no-std", features = ["c
 necsim-impls-cuda = { path = "../../../../necsim/impls/cuda" }
 rustcoalescence-algorithms-cuda-gpu-kernel = { path = "../gpu-kernel" }
 
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "57a16a9", features = ["host"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "9059713", features = ["host"] }

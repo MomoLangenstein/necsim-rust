@@ -33,4 +33,4 @@ thiserror = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_state = "0.4"
 serde_derive_state = "0.4"
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "57a16a9", features = ["host"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "9059713", features = ["host"] }
