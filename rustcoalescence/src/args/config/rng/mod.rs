@@ -82,6 +82,7 @@ impl<M: MathsCore, G: RngCore<M>> From<G> for Base32RngState<M, G> {
 }
 
 impl<M: MathsCore, G: RngCore<M>> Base32RngState<M, G> {
+    #[allow(dead_code)] // FIXME: use expect
     #[must_use]
     pub fn into(self) -> G {
         self.rng
