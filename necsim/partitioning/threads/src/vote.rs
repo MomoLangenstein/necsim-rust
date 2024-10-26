@@ -91,6 +91,7 @@ struct AsyncGenerationalData<T> {
 }
 
 impl<T: Clone> AsyncVote<T> {
+    #[expect(dead_code)] // FIXME
     #[must_use]
     pub fn new(n: usize) -> Self
     where

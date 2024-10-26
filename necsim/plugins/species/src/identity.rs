@@ -57,6 +57,7 @@ impl SpeciesIdentity {
         Self::from_raw(lineage, marker, anchor)
     }
 
+    #[cfg_attr(not(test), expect(dead_code))]
     pub fn try_into_speciation(self) -> Result<(IndexedLocation, PositiveF64), Self> {
         let (location, index, time) = self.copy_into_raw();
 

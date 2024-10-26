@@ -2,7 +2,6 @@
 #![no_std]
 #![feature(const_type_name)]
 #![cfg_attr(target_os = "cuda", feature(asm_experimental_arch))]
-#![cfg_attr(target_os = "cuda", feature(asm_const))]
 #![cfg_attr(target_os = "cuda", feature(const_float_bits_conv))]
 #![allow(internal_features)]
 #![feature(core_intrinsics)]
