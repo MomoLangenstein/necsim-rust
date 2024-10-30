@@ -20,7 +20,7 @@ use crate::{
     parallelisation::Status,
 };
 
-#[allow(clippy::type_complexity)]
+#[expect(clippy::type_complexity)]
 pub fn simulate<
     'p,
     M: MathsCore,

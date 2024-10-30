@@ -1,8 +1,8 @@
-use necsim_core_bond::OffByOneU32;
+use necsim_core_bond::{OffByOneU32, OffByOneU64};
 
 use super::Location;
 
-#[allow(clippy::module_name_repetitions)]
+#[allow(clippy::module_name_repetitions, clippy::unsafe_derive_deserialize)] // FIXME: use expect
 #[derive(PartialEq, Eq, Clone, Debug, serde::Deserialize, serde::Serialize, TypeLayout)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(ignore))]
@@ -38,6 +38,14 @@ impl LandscapeExtent {
     #[must_use]
     pub const fn height(&self) -> OffByOneU32 {
         self.height
+    }
+
+    #[must_use]
+    pub const fn area(&self) -> OffByOneU64 {
+        // Safety: {1..=2^32} * {1..=2^32} = {1..=2^64}
+        unsafe {
+            OffByOneU64::new_unchecked((self.width.get() as u128) * (self.height.get() as u128))
+        }
     }
 
     #[must_use]

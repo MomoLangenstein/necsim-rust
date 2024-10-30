@@ -15,12 +15,12 @@ cuda = ["rust-cuda"]
 necsim-core-maths = { path = "maths" }
 necsim-core-bond = { path = "bond" }
 
-const-type-layout = { version = "0.3.1", features = ["derive"] }
+const-type-layout = { version = "0.3.2", features = ["derive"] }
 contracts = "0.6.3"
 serde = { version = "1.0", default-features = false, features = ["derive"] }
 
 [target.'cfg(target_os = "cuda")'.dependencies]
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "f2a377d", features = ["derive"], optional = true }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "62e96a9", features = ["derive"], optional = true }
 
 [target.'cfg(not(target_os = "cuda"))'.dependencies]
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "f2a377d", features = ["derive", "host"], optional = true }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "62e96a9", features = ["derive", "host"], optional = true }

@@ -14,7 +14,7 @@ use necsim_core::event::PackedEvent;
 
 use crate::event_log::EventLogHeader;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct SortedSegment {
     path: PathBuf,
     header: EventLogHeader,

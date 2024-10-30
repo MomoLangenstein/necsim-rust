@@ -13,7 +13,6 @@ use necsim_core::{event::SpeciationEvent, impl_finalise, impl_report, reporter::
 
 necsim_plugins_core::export_plugin!(Metacommunity => MetacommunityMigrationReporter);
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Deserialize)]
 #[serde(from = "MetacommunityMigrationReporterArgs")]
 pub struct MetacommunityMigrationReporter {

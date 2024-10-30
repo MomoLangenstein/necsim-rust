@@ -34,7 +34,7 @@ use crate::{
 
 use super::{reporter::IgnoreProgressReporterProxy, DedupCache};
 
-#[allow(clippy::type_complexity)]
+#[expect(clippy::type_complexity)]
 pub fn simulate<
     'p,
     M: MathsCore,

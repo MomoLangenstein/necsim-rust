@@ -5,11 +5,11 @@ use necsim_core::{
 use necsim_core_bond::{ClosedUnitF64, NonNegativeF64};
 
 use crate::cogs::{
-    dispersal_sampler::almost_infinite_normal::AlmostInfiniteNormalDispersalSampler,
+    dispersal_sampler::almost_infinite::normal::AlmostInfiniteNormalDispersalSampler,
     habitat::wrapping_noise::WrappingNoiseHabitat,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M"))]

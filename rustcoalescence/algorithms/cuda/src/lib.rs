@@ -63,7 +63,6 @@ use crate::{
     },
 };
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
 pub enum CudaAlgorithm {}
 
 impl AlgorithmParamters for CudaAlgorithm {

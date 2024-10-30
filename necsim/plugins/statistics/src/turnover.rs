@@ -14,7 +14,6 @@ use necsim_core::{
     reporter::Reporter,
 };
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Deserialize)]
 #[serde(try_from = "GlobalTurnoverReporterArgs")]
 pub struct GlobalTurnoverReporter {

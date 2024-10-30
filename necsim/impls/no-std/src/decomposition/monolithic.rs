@@ -6,7 +6,7 @@ use necsim_partitioning_core::partition::Partition;
 
 use crate::decomposition::Decomposition;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Default)]
 pub struct MonolithicDecomposition(());
 

@@ -2,14 +2,13 @@ use std::{fmt, ops::Deref};
 
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone)]
 #[repr(transparent)]
 pub struct Base32String(Box<[u8]>);
 
 impl Base32String {
     #[must_use]
-    #[allow(dead_code)]
     pub fn new(bytes: &[u8]) -> Self {
         Self(bytes.to_vec().into_boxed_slice())
     }

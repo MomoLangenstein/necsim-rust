@@ -27,7 +27,7 @@ impl<ReportSpeciation: Boolean, ReportDispersal: Boolean, ReportProgress: Boolea
 impl<ReportSpeciation: Boolean, ReportDispersal: Boolean, ReportProgress: Boolean>
     DynamicReporterContext<ReportSpeciation, ReportDispersal, ReportProgress>
 {
-    #[allow(dead_code)]
+    #[allow(dead_code)] // FIXME: use expect
     pub fn new(
         reporter: ReporterPluginVec<ReportSpeciation, ReportDispersal, ReportProgress>,
     ) -> Self {
@@ -63,7 +63,7 @@ impl<ReportSpeciation: Boolean, ReportDispersal: Boolean, ReportProgress: Boolea
     )),
     allow(dead_code)
 )]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub enum FinalisablePartitioningReporter<R: Reporter> {
     Monolithic(<necsim_partitioning_monolithic::MonolithicPartitioning as necsim_partitioning_core::Partitioning>::FinalisableReporter<R>),
     #[cfg(feature = "mpi-partitioning")]

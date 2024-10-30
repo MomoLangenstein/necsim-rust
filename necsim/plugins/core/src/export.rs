@@ -13,25 +13,24 @@ pub struct ReporterPluginDeclaration {
     pub rustc_version: &'static str,
     pub core_version: &'static str,
 
-    #[allow(improper_ctypes_definitions)]
+    #[expect(improper_ctypes_definitions)]
     pub init: unsafe extern "C" fn(&'static dyn log::Log, log::LevelFilter),
 
-    #[allow(improper_ctypes_definitions)]
+    #[expect(improper_ctypes_definitions)]
     pub deserialise:
         unsafe extern "C" fn(
             &mut dyn erased_serde::Deserializer,
         )
             -> Result<ManuallyDrop<UnsafeReporterPlugin>, erased_serde::Error>,
 
-    #[allow(improper_ctypes_definitions)]
+    #[expect(improper_ctypes_definitions)]
     pub library_path: unsafe extern "C" fn() -> Option<::std::path::PathBuf>,
 
-    #[allow(improper_ctypes_definitions)]
+    #[expect(improper_ctypes_definitions)]
     pub drop: unsafe extern "C" fn(ManuallyDrop<UnsafeReporterPlugin>),
 }
 
 #[derive(Copy, Clone)]
-#[allow(dead_code)]
 pub struct ReporterPluginFilter {
     pub(crate) report_speciation: bool,
     pub(crate) report_dispersal: bool,
@@ -96,7 +95,7 @@ impl<R: SerializeableReporter> From<R> for UnsafeReporterPlugin {
 }
 
 #[macro_export]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 macro_rules! export_plugin {
     ($($name:ident => $plugin:ty),+$(,)?) => {
         #[doc(hidden)]
@@ -116,7 +115,7 @@ macro_rules! export_plugin {
             ::std::mem::ManuallyDrop<$crate::export::UnsafeReporterPlugin>,
             $crate::erased_serde::Error,
         > {
-            #[allow(clippy::enum_variant_names)]
+            #[expect(clippy::enum_variant_names)]
             #[derive($crate::serde::Deserialize)]
             #[serde(crate = "::necsim_plugins_core::serde")]
             enum Reporters {

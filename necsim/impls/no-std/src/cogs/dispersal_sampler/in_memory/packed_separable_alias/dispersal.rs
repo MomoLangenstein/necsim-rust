@@ -65,7 +65,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> DispersalSampler<M, H, G>
             self_dispersal_index
         };
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat.get_extent().origin().x().wrapping_add(
                 (dispersal_target_index % usize::from(habitat.get_extent().width())) as u32,
@@ -133,7 +133,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> SeparableDispersalSampler<M, H,
             dispersal_target_index = self_dispersal.non_self_dispersal_event;
         }
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat.get_extent().origin().x().wrapping_add(
                 (dispersal_target_index % usize::from(habitat.get_extent().width())) as u32,

@@ -19,7 +19,6 @@ use crate::{LastEventState, SpeciesIdentity};
 mod dataframe;
 mod reporter;
 
-#[allow(clippy::module_name_repetitions)]
 pub struct IndividualSpeciesFeatherReporter {
     last_parent_prior_time: Option<(GlobalLineageReference, NonNegativeF64)>,
     last_speciation_event: Option<SpeciationEvent>,
@@ -64,7 +63,7 @@ impl serde::Serialize for IndividualSpeciesFeatherReporter {
     }
 }
 
-#[allow(clippy::too_many_lines)]
+#[expect(clippy::too_many_lines)]
 impl<'de> Deserialize<'de> for IndividualSpeciesFeatherReporter {
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let args = IndividualSpeciesFeatherReporterArgs::deserialize(deserializer)?;

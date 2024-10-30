@@ -6,7 +6,6 @@ use crate::{
     lineage::{GlobalLineageReference, Lineage},
 };
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
 #[contract_trait]
 pub trait LineageStore<M: MathsCore, H: Habitat<M>>:
     crate::cogs::Backup + Sized + core::fmt::Debug
@@ -23,9 +22,7 @@ pub trait LineageStore<M: MathsCore, H: Habitat<M>>:
     ) -> Option<&Lineage>;
 }
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
-#[allow(clippy::no_effect_underscore_binding)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[contract_trait]
 pub trait LocallyCoherentLineageStore<M: MathsCore, H: Habitat<M>>:
     LineageStore<M, H> + for<'a> Index<&'a Self::LocalLineageReference, Output = Lineage>
@@ -89,9 +86,7 @@ pub trait LocallyCoherentLineageStore<M: MathsCore, H: Habitat<M>>:
     ) -> Lineage;
 }
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
-#[allow(clippy::no_effect_underscore_binding)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[contract_trait]
 pub trait GloballyCoherentLineageStore<M: MathsCore, H: Habitat<M>>:
     LocallyCoherentLineageStore<M, H>

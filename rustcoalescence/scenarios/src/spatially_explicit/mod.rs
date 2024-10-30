@@ -5,8 +5,8 @@ mod turnover;
     feature = "spatially-explicit-uniform-turnover",
     feature = "spatially-explicit-turnover-map",
 ))]
-#[allow(clippy::module_name_repetitions)]
-pub use turnover::SpatiallyExplicitArguments;
+#[allow(clippy::module_name_repetitions)] // FIXME: use expect
+pub use turnover::{SpatiallyExplicitArgumentVariants, SpatiallyExplicitArguments};
 
 #[cfg(feature = "spatially-explicit-turnover-map")]
 pub use turnover::map;

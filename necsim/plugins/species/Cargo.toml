@@ -17,7 +17,7 @@ necsim-plugins-core = { path = "../core", features = ["export"] }
 
 serde = { version = "1.0", features = ["derive"] }
 log = { version = "0.4" }
-rusqlite = "0.31"
+rusqlite = "0.32"
 fnv = "1.0"
 base32 = "0.5"
 hex = "0.4"

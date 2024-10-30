@@ -31,7 +31,7 @@ use crate::arguments::{
 
 use super::initialiser::GillespieLineageStoreSampleInitialiser;
 
-#[allow(clippy::shadow_unrelated, clippy::too_many_lines)]
+#[expect(clippy::too_many_lines)]
 pub fn initialise_and_simulate<
     'p,
     M: MathsCore,

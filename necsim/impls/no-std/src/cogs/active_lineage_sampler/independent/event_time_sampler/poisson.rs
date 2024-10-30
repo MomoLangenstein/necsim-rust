@@ -9,7 +9,7 @@ use super::EventTimeSampler;
 // 2^64 / PHI
 const INV_PHI: u64 = 0x9e37_79b9_7f4a_7c15_u64;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 pub struct PoissonEventTimeSampler {
@@ -41,8 +41,8 @@ impl<M: MathsCore, H: Habitat<M>, G: PrimeableRng<M>, T: TurnoverRate<M, H>>
         let lambda_per_step = lambda * self.delta_t;
         let no_event_probability_per_step = M::exp(-lambda_per_step.get());
 
-        #[allow(clippy::cast_possible_truncation)]
-        #[allow(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_sign_loss)]
         let mut time_step = M::floor(time.get() / self.delta_t.get()) as u64;
 
         let (event_time, event_index) = loop {
@@ -65,7 +65,7 @@ impl<M: MathsCore, H: Habitat<M>, G: PrimeableRng<M>, T: TurnoverRate<M, H>>
                 poisson
             } else {
                 // Fallback in case no_event_probability_per_step underflows
-                #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+                #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
                 let normal_as_poisson = rng
                     .sample_2d_normal(lambda_per_step.get(), lambda_per_step.sqrt::<M>())
                     .0
@@ -77,7 +77,6 @@ impl<M: MathsCore, H: Habitat<M>, G: PrimeableRng<M>, T: TurnoverRate<M, H>>
             let mut next_event = None;
 
             for event_index in 0..number_events_at_time_steps {
-                #[allow(clippy::cast_precision_loss)]
                 let event_time = (NonNegativeF64::from(time_step)
                     + NonNegativeF64::from(rng.sample_uniform_closed_open()))
                     * self.delta_t;

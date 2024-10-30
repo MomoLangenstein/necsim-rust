@@ -3,7 +3,7 @@ use core::{convert::TryFrom, fmt, num::NonZeroU64};
 use serde::{Deserialize, Deserializer, Serialize};
 
 #[derive(Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct NonZeroOneU64Error(u64);
 
 impl fmt::Display for NonZeroOneU64Error {

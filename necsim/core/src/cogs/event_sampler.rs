@@ -16,7 +16,6 @@ pub struct EventHandler<S, D, E> {
     pub emigration: E,
 }
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
 #[contract_trait]
 pub trait EventSampler<
     M: MathsCore,

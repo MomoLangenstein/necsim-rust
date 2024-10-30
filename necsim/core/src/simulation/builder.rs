@@ -7,7 +7,7 @@ use crate::cogs::{
 };
 
 #[derive(Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct SimulationBuilder<
     M: MathsCore,
     H: Habitat<M>,

@@ -22,7 +22,6 @@ struct RejectionSamplingGroup<E: Eq + Hash + Backup> {
     total_weight: u128,
 }
 
-#[allow(clippy::module_name_repetitions)]
 pub struct DynamicAliasMethodIndexedSampler<E: Eq + Hash + Backup> {
     exponents: Vec<i16>,
     groups: Vec<RejectionSamplingGroup<E>>,

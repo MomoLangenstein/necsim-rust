@@ -7,7 +7,7 @@ use necsim_core::event::PackedEvent;
 
 use super::segment::SortedSegment;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct SortedSortedSegments {
     segments: Vec<SortedSegment>,
     next: Option<PackedEvent>,
@@ -101,7 +101,6 @@ impl PartialOrd for SortedSortedSegments {
 }
 
 impl PartialEq for SortedSortedSegments {
-    #[allow(clippy::unconditional_recursion)]
     fn eq(&self, other: &Self) -> bool {
         self.next.eq(&other.next)
     }

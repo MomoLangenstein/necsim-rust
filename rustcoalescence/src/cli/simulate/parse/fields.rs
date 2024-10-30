@@ -14,7 +14,7 @@ pub fn parse_and_normalise(ron_args: &str) -> anyhow::Result<()> {
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "Simulate")]
-#[allow(dead_code)]
+#[expect(dead_code)]
 struct SimulateArgsFields {
     #[serde(alias = "speciation_probability_per_generation")]
     speciation: IgnoredAny,

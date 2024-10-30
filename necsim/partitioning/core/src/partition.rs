@@ -3,7 +3,7 @@ use core::{convert::TryFrom, fmt, num::NonZeroU32};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct PartitionRankOutOfBounds(u32, u32);
 
 impl fmt::Display for PartitionRankOutOfBounds {
@@ -16,7 +16,7 @@ impl fmt::Display for PartitionRankOutOfBounds {
     }
 }
 
-#[allow(clippy::module_name_repetitions, clippy::unsafe_derive_deserialize)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 #[serde(try_from = "PartitionRaw")]
 pub struct Partition {
@@ -90,8 +90,8 @@ struct PartitionRaw {
     size: PartitionSize,
 }
 
-#[allow(clippy::module_name_repetitions)]
-#[allow(clippy::unsafe_derive_deserialize)]
+#[expect(clippy::module_name_repetitions)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 #[serde(transparent)]
 pub struct PartitionSize(pub NonZeroU32);

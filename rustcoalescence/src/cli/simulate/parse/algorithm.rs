@@ -12,7 +12,7 @@ pub(in super::super) fn parse_and_normalise(
     normalised_args: &mut BufferingSimulateArgsBuilder,
     partitioning: &Partitioning,
 ) -> anyhow::Result<Algorithm> {
-    let SimulateArgsAlgorithmOnly { algorithm } =
+    let lint::SimulateArgsAlgorithmOnly { algorithm } =
         try_parse_state("simulate", ron_args, &mut partitioning.get_size())?;
 
     normalised_args.algorithm(&algorithm);
@@ -20,10 +20,15 @@ pub(in super::super) fn parse_and_normalise(
     Ok(algorithm)
 }
 
-#[derive(DeserializeState)]
-#[serde(deserialize_state = "PartitionSize")]
-#[serde(rename = "Simulate")]
-struct SimulateArgsAlgorithmOnly {
-    #[serde(deserialize_state)]
-    algorithm: Algorithm,
+#[allow(unreachable_patterns)] // FIXME: use expect
+mod lint {
+    use super::{Algorithm, PartitionSize};
+
+    #[derive(DeserializeState)]
+    #[serde(deserialize_state = "PartitionSize")]
+    #[serde(rename = "Simulate")]
+    pub struct SimulateArgsAlgorithmOnly {
+        #[serde(deserialize_state)]
+        pub algorithm: Algorithm,
+    }
 }

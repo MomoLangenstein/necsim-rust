@@ -11,8 +11,8 @@ use crate::{
     lineage::{GlobalLineageReference, LineageInteraction},
 };
 
-#[allow(clippy::module_name_repetitions)]
-#[allow(clippy::unsafe_derive_deserialize)]
+#[expect(clippy::module_name_repetitions)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Debug, Clone, Serialize, Deserialize, TypeLayout)]
 #[repr(C)]
 pub struct PackedEvent {
@@ -35,13 +35,13 @@ impl PackedEvent {
     }
 }
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 const EXCESSIVE_PACKED_EVENT_ERROR: [(); 1 - {
     const ASSERT: bool = core::mem::size_of::<PackedEvent>() == 56;
     ASSERT
 } as usize] = [];
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Clone, Serialize, Deserialize, Eq, PartialEq, Ord, PartialOrd, Hash)]
 pub enum EventType {
     Speciation,
@@ -54,7 +54,7 @@ pub struct Dispersal {
     pub interaction: LineageInteraction,
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Clone, Serialize, Deserialize, TypeLayout)]
 #[repr(C)]
 pub struct SpeciationEvent {
@@ -64,13 +64,13 @@ pub struct SpeciationEvent {
     pub origin: IndexedLocation,
 }
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 const EXCESSIVE_SPECIATION_EVENT_ERROR: [(); 1 - {
     const ASSERT: bool = core::mem::size_of::<SpeciationEvent>() == 40;
     ASSERT
 } as usize] = [];
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct DispersalEvent {
     pub global_lineage_reference: GlobalLineageReference,
@@ -81,20 +81,20 @@ pub struct DispersalEvent {
     pub interaction: LineageInteraction,
 }
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 const EXCESSIVE_DISPERSAL_EVENT_ERROR: [(); 1 - {
     const ASSERT: bool = core::mem::size_of::<DispersalEvent>() == 64;
     ASSERT
 } as usize] = [];
 
-#[allow(dead_code)]
+#[expect(dead_code)]
 const EXCESSIVE_OPTION_DISPERSAL_EVENT_ERROR: [(); 1 - {
     const ASSERT: bool =
         core::mem::size_of::<Option<DispersalEvent>>() == core::mem::size_of::<DispersalEvent>();
     ASSERT
 } as usize] = [];
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub enum TypedEvent {
     Speciation(SpeciationEvent),
     Dispersal(DispersalEvent),

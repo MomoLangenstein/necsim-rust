@@ -6,7 +6,7 @@ use necsim_plugins_core::import::{AnyReporterPluginVec, ReporterPluginLibrary};
 
 #[derive(Serialize, Debug)]
 #[serde(rename = "Replay")]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ReplayArgs {
     #[serde(rename = "log", alias = "event_log")]
     pub event_log: EventLogReplay,
@@ -15,7 +15,7 @@ pub struct ReplayArgs {
 }
 
 #[derive(Copy, Clone, Debug, Serialize, Deserialize)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[serde(deny_unknown_fields)]
 pub enum ReplayMode {
     Strict,
@@ -96,7 +96,6 @@ impl<'de> Deserialize<'de> for ReplayArgs {
 }
 
 #[derive(Deserialize)]
-#[allow(clippy::module_name_repetitions)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "Replay")]
 struct ReplayArgsRaw {

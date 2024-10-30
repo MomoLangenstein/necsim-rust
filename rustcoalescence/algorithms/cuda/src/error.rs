@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 #[derive(thiserror::Error, Debug, Clone, Serialize, Deserialize)]
 #[serde(into = "CudaErrorRaw", from = "CudaErrorRaw")]
 #[error(transparent)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct CudaError(#[from] RustaCudaError);
 
 #[derive(Serialize, Deserialize)]
@@ -25,7 +25,7 @@ impl From<CudaErrorRaw> for CudaError {
     fn from(value: CudaErrorRaw) -> Self {
         type E = RustaCudaError;
 
-        #[allow(clippy::wildcard_in_or_patterns)]
+        #[expect(clippy::wildcard_in_or_patterns)]
         let code = match value.code {
             const { E::InvalidValue as u32 } => E::InvalidValue,
             const { E::OutOfMemory as u32 } => E::OutOfMemory,

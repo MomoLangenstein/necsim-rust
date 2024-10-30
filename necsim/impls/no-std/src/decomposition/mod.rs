@@ -9,7 +9,6 @@ pub mod modulo;
 pub mod monolithic;
 pub mod radial;
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
 #[contract_trait]
 pub trait Decomposition<M: MathsCore, H: Habitat<M>>: Backup + Sized + core::fmt::Debug {
     fn get_subdomain(&self) -> Partition;

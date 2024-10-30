@@ -2,7 +2,7 @@ use std::{fmt, time::Instant};
 
 use necsim_core::{impl_finalise, impl_report, reporter::Reporter};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ExecutionTimeReporter {
     init_time: Instant,
     start_time: Option<Instant>,

@@ -12,7 +12,6 @@ use crate::{
 
 use super::{Habitat, LineageStore};
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
 #[contract_trait]
 pub trait CoalescenceSampler<M: MathsCore, H: Habitat<M>, S: LineageStore<M, H>>:
     crate::cogs::Backup + core::fmt::Debug
@@ -68,11 +67,7 @@ impl CoalescenceRngSample {
     pub fn sample_coalescence_index<M: MathsCore>(self, length: u32) -> u32 {
         // attributes on expressions are experimental
         // see https://github.com/rust-lang/rust/issues/15701
-        #[allow(
-            clippy::cast_precision_loss,
-            clippy::cast_possible_truncation,
-            clippy::cast_sign_loss
-        )]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         let index = M::floor(self.0.get() * f64::from(length)) as u32;
         index
     }

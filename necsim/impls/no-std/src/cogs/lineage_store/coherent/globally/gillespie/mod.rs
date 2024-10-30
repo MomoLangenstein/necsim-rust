@@ -16,7 +16,7 @@ use crate::cogs::lineage_reference::in_memory::InMemoryLineageReference;
 
 mod store;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct GillespieLineageStore<M: MathsCore, H: Habitat<M>> {
     lineages_store: Slab<Lineage>,

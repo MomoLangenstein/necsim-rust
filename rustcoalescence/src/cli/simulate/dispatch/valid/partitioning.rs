@@ -19,7 +19,7 @@ use crate::{
 
 use super::launch;
 
-#[allow(clippy::too_many_arguments)]
+#[expect(clippy::too_many_arguments)]
 pub(super) fn dispatch<
     M: MathsCore,
     G: RngCore<M>,

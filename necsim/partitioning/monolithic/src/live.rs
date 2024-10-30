@@ -10,7 +10,7 @@ use necsim_partitioning_core::{
     iterator::ImmigrantPopIterator, partition::Partition, LocalPartition, MigrationMode,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct LiveMonolithicLocalPartition<R: Reporter> {
     reporter: FilteredReporter<R, True, True, True>,
     loopback: Vec<MigratingLineage>,

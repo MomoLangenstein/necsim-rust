@@ -19,7 +19,7 @@ use crate::cogs::{
 
 use super::tracking::{MinSpeciationTrackingEventSampler, SpeciationSample};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(

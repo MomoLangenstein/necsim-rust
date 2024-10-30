@@ -10,7 +10,7 @@ use rust_cuda::{
 
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 
-#[allow(clippy::module_name_repetitions)]
+#[allow(clippy::module_name_repetitions)] // FIXME: use expect
 #[derive(Debug, Clone, rust_cuda::lend::LendRustToCuda)]
 #[cuda(free = "M", free = "R")]
 pub struct CudaRng<M: MathsCore, R>

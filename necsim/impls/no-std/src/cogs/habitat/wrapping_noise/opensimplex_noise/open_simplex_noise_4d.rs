@@ -312,7 +312,7 @@ impl OpenSimplexNoise4D {
             + contribute(1.0, 1.0, 1.0, 1.0)
     }
 
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     fn inside_second_dispentachoron(
         ins: Vec4<f64>,
         contribute: impl Fn(f64, f64, f64, f64) -> f64,
@@ -492,7 +492,7 @@ impl OpenSimplexNoise4D {
             + contribute(0.0, 0.0, 1.0, 1.0)
     }
 
-    #[allow(clippy::too_many_lines)]
+    #[expect(clippy::too_many_lines)]
     fn inside_first_dispentachoron(
         ins: Vec4<f64>,
         contribute: impl Fn(f64, f64, f64, f64) -> f64,

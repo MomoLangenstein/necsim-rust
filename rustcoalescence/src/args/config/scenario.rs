@@ -18,12 +18,22 @@ pub enum Scenario {
     AlmostInfiniteNormalDispersal(rustcoalescence_scenarios::almost_infinite::normal::AlmostInfiniteNormalDispersalArguments),
     #[cfg(feature = "almost-infinite-clark2dt-dispersal-scenario")]
     AlmostInfiniteClark2DtDispersal(rustcoalescence_scenarios::almost_infinite::clark2dt::AlmostInfiniteClark2DtDispersalArguments),
+    #[cfg(all(
+        feature = "almost-infinite-normal-dispersal-scenario",
+        feature = "almost-infinite-downscaled-scenario",
+    ))]
+    AlmostInfiniteDownscaledNormalDispersal(rustcoalescence_scenarios::almost_infinite::downscaled::AlmostInfiniteDownscaledArguments<rustcoalescence_scenarios::almost_infinite::normal::AlmostInfiniteNormalDispersalScenario>),
+    #[cfg(all(
+        feature = "almost-infinite-clark2dt-dispersal-scenario",
+        feature = "almost-infinite-downscaled-scenario",
+    ))]
+    AlmostInfiniteDownscaledClark2DtDispersal(rustcoalescence_scenarios::almost_infinite::downscaled::AlmostInfiniteDownscaledArguments<rustcoalescence_scenarios::almost_infinite::clark2dt::AlmostInfiniteClark2DtDispersalScenario>),
     #[cfg(feature = "wrapping-noise-scenario")]
     WrappingNoise(rustcoalescence_scenarios::wrapping_noise::WrappingNoiseArguments),
 }
 
 impl Serialize for Scenario {
-    #[allow(unused_variables)]
+    #[allow(unused_variables)] // FIXME: use expect
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         let scenario: ScenarioRaw = match *self {
             #[cfg(feature = "spatially-explicit-uniform-turnover-scenario")]
@@ -46,11 +56,25 @@ impl Serialize for Scenario {
             Self::AlmostInfiniteClark2DtDispersal(ref args) => ScenarioRaw::AlmostInfinite(
                 rustcoalescence_scenarios::almost_infinite::AlmostInfiniteArguments::from_clark2dt(args),
             ),
+            #[cfg(all(
+                feature = "almost-infinite-normal-dispersal-scenario",
+                feature = "almost-infinite-downscaled-scenario",
+            ))]
+            Self::AlmostInfiniteDownscaledNormalDispersal(ref args) => ScenarioRaw::AlmostInfinite(
+                rustcoalescence_scenarios::almost_infinite::AlmostInfiniteArguments::from_downscaled_normal(args),
+            ),
+            #[cfg(all(
+                feature = "almost-infinite-clark2dt-dispersal-scenario",
+                feature = "almost-infinite-downscaled-scenario",
+            ))]
+            Self::AlmostInfiniteDownscaledClark2DtDispersal(ref args) => ScenarioRaw::AlmostInfinite(
+                rustcoalescence_scenarios::almost_infinite::AlmostInfiniteArguments::from_downscaled_clark2dt(args),
+            ),
             #[cfg(feature = "wrapping-noise-scenario")]
             Self::WrappingNoise(ref args) => ScenarioRaw::WrappingNoise(args.clone()),
         };
 
-        #[allow(unreachable_code)]
+        #[allow(unreachable_code)] // FIXME: use expect
         scenario.serialize(serializer)
     }
 }
@@ -62,19 +86,11 @@ impl<'de> Deserialize<'de> for Scenario {
                 feature = "spatially-explicit-uniform-turnover-scenario",
                 feature = "spatially-explicit-turnover-map-scenario",
             ))]
-            ScenarioRaw::SpatiallyExplicit(args) => {
-                match args.try_load().map_err(serde::de::Error::custom)? {
-                    #[allow(clippy::match_single_binding)]
-                    either::Either::Left(args) => match args {
-                        #[cfg(feature = "spatially-explicit-uniform-turnover-scenario")]
-                        args => Ok(Self::SpatiallyExplicitUniformTurnover(args)),
-                    },
-                    #[allow(clippy::match_single_binding)]
-                    either::Either::Right(args) => match args {
-                        #[cfg(feature = "spatially-explicit-turnover-map-scenario")]
-                        args => Ok(Self::SpatiallyExplicitTurnoverMap(args)),
-                    },
-                }
+            ScenarioRaw::SpatiallyExplicit(args) => match args.try_load().map_err(serde::de::Error::custom)? {
+                #[cfg(feature = "spatially-explicit-uniform-turnover-scenario")]
+                rustcoalescence_scenarios::spatially_explicit::SpatiallyExplicitArgumentVariants::UniformTurnover(args) => Ok(Self::SpatiallyExplicitUniformTurnover(args)),
+                #[cfg(feature = "spatially-explicit-turnover-map-scenario")]
+                rustcoalescence_scenarios::spatially_explicit::SpatiallyExplicitArgumentVariants::TurnoverMap(args) => Ok(Self::SpatiallyExplicitTurnoverMap(args)),
             },
             #[cfg(feature = "non-spatial-scenario")]
             ScenarioRaw::NonSpatial(args) => Ok(Self::NonSpatial(args)),
@@ -85,16 +101,20 @@ impl<'de> Deserialize<'de> for Scenario {
                 feature = "almost-infinite-clark2dt-dispersal-scenario",
             ))]
             ScenarioRaw::AlmostInfinite(args) => match args.load() {
-                #[allow(clippy::match_single_binding)]
-                either::Either::Left(args) => match args {
-                    #[cfg(feature = "almost-infinite-normal-dispersal-scenario")]
-                    args => Ok(Self::AlmostInfiniteNormalDispersal(args)),
-                },
-                #[allow(clippy::match_single_binding)]
-                either::Either::Right(args) => match args {
-                    #[cfg(feature = "almost-infinite-clark2dt-dispersal-scenario")]
-                    args => Ok(Self::AlmostInfiniteClark2DtDispersal(args)),
-                },
+                #[cfg(feature = "almost-infinite-normal-dispersal-scenario")]
+                rustcoalescence_scenarios::almost_infinite::AlmostInfiniteArgumentVariants::Normal(args) => Ok(Self::AlmostInfiniteNormalDispersal(args)),
+                #[cfg(feature = "almost-infinite-clark2dt-dispersal-scenario")]
+                rustcoalescence_scenarios::almost_infinite::AlmostInfiniteArgumentVariants::Clark2Dt(args) => Ok(Self::AlmostInfiniteClark2DtDispersal(args)),
+                #[cfg(all(
+                    feature = "almost-infinite-normal-dispersal-scenario",
+                    feature = "almost-infinite-downscaled-scenario",
+                ))]
+                rustcoalescence_scenarios::almost_infinite::AlmostInfiniteArgumentVariants::DownscaledNormal(args) => Ok(Self::AlmostInfiniteDownscaledNormalDispersal(args)),
+                #[cfg(all(
+                    feature = "almost-infinite-clark2dt-dispersal-scenario",
+                    feature = "almost-infinite-downscaled-scenario",
+                ))]
+                rustcoalescence_scenarios::almost_infinite::AlmostInfiniteArgumentVariants::DownscaledClark2Dt(args) => Ok(Self::AlmostInfiniteDownscaledClark2DtDispersal(args)),
             },
             #[cfg(feature = "wrapping-noise-scenario")]
             ScenarioRaw::WrappingNoise(args) => Ok(Self::WrappingNoise(args)),

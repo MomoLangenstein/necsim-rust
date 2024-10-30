@@ -4,15 +4,14 @@ use necsim_core::{cogs::MathsCore, lineage::Lineage};
 
 use crate::cogs::{
     lineage_store::coherent::globally::singleton_demes::SingletonDemesHabitat,
-    origin_sampler::pre_sampler::OriginPreSampler,
+    origin_sampler::{pre_sampler::OriginPreSampler, TrustedOriginSampler, UntrustedOriginSampler},
 };
 
-use super::{TrustedOriginSampler, UntrustedOriginSampler};
-
 pub mod circle;
+pub mod downscaled;
 pub mod rectangle;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub enum SingletonDemesOriginSampler<
     'h,
     M: MathsCore,

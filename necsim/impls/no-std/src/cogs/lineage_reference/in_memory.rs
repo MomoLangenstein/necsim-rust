@@ -3,7 +3,7 @@ use core::hash::Hash;
 use necsim_core::cogs::{Backup, Habitat, LineageReference, MathsCore};
 
 #[derive(PartialEq, Eq, Hash, Debug, TypeLayout)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[repr(transparent)]
 pub struct InMemoryLineageReference(usize);
 

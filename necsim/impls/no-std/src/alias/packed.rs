@@ -5,7 +5,6 @@ use alloc::vec::Vec;
 use necsim_core::cogs::{MathsCore, RngCore};
 use necsim_core_bond::{ClosedUnitF64, NonNegativeF64};
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Clone, Debug, TypeLayout)]
 #[repr(C)]
 pub struct AliasMethodSamplerAtom<E: Copy + PartialEq> {
@@ -14,7 +13,6 @@ pub struct AliasMethodSamplerAtom<E: Copy + PartialEq> {
     k: E,
 }
 
-#[allow(dead_code)]
 struct AliasMethodSamplerAtomRaw<E: Copy + PartialEq> {
     u: NonNegativeF64,
     e: E,
@@ -39,7 +37,6 @@ impl<E: Copy + PartialEq> AliasMethodSamplerAtom<E> {
         self.u = self.u.one_minus();
     }
 
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_requires(!event_weights.is_empty(), "event_weights is non-empty")]
     #[debug_requires(
         event_weights.iter().all(|(_e, p)| *p >= 0.0_f64),
@@ -57,7 +54,6 @@ impl<E: Copy + PartialEq> AliasMethodSamplerAtom<E> {
         "full buckets sample the same event just in case"
     )]
     pub fn create(event_weights: &[(E, NonNegativeF64)]) -> Vec<AliasMethodSamplerAtom<E>> {
-        #[allow(non_snake_case)]
         let mut alias_samplers = Vec::with_capacity(event_weights.len());
 
         let total_weight: NonNegativeF64 = event_weights.iter().map(|(_e, p)| *p).sum();
@@ -126,7 +122,6 @@ impl<E: Copy + PartialEq> AliasMethodSamplerAtom<E> {
         Self::sample_event_with_cdf_limit(alias_samplers, rng, ClosedUnitF64::one())
     }
 
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_requires(!alias_samplers.is_empty(), "alias_samplers is non-empty")]
     #[debug_ensures(
         old(alias_samplers).iter().map(|s| s.e).any(|e| e == ret),
@@ -139,18 +134,14 @@ impl<E: Copy + PartialEq> AliasMethodSamplerAtom<E> {
     ) -> E {
         use necsim_core::cogs::RngSampler;
 
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let f =
             rng.sample_uniform_closed_open().get() * limit.get() * (alias_samplers.len() as f64);
 
-        #[allow(
-            clippy::cast_precision_loss,
-            clippy::cast_possible_truncation,
-            clippy::cast_sign_loss
-        )]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         let i = M::floor(f) as usize; // index into events
 
-        #[allow(clippy::cast_precision_loss)]
+        #[expect(clippy::cast_precision_loss)]
         let y = f - (i as f64); // U(0,1) to compare against U[i]
 
         let sample = &alias_samplers[i];

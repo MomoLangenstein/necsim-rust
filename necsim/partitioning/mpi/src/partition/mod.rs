@@ -16,14 +16,14 @@ mod parallel;
 mod root;
 mod utils;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub use parallel::MpiParallelPartition;
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub use root::MpiRootPartition;
 
 use crate::FinalisableMpiReporter;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub enum MpiLocalPartition<'p, R: Reporter> {
     Root(Box<MpiRootPartition<'p, R>>),

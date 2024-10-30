@@ -170,7 +170,7 @@ impl Partitioning for MpiPartitioning {
     type LocalPartition<'p, R: Reporter> = MpiLocalPartition<'p, R>;
 
     fn get_size(&self) -> PartitionSize {
-        #[allow(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_sign_loss)]
         let size = unsafe { NonZeroU32::new_unchecked(self.world.size() as u32) };
 
         PartitionSize(size)
@@ -206,7 +206,7 @@ impl Partitioning for MpiPartitioning {
         let mut mpi_local_global_wait = (false, false);
         let mut mpi_local_remaining = 0_u64;
 
-        #[allow(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_sign_loss)]
         let world_size = self.world.size() as usize;
 
         let mut mpi_emigration_buffers: Vec<Vec<MigratingLineage>> = Vec::with_capacity(world_size);
@@ -259,7 +259,6 @@ impl Partitioning for MpiPartitioning {
 #[serde(deny_unknown_fields)]
 #[serde(deserialize_state = "PartitionSize")]
 #[serde(default)]
-#[allow(dead_code)]
 struct MpiPartitioningRaw {
     #[serde(deserialize_state_with = "deserialize_state_mpi_world")]
     world: Option<PartitionSize>,
@@ -307,7 +306,7 @@ fn reduce_partitioning_data<T: serde::Serialize + serde::de::DeserializeOwned>(
     let local_ser_len = Count::try_from(local_ser.len())
         .context("MPI local partition result is too big to share")?;
 
-    #[allow(clippy::cast_sign_loss)]
+    #[expect(clippy::cast_sign_loss)]
     let mut counts = vec![0 as Count; world.size() as usize];
     world.all_gather_into(&local_ser_len, &mut counts);
 
@@ -326,7 +325,7 @@ fn reduce_partitioning_data<T: serde::Serialize + serde::de::DeserializeOwned>(
         })
         .collect::<Result<Vec<_>, _>>()?;
 
-    #[allow(clippy::cast_sign_loss)]
+    #[expect(clippy::cast_sign_loss)]
     let mut all_sers = vec![0_u8; counts.iter().copied().sum::<Count>() as usize];
     world.all_gather_varcount_into(
         local_ser.as_slice(),
@@ -337,7 +336,7 @@ fn reduce_partitioning_data<T: serde::Serialize + serde::de::DeserializeOwned>(
         .iter()
         .scan(0_usize, |acc, &x| {
             let pre = *acc;
-            #[allow(clippy::cast_sign_loss)]
+            #[expect(clippy::cast_sign_loss)]
             {
                 *acc += x as usize;
             }

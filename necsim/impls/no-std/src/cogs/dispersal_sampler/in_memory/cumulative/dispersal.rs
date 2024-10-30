@@ -49,7 +49,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> DispersalSampler<M, H, G>
             unreachable!("habitat dispersal origin must disperse somewhere")
         };
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat.get_extent().origin().x().wrapping_add(
                 (valid_dispersal_target_index % usize::from(habitat.get_extent().width())) as u32,

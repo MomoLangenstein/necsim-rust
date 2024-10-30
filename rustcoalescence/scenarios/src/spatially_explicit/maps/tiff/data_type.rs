@@ -1,6 +1,6 @@
 use tiff::{decoder::DecodingResult, tags::SampleFormat};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait TiffDataType:
     Clone
     + std::fmt::Debug

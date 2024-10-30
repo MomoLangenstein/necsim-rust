@@ -32,7 +32,7 @@ use necsim_core::event::{DispersalEvent, PackedEvent, SpeciationEvent};
 
 use super::EventLogHeader;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct EventLogRecorder {
     segment_capacity: NonZeroUsize,
     directory: PathBuf,
@@ -224,7 +224,7 @@ impl fmt::Debug for EventLogRecorder {
     }
 }
 
-#[allow(clippy::unsafe_derive_deserialize)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Debug, Deserialize)]
 #[serde(try_from = "EventLogRecorderRaw")]
 pub struct EventLogConfig {

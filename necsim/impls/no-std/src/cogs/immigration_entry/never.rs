@@ -3,7 +3,7 @@ use necsim_core::{
     lineage::MigratingLineage,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Default)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 pub struct NeverImmigrationEntry([u8; 0]);

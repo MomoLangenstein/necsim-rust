@@ -11,7 +11,6 @@ const P1: u64 = 0xe703_7ed1_a0b4_28db;
 const P2: u64 = 0x8ebc_6af0_9c88_c6e3;
 const P5: u64 = 0xeb44_acca_b455_d165;
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug, Serialize, Deserialize, TypeLayout)]
 #[layout(free = "M")]
 #[serde(deny_unknown_fields)]
@@ -72,8 +71,8 @@ impl<M: MathsCore> PrimeableRng<M> for WyHash<M> {
         // wyhash state repriming
         // https://docs.rs/wyhash/0.5.0/src/wyhash/functions.rs.html#67-70
         let hash = wymum(
-            ((location_index << 32) | (location_index >> 32)) ^ (self.seed ^ P0),
-            ((time_index << 32) | (time_index >> 32)) ^ P2,
+            location_index.rotate_right(32) ^ (self.seed ^ P0),
+            time_index.rotate_right(32) ^ P2,
         );
 
         self.state = wymum(hash, 16 ^ P5);
@@ -81,7 +80,7 @@ impl<M: MathsCore> PrimeableRng<M> for WyHash<M> {
 }
 
 #[inline]
-#[allow(clippy::cast_possible_truncation)]
+#[expect(clippy::cast_possible_truncation)]
 fn wymum(mut a: u64, mut b: u64) -> u64 {
     // WyHash diffusion function
     // https://docs.rs/wyhash/0.5.0/src/wyhash/functions.rs.html#8-12

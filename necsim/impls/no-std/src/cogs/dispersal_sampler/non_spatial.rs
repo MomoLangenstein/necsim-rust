@@ -8,7 +8,7 @@ use necsim_core_bond::ClosedUnitF64;
 
 use crate::cogs::habitat::non_spatial::NonSpatialHabitat;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M", free = "G"))]
@@ -47,14 +47,9 @@ impl<M: MathsCore, G: RngCore<M>> DispersalSampler<M, NonSpatialHabitat<M>, G>
     ) -> Location {
         use necsim_core::cogs::RngSampler;
 
-        let habitat_index_max =
-            habitat.get_extent().width().get() * habitat.get_extent().height().get();
+        let dispersal_target_index = rng.sample_index_u64(habitat.get_extent().area());
 
-        // Safety: habitat width and height are both > 0
-        let dispersal_target_index =
-            rng.sample_index_u64(unsafe { NonZeroU64::new_unchecked(habitat_index_max) });
-
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat
                 .get_extent()
@@ -86,15 +81,15 @@ impl<M: MathsCore, G: RngCore<M>> SeparableDispersalSampler<M, NonSpatialHabitat
     ) -> Location {
         use necsim_core::cogs::RngSampler;
 
-        let habitat_index_max =
-            habitat.get_extent().width().get() * habitat.get_extent().height().get();
+        let habitat_index_max = habitat.get_extent().area();
         let current_location_index =
             u64::from(location.y()) * habitat.get_extent().width().get() + u64::from(location.x());
 
         let dispersal_target_index = {
             // Safety: by PRE, `habitat_index_max` > 1
-            let dispersal_target_index =
-                rng.sample_index_u64(unsafe { NonZeroU64::new_unchecked(habitat_index_max - 1) });
+            let dispersal_target_index = rng.sample_index_u64(
+                unsafe { NonZeroU64::new_unchecked(habitat_index_max.sub_one()) }.into(),
+            );
 
             if dispersal_target_index >= current_location_index {
                 dispersal_target_index + 1
@@ -103,7 +98,7 @@ impl<M: MathsCore, G: RngCore<M>> SeparableDispersalSampler<M, NonSpatialHabitat
             }
         };
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Location::new(
             habitat
                 .get_extent()

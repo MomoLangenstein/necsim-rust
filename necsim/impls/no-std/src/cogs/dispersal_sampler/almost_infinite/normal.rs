@@ -8,7 +8,6 @@ use necsim_core_bond::{ClosedUnitF64, NonNegativeF64};
 
 use crate::cogs::habitat::almost_infinite::AlmostInfiniteHabitat;
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M", free = "G"))]

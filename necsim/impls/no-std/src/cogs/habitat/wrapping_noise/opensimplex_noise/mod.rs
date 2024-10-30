@@ -47,20 +47,19 @@ impl OpenSimplexNoise {
         }
     }
 
-    #[allow(dead_code)]
     #[must_use]
     pub fn eval_2d<M: MathsCore>(&self, x: f64, y: f64, wrap: f64) -> f64 {
         OpenSimplexNoise2D::eval::<M>(Vec2::new(x, y), &self.perm, wrap)
     }
 
-    #[allow(dead_code)]
     #[must_use]
+    #[allow(dead_code)] // FIXME: use expect
     pub fn eval_3d<M: MathsCore>(&self, x: f64, y: f64, z: f64, wrap: f64) -> f64 {
         OpenSimplexNoise3D::eval::<M>(Vec3::new(x, y, z), &self.perm, wrap)
     }
 
-    #[allow(dead_code)]
     #[must_use]
+    #[allow(dead_code)] // FIXME: use expect
     pub fn eval_4d<M: MathsCore>(&self, x: f64, y: f64, z: f64, w: f64, wrap: f64) -> f64 {
         OpenSimplexNoise4D::eval::<M>(Vec4::new(x, y, z, w), &self.perm, wrap)
     }

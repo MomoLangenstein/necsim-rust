@@ -280,6 +280,82 @@
                     tail_p: (0.0 < f64),
                 )
             ),
+            /* downscale the habitat to consider adjacent locations to be part
+             *  of the same larger deme
+             * downscaling reduces the accuracy of the simulation but may speed
+             *  up its execution with EventSkipping algorithm
+             * downscaling may be worth during the tail of the simulation, when
+             *  few lineages remain, the speciation probability is low, and
+             *  waiting for all lineages to speciate or coalesce dominates
+             *  simulation times
+             * optional, default = None
+             * requires the `almost-infinite-downscaled-scenario` feature */
+            downscale: (
+                /* no downscaling is used */
+              | None
+                /* downscale the habitat by separate dx and dy factors
+                 * each of the 1/(dx*dy) habitable locations now has a deme of
+                 *  size dx*dy */
+              | Downscale(
+                    /* downscale factor along the x-axis of the habitat
+                     * expressed either as a power-of-two integer
+                     *  or as a base-two scientific notation string */
+                    x: (u32 = 2^{0..=16}) or ("1B{0..=16}"),
+                    /* downscale factor along the y-axis of the habitat
+                     * expressed either as a power-of-two integer
+                     *  or as a base-two scientific notation string */
+                    y: (u32 = 2^{0..=16}) or ("1B{0..=16}"),
+                    /* number of random samples used to emperically determine
+                     *  the self-dispersal probability (and the non-self-
+                     *  dispersal target probability distribution,
+                     *  if precomputing is used, see non_self_dispersal below)
+                     * optional, default = 2^22 */
+                    samples: (0 < u32),
+                    /* strategy for sampling non-self-dispersal iff non-self-
+                     *  dispersal must be sampled separately, e.g. for the
+                     *  EventSkipping algorithm
+                     * Note: this option has no effect when normal dispersal
+                     *       sampling is used 
+                     * optional, default = Accurate */
+                    non_self_dispersal: (
+                        /* use accurate rejection sampling to sample non-self-
+                         *  dispersals
+                         * rejection sampling may be very slow if the
+                         *  probability of self-dispersal is very high */
+                      | Accurate
+                        /* choose between accurate but slow rejection sampling
+                         *  and the approximate but fast precomputing based
+                         *  on the probability of non-self-dispersal
+                         * refer to the Accurate and PrecomputeApproximation
+                         *  strategies above and below for more information on
+                         *  their merits and when to choose which */
+                      | UnlikelyApproximation(
+                            /* threshold for the non-self-dispersal probability
+                             *  for which rejection sampling is chosen
+                             * choose rejection sampling if
+                             *  P(non-self-dispersal) >= likelihood
+                             * choose precomputing if
+                             *  P(non-self-dispersal) < likelihood
+                             * likelihood = 0.0 is equivalent to Accurate
+                             * likelihood = 1.0 is equivalent to
+                             *  PrecomputeApproximation */
+                            likelihood: (0.0 <= f64 <= 1.0),
+                        )
+                        /* precompute the non-self-dispersal target distribution
+                         *  using the number of samples given above
+                         * precomputing the distribution is an approximation
+                         *  that only stores a discrete set of dispersal targets
+                         *  (which may exclude some valid targets) with
+                         *  approximate dispersal probabilities
+                         * precomputing only be chosen when this approximation
+                         *  can sufficiently represent the dispersal
+                         * sampling a precomputed dispersal distribution may be
+                         *  significantly faster than using rejection sampling
+                         *  when the probability of self-dispersal is high */
+                      | PrecomputeApproximation
+                    )
+                )
+            )
         )
         /* (almost) infinite spatially-explicit scenario with (approximate) Gaussian distributed dispersal
          * each location (x, y) in the landscape has either habitat for exactly one individual,

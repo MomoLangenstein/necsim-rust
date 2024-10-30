@@ -20,7 +20,6 @@ use super::{
 };
 
 #[derive(Clone, Debug, TypeLayout)]
-#[allow(clippy::module_name_repetitions)]
 #[doc(hidden)]
 #[repr(C)]
 pub struct AliasSamplerRange {
@@ -43,7 +42,6 @@ impl From<AliasSamplerRange> for Range<usize> {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[cfg_attr(feature = "cuda", cuda(free = "M", free = "H", free = "G"))]
 pub struct InMemoryPackedAliasDispersalSampler<M: MathsCore, H: Habitat<M>, G: RngCore<M>> {
@@ -75,7 +73,7 @@ impl<M: MathsCore, H: Habitat<M>, G: RngCore<M>> InMemoryDispersalSampler<M, H, 
                 event_weights.clear();
 
                 for (col_index, dispersal_probability) in row.enumerate() {
-                    #[allow(clippy::cast_possible_truncation)]
+                    #[expect(clippy::cast_possible_truncation)]
                     let location =
                         Location::new(
                             habitat_extent.origin().x().wrapping_add(

@@ -10,6 +10,7 @@ edition = "2021"
 [features]
 almost-infinite-normal-dispersal-scenario = ["rustcoalescence-algorithms-cuda-cpu-kernel/almost-infinite-normal-dispersal-scenario"]
 almost-infinite-clark2dt-dispersal-scenario = ["rustcoalescence-algorithms-cuda-cpu-kernel/almost-infinite-clark2dt-dispersal-scenario"]
+almost-infinite-downscaled-scenario = ["rustcoalescence-algorithms-cuda-cpu-kernel/almost-infinite-downscaled-scenario"]
 non-spatial-scenario = ["rustcoalescence-algorithms-cuda-cpu-kernel/non-spatial-scenario"]
 spatially-explicit-uniform-turnover-scenario = ["rustcoalescence-algorithms-cuda-cpu-kernel/spatially-explicit-uniform-turnover-scenario"]
 spatially-explicit-turnover-map-scenario = ["rustcoalescence-algorithms-cuda-cpu-kernel/spatially-explicit-turnover-map-scenario"]
@@ -32,4 +33,4 @@ thiserror = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_state = "0.4"
 serde_derive_state = "0.4"
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "f2a377d", features = ["host"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "62e96a9", features = ["host"] }

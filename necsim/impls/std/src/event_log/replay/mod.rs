@@ -14,7 +14,7 @@ use globbed::GlobbedSortedSegments;
 use segment::SortedSegment;
 use sorted_segments::SortedSortedSegments;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Deserialize)]
 #[serde(try_from = "EventLogReplayRaw")]
 pub struct EventLogReplay {

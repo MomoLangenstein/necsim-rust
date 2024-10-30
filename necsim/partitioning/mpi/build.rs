@@ -7,4 +7,6 @@ fn main() {
     if is_msmpi {
         println!("cargo:rustc-cfg=msmpi");
     }
+
+    println!("cargo::rustc-check-cfg=cfg(msmpi)");
 }

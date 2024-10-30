@@ -51,7 +51,7 @@ impl<'p> MpiCommonPartition<'p> {
     ) -> Self {
         let world = universe.world();
 
-        #[allow(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_sign_loss)]
         let world_size = world.size() as usize;
 
         let mut migration_buffers = Vec::with_capacity(world_size);
@@ -83,9 +83,9 @@ impl<'p> MpiCommonPartition<'p> {
 
     #[must_use]
     pub fn get_partition(&self) -> Partition {
-        #[allow(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_sign_loss)]
         let rank = self.world.rank() as u32;
-        #[allow(clippy::cast_sign_loss)]
+        #[expect(clippy::cast_sign_loss)]
         let size = unsafe { NonZeroU32::new_unchecked(self.world.size() as u32) };
 
         unsafe { Partition::new_unchecked(rank, PartitionSize(size)) }
@@ -128,7 +128,7 @@ impl<'p> MpiCommonPartition<'p> {
             while let Some((msg, status)) =
                 any_process.immediate_matched_probe_with_tag(MpiPartitioning::MPI_MIGRATION_TAG)
             {
-                #[allow(clippy::cast_sign_loss)]
+                #[expect(clippy::cast_sign_loss)]
                 let number_immigrants =
                     status.count(MpiMigratingLineage::equivalent_datatype()) as usize;
 
@@ -175,7 +175,7 @@ impl<'p> MpiCommonPartition<'p> {
                 let emigration_buffer = &mut self.migration_buffers[rank_index];
 
                 if !emigration_buffer.is_empty() {
-                    #[allow(clippy::cast_possible_wrap)]
+                    #[expect(clippy::cast_possible_wrap)]
                     let receiver_process = self.world.process_at_rank(partition.rank() as i32);
 
                     let mut last_migration_time = self.last_migration_times[rank_index];
@@ -240,7 +240,7 @@ impl<'p> MpiCommonPartition<'p> {
     #[must_use]
     pub fn wait_for_termination(&mut self) -> ControlFlow<(), ()> {
         // This partition can only terminate once all migrations have been processed
-        for buffer in self.migration_buffers.iter() {
+        for buffer in &self.migration_buffers {
             if !buffer.is_empty() {
                 return ControlFlow::Continue(());
             }
@@ -248,7 +248,7 @@ impl<'p> MpiCommonPartition<'p> {
 
         // This partition can only terminate if all emigrations have been
         //  sent and acknowledged (request finished + empty buffers)
-        for buffer in self.mpi_emigration_buffers.iter() {
+        for buffer in &self.mpi_emigration_buffers {
             if !buffer.get_data().map_or(false, Vec::is_empty) {
                 return ControlFlow::Continue(());
             }

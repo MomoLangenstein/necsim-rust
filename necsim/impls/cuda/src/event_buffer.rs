@@ -32,7 +32,7 @@ use necsim_core::impl_report;
 
 use super::utils::MaybeSome;
 
-#[allow(clippy::module_name_repetitions, clippy::type_complexity)]
+#[allow(clippy::module_name_repetitions, clippy::type_complexity)] // FIXME: use expect
 #[derive(rust_cuda::lend::LendRustToCuda)]
 #[cuda(free = "ReportSpeciation", free = "ReportDispersal")]
 pub struct EventBuffer<ReportSpeciation: Boolean, ReportDispersal: Boolean> {
@@ -143,7 +143,7 @@ impl<ReportSpeciation: Boolean, ReportDispersal: Boolean>
         let block_size = (block_size.x * block_size.y * block_size.z) as usize;
         let grid_size = (grid_size.x * grid_size.y * grid_size.z) as usize;
 
-        #[allow(clippy::bool_to_int_with_if)]
+        #[expect(clippy::bool_to_int_with_if)]
         let max_events = if ReportDispersal::VALUE {
             max_events
         } else if ReportSpeciation::VALUE {

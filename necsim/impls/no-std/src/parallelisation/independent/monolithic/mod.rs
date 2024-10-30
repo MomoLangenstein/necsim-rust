@@ -39,7 +39,7 @@ use reporter::{
     WaterLevelReporterConstructor, WaterLevelReporterProxy, WaterLevelReporterStrategy,
 };
 
-#[allow(clippy::type_complexity, clippy::too_many_lines)]
+#[expect(clippy::type_complexity, clippy::too_many_lines)]
 pub fn simulate<
     'p,
     M: MathsCore,
@@ -118,14 +118,12 @@ pub fn simulate<
     let mut min_spec_samples = dedup_cache.construct(slow_lineages.len());
 
     let mut total_steps = 0_u64;
-    #[allow(clippy::or_fun_call)]
     let mut max_time = slow_lineages
         .iter()
         .map(|(lineage, _)| lineage.last_event_time)
         .max()
         .unwrap_or(NonNegativeF64::zero());
 
-    #[allow(clippy::or_fun_call)]
     let mut level_time = slow_lineages
         .iter()
         .map(|(lineage, _)| lineage.last_event_time)

@@ -56,7 +56,7 @@ impl<'de> Deserialize<'de> for GlobalLineageReference {
 
 impl<M: MathsCore, H: Habitat<M>> LineageReference<M, H> for GlobalLineageReference {}
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub enum LineageInteraction {
     None,
@@ -88,7 +88,7 @@ impl From<Option<GlobalLineageReference>> for LineageInteraction {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[allow(clippy::module_name_repetitions)] // FIXME: use expect
 #[derive(Debug, Clone, PartialEq, Eq, Hash, Serialize, Deserialize, TypeLayout)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 #[repr(C)]
@@ -110,7 +110,6 @@ pub struct Lineage {
 
 impl Lineage {
     #[must_use]
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_ensures(
         ret.indexed_location == old(indexed_location.clone()),
         "stores the indexed_location"
@@ -162,7 +161,7 @@ pub enum TieBreaker {
     PreferLocal = 1,
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 #[repr(C)]
 pub struct MigratingLineage {

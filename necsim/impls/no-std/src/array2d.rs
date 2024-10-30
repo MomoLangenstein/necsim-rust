@@ -352,7 +352,7 @@ impl<T, B: ArrayBackend<T>> Array2D<T, B> {
         Ok(self.array[start..end].iter())
     }
 
-    #[allow(clippy::missing_panics_doc)]
+    #[expect(clippy::missing_panics_doc)]
     /// Returns an [`Iterator`] over all rows. Each [`Item`] is itself another
     /// [`Iterator`] over references to the elements in that row.
     ///

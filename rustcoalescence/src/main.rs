@@ -1,7 +1,6 @@
 #![deny(clippy::pedantic)]
 #![feature(unwrap_infallible)]
 #![feature(split_array)]
-#![feature(result_flattening)]
 
 #[macro_use]
 extern crate serde_derive_state;

@@ -1,9 +1,13 @@
-use core::{convert::TryFrom, fmt, num::NonZeroU64};
+use core::{
+    convert::TryFrom,
+    fmt,
+    num::{NonZeroU32, NonZeroU64},
+};
 
 use serde::{Deserialize, Deserializer, Serialize};
 
 #[derive(Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct OffByOneU32Error(u64);
 
 impl fmt::Display for OffByOneU32Error {
@@ -33,7 +37,7 @@ impl OffByOneU32 {
         //     Err(_) => Err(OffByOneU32Error(value)),
         // }
         match value.wrapping_sub(1) {
-            #[allow(clippy::cast_possible_truncation)]
+            #[expect(clippy::cast_possible_truncation)]
             value if value <= (u32::MAX as u64) => Ok(Self(value as u32)),
             _ => Err(OffByOneU32Error(value)),
         }
@@ -46,7 +50,7 @@ impl OffByOneU32 {
     ///
     /// The value must be in {1, .., 2^32}.
     pub const unsafe fn new_unchecked(value: u64) -> Self {
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         Self(value.wrapping_sub(1) as u32)
     }
 
@@ -54,6 +58,11 @@ impl OffByOneU32 {
     pub const fn get(self) -> u64 {
         // u64::from(self)
         (self.0 as u64) + 1_u64
+    }
+
+    #[must_use]
+    pub const fn sub_one(self) -> u32 {
+        self.0
     }
 
     #[must_use]
@@ -79,6 +88,12 @@ impl OffByOneU32 {
     #[must_use]
     pub const fn inv(self) -> u32 {
         u32::MAX - self.0
+    }
+}
+
+impl From<NonZeroU32> for OffByOneU32 {
+    fn from(value: NonZeroU32) -> Self {
+        Self(value.get() - 1)
     }
 }
 

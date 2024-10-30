@@ -10,7 +10,7 @@ use necsim_core::{
 };
 use necsim_core_bond::PositiveF64;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[repr(transparent)]
 pub struct SpeciesIdentity([u8; 24]);
@@ -57,7 +57,7 @@ impl SpeciesIdentity {
         Self::from_raw(lineage, marker, anchor)
     }
 
-    #[allow(dead_code)]
+    #[cfg_attr(not(test), expect(dead_code))]
     pub fn try_into_speciation(self) -> Result<(IndexedLocation, PositiveF64), Self> {
         let (location, index, time) = self.copy_into_raw();
 
@@ -67,10 +67,10 @@ impl SpeciesIdentity {
             return Err(self);
         }
 
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         let x = (location & u64::from(u32::MAX)) as u32;
         let y = ((location >> 32) & u64::from(u32::MAX)) as u32;
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         let i = ((index >> 16) & u64::from(u32::MAX)) as u32;
 
         let origin = IndexedLocation::new(Location::new(x, y), i);

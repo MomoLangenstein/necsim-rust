@@ -1,4 +1,3 @@
-use either::Either;
 use necsim_impls_no_std::cogs::{
     habitat::almost_infinite::AlmostInfiniteHabitat,
     origin_sampler::{
@@ -22,46 +21,107 @@ use necsim_core_bond::PositiveF64;
 
 #[cfg(feature = "almost-infinite-clark2dt-dispersal")]
 pub mod clark2dt;
+#[cfg(feature = "almost-infinite-downscaled")]
+pub mod downscaled;
 #[cfg(feature = "almost-infinite-normal-dispersal")]
 pub mod normal;
 
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(clippy::module_name_repetitions)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "AlmostInfinite")]
 pub struct AlmostInfiniteArguments {
     sample: Sample,
     dispersal: Dispersal,
+    #[cfg(feature = "almost-infinite-downscaled")]
+    #[serde(default)]
+    downscale: Option<downscaled::Downscale>,
 }
 
-#[cfg(feature = "almost-infinite-normal-dispersal")]
-type NormalDispersalArguments = normal::AlmostInfiniteNormalDispersalArguments;
-#[cfg(not(feature = "almost-infinite-normal-dispersal"))]
-type NormalDispersalArguments = !;
-
-#[cfg(feature = "almost-infinite-clark2dt-dispersal")]
-type Clark2DtDispersalArguments = clark2dt::AlmostInfiniteClark2DtDispersalArguments;
-#[cfg(not(feature = "almost-infinite-clark2dt-dispersal"))]
-type Clark2DtDispersalArguments = !;
+#[expect(clippy::module_name_repetitions)]
+pub enum AlmostInfiniteArgumentVariants {
+    #[cfg(feature = "almost-infinite-normal-dispersal")]
+    Normal(normal::AlmostInfiniteNormalDispersalArguments),
+    #[cfg(feature = "almost-infinite-clark2dt-dispersal")]
+    Clark2Dt(clark2dt::AlmostInfiniteClark2DtDispersalArguments),
+    #[cfg(all(
+        feature = "almost-infinite-downscaled",
+        feature = "almost-infinite-normal-dispersal"
+    ))]
+    DownscaledNormal(
+        downscaled::AlmostInfiniteDownscaledArguments<
+            normal::AlmostInfiniteNormalDispersalScenario,
+        >,
+    ),
+    #[cfg(all(
+        feature = "almost-infinite-downscaled",
+        feature = "almost-infinite-clark2dt-dispersal"
+    ))]
+    DownscaledClark2Dt(
+        downscaled::AlmostInfiniteDownscaledArguments<
+            clark2dt::AlmostInfiniteClark2DtDispersalScenario,
+        >,
+    ),
+}
 
 impl AlmostInfiniteArguments {
     #[must_use]
-    pub fn load(self) -> Either<NormalDispersalArguments, Clark2DtDispersalArguments> {
+    pub fn load(self) -> AlmostInfiniteArgumentVariants {
         match self {
             #[cfg(feature = "almost-infinite-normal-dispersal")]
             Self {
                 sample,
                 dispersal: Dispersal::Normal { sigma },
-            } => Either::Left(normal::AlmostInfiniteNormalDispersalArguments { sample, sigma }),
+                #[cfg(feature = "almost-infinite-downscaled")]
+                    downscale: None,
+            } => AlmostInfiniteArgumentVariants::Normal(
+                normal::AlmostInfiniteNormalDispersalArguments { sample, sigma },
+            ),
             #[cfg(feature = "almost-infinite-clark2dt-dispersal")]
             Self {
                 sample,
                 dispersal: Dispersal::Clark2Dt { shape_u, tail_p },
-            } => Either::Right(clark2dt::AlmostInfiniteClark2DtDispersalArguments {
+                #[cfg(feature = "almost-infinite-downscaled")]
+                    downscale: None,
+            } => AlmostInfiniteArgumentVariants::Clark2Dt(
+                clark2dt::AlmostInfiniteClark2DtDispersalArguments {
+                    sample,
+                    shape_u,
+                    tail_p,
+                },
+            ),
+            #[cfg(all(
+                feature = "almost-infinite-downscaled",
+                feature = "almost-infinite-normal-dispersal"
+            ))]
+            Self {
                 sample,
-                shape_u,
-                tail_p,
-            }),
+                dispersal: Dispersal::Normal { sigma },
+                downscale: Some(downscale),
+            } => AlmostInfiniteArgumentVariants::DownscaledNormal(
+                downscaled::AlmostInfiniteDownscaledArguments {
+                    args: normal::AlmostInfiniteNormalDispersalArguments { sample, sigma },
+                    downscale,
+                },
+            ),
+            #[cfg(all(
+                feature = "almost-infinite-downscaled",
+                feature = "almost-infinite-clark2dt-dispersal"
+            ))]
+            Self {
+                sample,
+                dispersal: Dispersal::Clark2Dt { shape_u, tail_p },
+                downscale: Some(downscale),
+            } => AlmostInfiniteArgumentVariants::DownscaledClark2Dt(
+                downscaled::AlmostInfiniteDownscaledArguments {
+                    args: clark2dt::AlmostInfiniteClark2DtDispersalArguments {
+                        sample,
+                        shape_u,
+                        tail_p,
+                    },
+                    downscale,
+                },
+            ),
         }
     }
 
@@ -71,6 +131,8 @@ impl AlmostInfiniteArguments {
         Self {
             sample: args.sample.clone(),
             dispersal: Dispersal::Normal { sigma: args.sigma },
+            #[cfg(feature = "almost-infinite-downscaled")]
+            downscale: None,
         }
     }
 
@@ -83,6 +145,47 @@ impl AlmostInfiniteArguments {
                 shape_u: args.shape_u,
                 tail_p: args.tail_p,
             },
+            #[cfg(feature = "almost-infinite-downscaled")]
+            downscale: None,
+        }
+    }
+
+    #[cfg(all(
+        feature = "almost-infinite-downscaled",
+        feature = "almost-infinite-normal-dispersal"
+    ))]
+    #[must_use]
+    pub fn from_downscaled_normal(
+        args: &downscaled::AlmostInfiniteDownscaledArguments<
+            normal::AlmostInfiniteNormalDispersalScenario,
+        >,
+    ) -> Self {
+        Self {
+            sample: args.args.sample.clone(),
+            dispersal: Dispersal::Normal {
+                sigma: args.args.sigma,
+            },
+            downscale: Some(args.downscale.clone()),
+        }
+    }
+
+    #[cfg(all(
+        feature = "almost-infinite-downscaled",
+        feature = "almost-infinite-clark2dt-dispersal"
+    ))]
+    #[must_use]
+    pub fn from_downscaled_clark2dt(
+        args: &downscaled::AlmostInfiniteDownscaledArguments<
+            clark2dt::AlmostInfiniteClark2DtDispersalScenario,
+        >,
+    ) -> Self {
+        Self {
+            sample: args.args.sample.clone(),
+            dispersal: Dispersal::Clark2Dt {
+                shape_u: args.args.shape_u,
+                tail_p: args.args.tail_p,
+            },
+            downscale: Some(args.downscale.clone()),
         }
     }
 }

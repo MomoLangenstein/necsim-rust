@@ -7,12 +7,7 @@ use crate::{
     simulation::partial::emigration_exit::PartialSimulation,
 };
 
-#[allow(
-    clippy::inline_always,
-    clippy::inline_fn_without_body,
-    clippy::too_many_arguments
-)]
-#[allow(clippy::no_effect_underscore_binding)]
+#[expect(clippy::too_many_arguments)]
 #[contract_trait]
 pub trait EmigrationExit<M: MathsCore, H: Habitat<M>, G: RngCore<M>, S: LineageStore<M, H>>:
     crate::cogs::Backup + core::fmt::Debug

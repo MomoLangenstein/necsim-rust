@@ -2,7 +2,7 @@ use alloc::vec::Vec;
 
 use necsim_core::lineage::{GlobalLineageReference, Lineage};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub enum ExceptionalLineage {
     Coalescence {

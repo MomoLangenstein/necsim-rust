@@ -9,7 +9,7 @@ use crate::array2d::Array2D;
 
 use super::InMemoryDispersalSamplerError;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub fn check_in_memory_dispersal_contract<M: MathsCore, H: Habitat<M>>(
     dispersal: &Array2D<NonNegativeF64>,
     habitat: &H,
@@ -25,7 +25,7 @@ pub fn check_in_memory_dispersal_contract<M: MathsCore, H: Habitat<M>>(
     let habitat_width = habitat_extent.width();
 
     for row_index in 0..dispersal.num_rows() {
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         let dispersal_origin = Location::new(
             (row_index % usize::from(habitat_width)) as u32,
             (row_index / usize::from(habitat_width)) as u32,
@@ -35,7 +35,7 @@ pub fn check_in_memory_dispersal_contract<M: MathsCore, H: Habitat<M>>(
             let mut any_dispersal = false;
 
             for col_index in 0..dispersal.num_columns() {
-                #[allow(clippy::cast_possible_truncation)]
+                #[expect(clippy::cast_possible_truncation)]
                 let dispersal_target = Location::new(
                     (col_index % usize::from(habitat_width)) as u32,
                     (col_index / usize::from(habitat_width)) as u32,

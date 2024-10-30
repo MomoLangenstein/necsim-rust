@@ -1,4 +1,9 @@
-use necsim_core::reporter::Reporter;
+use std::marker::PhantomData;
+
+use necsim_core::{
+    cogs::{MathsCore, RngCore},
+    reporter::Reporter,
+};
 use necsim_core_bond::{NonNegativeF64, OpenClosedUnitF64 as PositiveUnitF64};
 use necsim_impls_std::event_log::recorder::EventLogConfig;
 use necsim_partitioning_core::reporter::ReporterContext;
@@ -16,6 +21,14 @@ use rustcoalescence_algorithms_independent::IndependentAlgorithm;
 
 #[cfg(feature = "almost-infinite-clark2dt-dispersal-scenario")]
 use rustcoalescence_scenarios::almost_infinite::clark2dt::AlmostInfiniteClark2DtDispersalScenario;
+#[cfg(all(
+    any(
+        feature = "almost-infinite-clark2dt-dispersal-scenario",
+        feature = "almost-infinite-normal-dispersal-scenario",
+    ),
+    feature = "almost-infinite-downscaled-scenario",
+))]
+use rustcoalescence_scenarios::almost_infinite::downscaled::AlmostInfiniteDownscaledScenario;
 #[cfg(feature = "almost-infinite-normal-dispersal-scenario")]
 use rustcoalescence_scenarios::almost_infinite::normal::AlmostInfiniteNormalDispersalScenario;
 #[cfg(feature = "non-spatial-scenario")]
@@ -44,16 +57,16 @@ macro_rules! match_scenario_algorithm {
     (
         ($algorithm:expr, $scenario:expr => $algscen:ident : $algscenty:ident) {
             $($(#[$algmeta:meta])* $algpat:pat => $algcode:block),*
-            <=>
-            $($(#[$scenmeta:meta])* $scenpat:pat => $scencode:block => $scenty:ident),*
+            [<=>]
+            $($(#[$scenmeta:meta])* $scenpat:pat => $scencode:block => $scenty:ty),*
         }
     ) => {
         match_scenario_algorithm! {
             impl ($algorithm, $scenario => $algscen : $algscenty) {
                 $($(#[$algmeta])* $algpat => $algcode),*
-                <=>
+                [<=>]
                 $($(#[$scenmeta])* $scenpat => $scencode => $scenty),*
-                <=>
+                [<=>]
             }
         }
     };
@@ -61,23 +74,23 @@ macro_rules! match_scenario_algorithm {
         impl ($algorithm:expr, $scenario:expr => $algscen:ident : $algscenty:ident) {
             $(#[$algmeta:meta])* $algpat:pat => $algcode:block,
             $($(#[$algmetarem:meta])* $algpatrem:pat => $algcoderem:block),+
-            <=>
-            $($(#[$scenmeta:meta])* $scenpat:pat => $scencode:block => $scenty:ident),*
-            <=>
+            [<=>]
+            $($(#[$scenmeta:meta])* $scenpat:pat => $scencode:block => $scenty:ty),*
+            [<=>]
             $($tail:tt)*
         }
     ) => {
         match_scenario_algorithm! {
             impl ($algorithm, $scenario => $algscen : $algscenty) {
                 $($(#[$algmetarem])* $algpatrem => $algcoderem),+
-                <=>
+                [<=>]
                 $($(#[$scenmeta])* $scenpat => $scencode => $scenty),*
-                <=>
+                [<=>]
                 $($tail)*
                 $(#[$algmeta])* $algpat => {
                     match $scenario {
                         $($(#[$scenmeta])* $scenpat => {
-                            type $algscenty = $scenty;
+                            type $algscenty<M, G> = PhantomData<(M, G, $scenty)>;
                             let $algscen = $scencode;
                             $algcode
                         }),*
@@ -89,9 +102,9 @@ macro_rules! match_scenario_algorithm {
     (
         impl ($algorithm:expr, $scenario:expr => $algscen:ident : $algscenty:ident) {
             $(#[$algmeta:meta])* $algpat:pat => $algcode:block
-            <=>
-            $($(#[$scenmeta:meta])* $scenpat:pat => $scencode:block => $scenty:ident),*
-            <=>
+            [<=>]
+            $($(#[$scenmeta:meta])* $scenpat:pat => $scencode:block => $scenty:ty),*
+            [<=>]
             $($tail:tt)*
         }
     ) => {
@@ -100,7 +113,7 @@ macro_rules! match_scenario_algorithm {
             $(#[$algmeta])* $algpat => {
                 match $scenario {
                     $($(#[$scenmeta])* $scenpat => {
-                        type $algscenty = $scenty;
+                        type $algscenty<M, G> = PhantomData<(M, G, $scenty)>;
                         let $algscen = $scencode;
                         $algcode
                     }),*
@@ -110,7 +123,7 @@ macro_rules! match_scenario_algorithm {
     };
 }
 
-#[allow(clippy::too_many_arguments, clippy::too_many_lines)]
+#[expect(clippy::too_many_arguments, clippy::too_many_lines)]
 pub(super) fn dispatch<R: Reporter, P: ReporterContext<Reporter = R>>(
     partitioning: Partitioning,
     event_log: Option<EventLogConfig>,
@@ -133,7 +146,10 @@ pub(super) fn dispatch<R: Reporter, P: ReporterContext<Reporter = R>>(
             rng::dispatch::<
                 <GillespieAlgorithm as AlgorithmDefaults>::MathsCore,
                 <GillespieAlgorithm as AlgorithmDefaults>::Rng<_>,
-                GillespieAlgorithm, ScenarioTy, R, P,
+                GillespieAlgorithm, <ScenarioTy<
+                    <GillespieAlgorithm as AlgorithmDefaults>::MathsCore,
+                    <GillespieAlgorithm as AlgorithmDefaults>::Rng<_>,
+                > as ScenarioDispatch>::Scenario, R, P,
             >(
                 partitioning, event_log, reporter_context,
                 sample, algorithm_args, scenario,
@@ -145,7 +161,10 @@ pub(super) fn dispatch<R: Reporter, P: ReporterContext<Reporter = R>>(
             rng::dispatch::<
                 <EventSkippingAlgorithm as AlgorithmDefaults>::MathsCore,
                 <EventSkippingAlgorithm as AlgorithmDefaults>::Rng<_>,
-                EventSkippingAlgorithm, ScenarioTy, R, P,
+                EventSkippingAlgorithm, <ScenarioTy<
+                    <EventSkippingAlgorithm as AlgorithmDefaults>::MathsCore,
+                    <EventSkippingAlgorithm as AlgorithmDefaults>::Rng<_>,
+                > as ScenarioDispatch>::Scenario, R, P,
             >(
                 partitioning, event_log, reporter_context,
                 sample, algorithm_args, scenario,
@@ -157,7 +176,10 @@ pub(super) fn dispatch<R: Reporter, P: ReporterContext<Reporter = R>>(
             rng::dispatch::<
                 <IndependentAlgorithm as AlgorithmDefaults>::MathsCore,
                 <IndependentAlgorithm as AlgorithmDefaults>::Rng<_>,
-                IndependentAlgorithm, ScenarioTy, R, P,
+                IndependentAlgorithm, <ScenarioTy<
+                    <IndependentAlgorithm as AlgorithmDefaults>::MathsCore,
+                    <IndependentAlgorithm as AlgorithmDefaults>::Rng<_>,
+                > as ScenarioDispatch>::Scenario, R, P,
             >(
                 partitioning, event_log, reporter_context,
                 sample, algorithm_args, scenario,
@@ -169,14 +191,17 @@ pub(super) fn dispatch<R: Reporter, P: ReporterContext<Reporter = R>>(
             rng::dispatch::<
                 <CudaAlgorithm as AlgorithmDefaults>::MathsCore,
                 <CudaAlgorithm as AlgorithmDefaults>::Rng<_>,
-                CudaAlgorithm, ScenarioTy, R, P,
+                CudaAlgorithm, <ScenarioTy<
+                    <CudaAlgorithm as AlgorithmDefaults>::MathsCore,
+                    <CudaAlgorithm as AlgorithmDefaults>::Rng<_>,
+                > as ScenarioDispatch>::Scenario, R, P,
             >(
                 partitioning, event_log, reporter_context,
                 sample, algorithm_args, scenario,
                 pause_before, ron_args, normalised_args,
             )
         }
-        <=>
+        [<=>]
         #[cfg(feature = "spatially-explicit-uniform-turnover-scenario")]
         ScenarioArgs::SpatiallyExplicitUniformTurnover(scenario_args) => {
             SpatiallyExplicitUniformTurnoverScenario::new(
@@ -215,6 +240,28 @@ pub(super) fn dispatch<R: Reporter, P: ReporterContext<Reporter = R>>(
             )
             .into_ok()
         } => AlmostInfiniteClark2DtDispersalScenario,
+        #[cfg(all(
+            feature = "almost-infinite-normal-dispersal-scenario",
+            feature = "almost-infinite-downscaled-scenario",
+        ))]
+        ScenarioArgs::AlmostInfiniteDownscaledNormalDispersal(scenario_args) => {
+            AlmostInfiniteDownscaledScenario::new(
+                scenario_args,
+                speciation_probability_per_generation,
+            )
+            .into_ok()
+        } => AlmostInfiniteDownscaledScenario<M, G, AlmostInfiniteNormalDispersalScenario>,
+        #[cfg(all(
+            feature = "almost-infinite-clark2dt-dispersal-scenario",
+            feature = "almost-infinite-downscaled-scenario",
+        ))]
+        ScenarioArgs::AlmostInfiniteDownscaledClark2DtDispersal(scenario_args) => {
+            AlmostInfiniteDownscaledScenario::new(
+                scenario_args,
+                speciation_probability_per_generation,
+            )
+            .into_ok()
+        } => AlmostInfiniteDownscaledScenario<M, G, AlmostInfiniteClark2DtDispersalScenario>,
         #[cfg(feature = "spatially-implicit-scenario")]
         ScenarioArgs::SpatiallyImplicit(scenario_args) => {
             SpatiallyImplicitScenario::new(
@@ -232,4 +279,12 @@ pub(super) fn dispatch<R: Reporter, P: ReporterContext<Reporter = R>>(
             .into_ok()
         } => WrappingNoiseScenario
     })
+}
+
+trait ScenarioDispatch {
+    type Scenario;
+}
+
+impl<M: MathsCore, G: RngCore<M>, O: Scenario<M, G>> ScenarioDispatch for PhantomData<(M, G, O)> {
+    type Scenario = O;
 }

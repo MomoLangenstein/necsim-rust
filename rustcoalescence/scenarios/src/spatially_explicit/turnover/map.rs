@@ -29,7 +29,6 @@ use crate::{Scenario, ScenarioCogs, ScenarioParameters};
 
 use super::super::maps::{self, MapLoadingMode};
 
-#[allow(clippy::module_name_repetitions, clippy::enum_variant_names)]
 #[derive(thiserror::Error, displaydoc::Display, Debug)]
 pub enum SpatiallyExplicitTurnoverMapScenarioError {
     /// invalid habitat map: no habitable locations
@@ -40,7 +39,7 @@ pub enum SpatiallyExplicitTurnoverMapScenarioError {
     TurnoverMap(InMemoryTurnoverRateError),
 }
 
-#[allow(clippy::module_name_repetitions, clippy::empty_enum)]
+#[expect(clippy::empty_enum)]
 pub enum SpatiallyExplicitTurnoverMapScenario {}
 
 impl ScenarioParameters for SpatiallyExplicitTurnoverMapScenario {
@@ -121,7 +120,6 @@ impl<M: MathsCore, G: RngCore<M>> Scenario<M, G> for SpatiallyExplicitTurnoverMa
 
 #[derive(Debug, Deserialize)]
 #[serde(try_from = "SpatiallyExplicitTurnoverMapArgumentsRaw")]
-#[allow(clippy::module_name_repetitions)]
 pub struct SpatiallyExplicitTurnoverMapArguments {
     pub habitat_path: PathBuf,
     pub habitat_map: Array2D<u32>,
@@ -133,7 +131,7 @@ pub struct SpatiallyExplicitTurnoverMapArguments {
 }
 
 impl SpatiallyExplicitTurnoverMapArguments {
-    #[allow(clippy::missing_errors_doc)]
+    #[expect(clippy::missing_errors_doc)]
     pub fn try_load(
         habitat_path: PathBuf,
         dispersal_path: PathBuf,
@@ -222,7 +220,6 @@ impl TryFrom<SpatiallyExplicitTurnoverMapArgumentsRaw> for SpatiallyExplicitTurn
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(clippy::module_name_repetitions)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "SpatiallyExplicitTurnoverMap")]
 struct SpatiallyExplicitTurnoverMapArgumentsRaw {

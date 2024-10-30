@@ -3,7 +3,7 @@ use ron::{extensions::Extensions, ser::PrettyConfig, Options};
 use serde::{Deserialize, Serialize};
 use serde_state::DeserializeState;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub fn try_parse<'de, D: Deserialize<'de>>(subcommand: &str, ron_args: &'de str) -> Result<D> {
     try_parse_inner(subcommand, ron_args, |de| D::deserialize(de))
 }

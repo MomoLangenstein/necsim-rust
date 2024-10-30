@@ -14,7 +14,6 @@ use crate::cogs::{
     origin_sampler::{pre_sampler::OriginPreSampler, TrustedOriginSampler, UntrustedOriginSampler},
 };
 
-#[allow(clippy::module_name_repetitions)]
 pub struct SingletonDemesRectangleOriginSampler<
     'h,
     M: MathsCore,
@@ -77,7 +76,7 @@ impl<'h, M: MathsCore, H: SingletonDemesHabitat<M>, I: Iterator<Item = u64>>
     }
 
     fn full_upper_bound_size_hint(&self) -> u64 {
-        #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         {
             (f64::from(self.sample.width())
                 * f64::from(self.sample.height())

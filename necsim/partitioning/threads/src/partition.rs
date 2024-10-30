@@ -25,7 +25,7 @@ use necsim_partitioning_core::{partition::Partition, LocalPartition, MigrationMo
 
 use crate::vote::{AsyncVote, Vote};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ThreadsLocalPartition<R: Reporter> {
     partition: Partition,
     vote_any: Vote<bool>,
@@ -54,7 +54,7 @@ impl<R: Reporter> fmt::Debug for ThreadsLocalPartition<R> {
 }
 
 impl<R: Reporter> ThreadsLocalPartition<R> {
-    #[allow(clippy::too_many_arguments)]
+    #[expect(clippy::too_many_arguments)]
     #[must_use]
     pub(crate) fn new(
         partition: Partition,
@@ -220,7 +220,7 @@ impl<'p, R: Reporter> LocalPartition<'p, R> for ThreadsLocalPartition<R> {
         let mut local_wait = ControlFlow::Break(());
 
         // This partition can only terminate once all emigrations have been processed
-        for buffer in self.emigration_buffers.iter() {
+        for buffer in &self.emigration_buffers {
             if !buffer.is_empty() {
                 local_wait = ControlFlow::Continue(());
                 break;

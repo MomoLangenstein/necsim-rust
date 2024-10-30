@@ -1,5 +1,3 @@
-use std::path::Path;
-
 use serde::{Deserialize, Deserializer};
 use serde_state::DeserializeState;
 
@@ -38,7 +36,9 @@ pub(in super::super) fn parse_and_normalise(
 
     let event_log = match event_log {
         Some(event_log)
-            if event_log.directory() == Path::new("I-solemnly-swear-that-I-am-up-to-no-good") =>
+            if event_log
+                .directory()
+                .ends_with("I-solemnly-swear-that-I-am-up-to-no-good") =>
         {
             None
         },

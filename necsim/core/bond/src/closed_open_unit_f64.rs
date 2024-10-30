@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 use crate::ClosedUnitF64;
 
 #[derive(Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ClosedOpenUnitF64Error(f64);
 
 impl fmt::Display for ClosedOpenUnitF64Error {
@@ -19,7 +19,7 @@ impl fmt::Display for ClosedOpenUnitF64Error {
     }
 }
 
-#[allow(clippy::unsafe_derive_deserialize)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Copy, Clone, Deserialize, Serialize, TypeLayout)]
 #[repr(transparent)]
 #[serde(try_from = "f64", into = "f64")]
@@ -88,7 +88,6 @@ impl ClosedOpenUnitF64 {
 }
 
 impl PartialEq for ClosedOpenUnitF64 {
-    #[allow(clippy::unconditional_recursion)]
     fn eq(&self, other: &Self) -> bool {
         self.0.eq(&other.0)
     }

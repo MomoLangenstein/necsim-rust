@@ -5,7 +5,7 @@ use crate::args::{config::rng::Rng, utils::parse::try_parse_state};
 
 use super::super::BufferingSimulateArgsBuilder;
 
-#[allow(dead_code)]
+#[allow(dead_code)] // FIXME: use expect
 pub(in super::super) fn parse_and_normalise<M: MathsCore, G: RngCore<M>>(
     ron_args: &str,
     normalised_args: &mut BufferingSimulateArgsBuilder,

@@ -6,7 +6,6 @@ use serde::{Deserialize, Serialize};
 
 use necsim_core::cogs::{MathsCore, RngCore, SplittableRng};
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Serialize, Deserialize)]
 #[serde(from = "PcgState", into = "PcgState")]
 pub struct Pcg<M: MathsCore> {
@@ -57,7 +56,7 @@ impl<M: MathsCore> RngCore<M> for Pcg<M> {
 }
 
 impl<M: MathsCore> SplittableRng<M> for Pcg<M> {
-    #[allow(clippy::identity_op)]
+    #[expect(clippy::identity_op)]
     fn split(self) -> (Self, Self) {
         let mut left_state = self.inner.get_state();
         left_state.increment = (((left_state.increment >> 1) * 2 + 0) << 1) | 1;

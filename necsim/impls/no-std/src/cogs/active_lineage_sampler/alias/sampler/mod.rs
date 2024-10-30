@@ -15,12 +15,11 @@ struct PositiveF64Decomposed {
 fn decompose_weight(weight: PositiveF64) -> PositiveF64Decomposed {
     let bits = weight.get().to_bits();
 
-    #[allow(clippy::cast_possible_truncation)]
     let mut exponent: i16 = ((bits >> 52) & 0x7ff_u64) as i16;
 
     let mantissa = if exponent == 0 {
         // Ensure that subnormal floats are presented internally as if they were normal
-        #[allow(clippy::cast_possible_truncation)]
+        #[expect(clippy::cast_possible_truncation)]
         let subnormal_exponent = (bits.leading_zeros() as i16) - 12;
         exponent -= subnormal_exponent;
 
@@ -37,7 +36,7 @@ fn decompose_weight(weight: PositiveF64) -> PositiveF64Decomposed {
     }
 }
 
-#[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+#[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
 fn compose_weight(mut exponent: i16, mut mantissa: u128) -> NonNegativeF64 {
     if mantissa == 0 {
         return NonNegativeF64::zero();
@@ -63,7 +62,7 @@ fn compose_weight(mut exponent: i16, mut mantissa: u128) -> NonNegativeF64 {
         let mantissa_u64 =
             ((mantissa >> (excess_exponent - 1022 - exponent)) & 0x000f_ffff_ffff_ffff_u128) as u64;
 
-        #[allow(clippy::let_and_return)]
+        #[allow(clippy::let_and_return)] // FIXME: use expect
         {
             mantissa_u64
         }

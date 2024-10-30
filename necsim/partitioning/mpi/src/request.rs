@@ -1,6 +1,6 @@
 use mpi::request::{CancelGuard, LocalScope, Request};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct DataOrRequest<'a, T: ?Sized, R: ?Sized> {
     value: &'a mut T,
     scope: &'a LocalScope<'a>,

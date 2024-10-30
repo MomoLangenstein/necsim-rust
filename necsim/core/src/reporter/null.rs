@@ -1,6 +1,6 @@
 use crate::{impl_report, reporter::Reporter};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct NullReporter;
 

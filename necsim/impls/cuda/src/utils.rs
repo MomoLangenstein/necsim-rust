@@ -9,10 +9,10 @@ pub struct MaybeSome<T: StackOnly>(MaybeUninit<T>);
 
 impl<T: StackOnly> MaybeSome<T> {
     #[cfg(not(target_os = "cuda"))]
-    #[allow(non_upper_case_globals)]
+    #[allow(non_upper_case_globals)] // FIXME: use expect
     pub(crate) const None: Self = Self(MaybeUninit::uninit());
 
-    #[allow(non_snake_case)]
+    #[allow(non_snake_case)] // FIXME: use expect
     pub(crate) fn Some(value: T) -> Self {
         Self(MaybeUninit::new(value))
     }

@@ -9,7 +9,7 @@ use crate::cogs::origin_sampler::{pre_sampler::OriginPreSampler, TrustedOriginSa
 
 use super::UntrustedOriginSampler;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ResumingOriginSampler<
     'h,
     M: MathsCore,
@@ -80,7 +80,7 @@ impl<
     }
 
     fn full_upper_bound_size_hint(&self) -> u64 {
-        #[allow(
+        #[expect(
             clippy::cast_precision_loss,
             clippy::cast_possible_truncation,
             clippy::cast_sign_loss

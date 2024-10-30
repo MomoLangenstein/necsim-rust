@@ -8,7 +8,7 @@ use crate::cogs::habitat::spatially_implicit::SpatiallyImplicitHabitat;
 
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct SpatiallyImplicitSpeciationProbability {
     meta_speciation_probability: PositiveUnitF64,
 }

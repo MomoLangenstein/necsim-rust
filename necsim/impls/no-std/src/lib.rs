@@ -5,6 +5,7 @@
 #![feature(const_type_name)]
 #![feature(negative_impls)]
 #![feature(impl_trait_in_assoc_type)]
+#![feature(inline_const_pat)]
 #![allow(incomplete_features)]
 #![feature(specialization)]
 

@@ -16,7 +16,7 @@ use crate::cogs::{
 
 use super::{TrustedOriginSampler, UntrustedOriginSampler};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct NonSpatialOriginSampler<'h, M: MathsCore, I: Iterator<Item = u64>> {
     pre_sampler: OriginPreSampler<M, I>,
     last_index: u64,
@@ -66,11 +66,7 @@ impl<'h, M: MathsCore, I: Iterator<Item = u64>> UntrustedOriginSampler<'h, M>
     }
 
     fn full_upper_bound_size_hint(&self) -> u64 {
-        #[allow(
-            clippy::cast_possible_truncation,
-            clippy::cast_sign_loss,
-            clippy::cast_precision_loss
-        )]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         {
             (f64::from(self.habitat.get_total_habitat())
                 * self.pre_sampler.get_sample_proportion().get()) as u64

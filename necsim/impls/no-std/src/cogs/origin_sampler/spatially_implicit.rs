@@ -9,7 +9,7 @@ use crate::cogs::{
 
 use super::{TrustedOriginSampler, UntrustedOriginSampler};
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct SpatiallyImplicitOriginSampler<'h, M: MathsCore, I: Iterator<Item = u64>> {
     local_iterator: NonSpatialOriginSampler<'h, M, I>,
     habitat: &'h SpatiallyImplicitHabitat<M>,

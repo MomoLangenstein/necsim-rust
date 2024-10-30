@@ -11,7 +11,7 @@ use necsim_core::lineage::Lineage;
 
 #[derive(Debug, Deserialize, Clone)]
 #[serde(try_from = "LineageFileLoaderRaw")]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct LineageFileLoader {
     lineages: Vec<Lineage>,
     path: PathBuf,
@@ -33,8 +33,8 @@ impl LineageFileLoader {
     pub fn try_new(path: &Path) -> anyhow::Result<Self> {
         let file = OpenOptions::new().read(true).write(false).open(path)?;
 
-        let mut deserializer =
-            bincode::Deserializer::with_reader(BufReader::new(file), bincode::options());
+        let mut deserializer = rmp_serde::Deserializer::new(BufReader::new(file));
+        // bincode::Deserializer::with_reader(BufReader::new(file), bincode::options());
 
         let lineages = <Vec<Lineage>>::deserialize(&mut deserializer)?;
 

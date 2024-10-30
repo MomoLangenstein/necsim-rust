@@ -46,7 +46,7 @@ impl<M: MathsCore, H: Habitat<M>> EqualDecomposition<M, H> {
         let indices: Vec<u64> = indices
             .into_iter()
             .filter_map(|(index, habitat)| {
-                #[allow(clippy::cast_possible_truncation)]
+                #[expect(clippy::cast_possible_truncation)]
                 let next_rank = (u128::from(cumulative_habitat)
                     * u128::from(subdomain.size().get())
                     / u128::from(total_habitat)) as u32;

@@ -9,7 +9,7 @@ use necsim_core_bond::ClosedUnitF64;
 
 use crate::cogs::coalescence_sampler::conditional::ConditionalCoalescenceSampler;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ProbabilityAtLocation {
     speciation: ClosedUnitF64,
     out_dispersal: ClosedUnitF64,

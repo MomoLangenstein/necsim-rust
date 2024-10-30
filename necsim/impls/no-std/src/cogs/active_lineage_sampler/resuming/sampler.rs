@@ -48,8 +48,11 @@ impl<
         habitat: &'a H,
         lineage_store: &'a S,
     ) -> Self::LineageIterator<'a> {
-        // All pre- and post-conditions are maintained
-        self.__contracts_impl_iter_active_lineages_ordered(habitat, lineage_store)
+        // Note: inlined from __contracts_impl_iter_active_lineages_ordered
+        self.fixable_lineages.iter().chain(
+            self.inner
+                .iter_active_lineages_ordered(habitat, lineage_store),
+        )
     }
 
     #[must_use]
@@ -133,7 +136,6 @@ impl<
         Some((fixable_lineage, self.restart_time))
     }
 
-    #[allow(clippy::no_effect_underscore_binding)]
     #[debug_ensures(
         self.number_active_lineages() == old(self.number_active_lineages()) + 1,
         "adds an active lineage"

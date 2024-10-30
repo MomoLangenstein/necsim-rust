@@ -12,7 +12,7 @@ use necsim_partitioning_core::LocalPartition;
 
 use super::WaterLevelReporterProxy;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct LiveWaterLevelReporterProxy<'l, 'p, R: Reporter, P: LocalPartition<'p, R>> {
     water_level: NonNegativeF64,
     slow_events: Vec<PackedEvent>,

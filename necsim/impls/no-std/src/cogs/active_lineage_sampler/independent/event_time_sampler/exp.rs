@@ -9,7 +9,7 @@ use super::EventTimeSampler;
 // 2^64 / PHI
 const INV_PHI: u64 = 0x9e37_79b9_7f4a_7c15_u64;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "cuda", derive(rust_cuda::lend::LendRustToCuda))]
 pub struct ExpEventTimeSampler {
@@ -48,13 +48,12 @@ impl<M: MathsCore, H: Habitat<M>, G: PrimeableRng<M>, T: TurnoverRate<M, H>>
             )
         };
 
-        #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
+        #[expect(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         let mut time_step = M::floor(time.get() / self.delta_t.get()) as u64;
 
         let mut event_time = NonNegativeF64::from(time_step) * self.delta_t;
         let mut time_slice_end = NonNegativeF64::from(time_step + 1) * self.delta_t;
 
-        #[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
         rng.prime_with_habitat(habitat, indexed_location, time_step);
 
         let mut sub_index: u64 = 0;

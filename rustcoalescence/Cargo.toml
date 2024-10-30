@@ -24,6 +24,10 @@ almost-infinite-clark2dt-dispersal-scenario = [
     "rustcoalescence-scenarios/almost-infinite-clark2dt-dispersal",
     "rustcoalescence-algorithms-cuda?/almost-infinite-clark2dt-dispersal-scenario",
 ]
+almost-infinite-downscaled-scenario = [
+    "rustcoalescence-scenarios/almost-infinite-downscaled",
+    "rustcoalescence-algorithms-cuda?/almost-infinite-downscaled-scenario",
+]
 non-spatial-scenario = [
     "rustcoalescence-scenarios/non-spatial",
     "rustcoalescence-algorithms-cuda?/non-spatial-scenario",
@@ -48,6 +52,7 @@ wrapping-noise-scenario = [
 all-scenarios = [
     "almost-infinite-normal-dispersal-scenario",
     "almost-infinite-clark2dt-dispersal-scenario",
+    "almost-infinite-downscaled-scenario",
     "non-spatial-scenario",
     "spatially-explicit-uniform-turnover-scenario",
     "spatially-explicit-turnover-map-scenario",
@@ -82,12 +87,12 @@ rustcoalescence-algorithms-gillespie = { path = "algorithms/gillespie", optional
 rustcoalescence-algorithms-independent = { path = "algorithms/independent", optional = true }
 rustcoalescence-algorithms-cuda = { path = "algorithms/cuda", optional = true }
 
-clap = { version = "4.0", features = ["derive"] }
+clap = { version = "4.5", features = ["derive"] }
 anyhow = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 ron = { version = "0.8", features = ["integer128"] }
 log = { version = "0.4", features = ["std"] }
-colored = "2.0"
+colored = "2.1"
 thiserror = "1.0"
 serde_path_to_error = "0.1"
 serde_state = "0.4"
@@ -99,4 +104,3 @@ tiny-keccak = { version = "2.0", features = ["keccak"] }
 derive_builder = "0.20"
 fnv = "1.0"
 adler = "1.0"
-either = "1.10"

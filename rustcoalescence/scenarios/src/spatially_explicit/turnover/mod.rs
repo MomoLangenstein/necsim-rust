@@ -1,6 +1,5 @@
 use std::path::PathBuf;
 
-use either::Either;
 use serde::{Deserialize, Serialize};
 
 use super::maps::MapLoadingMode;
@@ -9,7 +8,6 @@ pub mod map;
 pub mod uniform;
 
 #[derive(Debug, Serialize, Deserialize)]
-#[allow(clippy::module_name_repetitions)]
 #[serde(deny_unknown_fields)]
 #[serde(rename = "SpatiallyExplicit")]
 pub struct SpatiallyExplicitArguments {
@@ -27,21 +25,16 @@ pub struct SpatiallyExplicitArguments {
     loading_mode: MapLoadingMode,
 }
 
-#[cfg(feature = "spatially-explicit-uniform-turnover")]
-type UniformTurnoverArguments = uniform::SpatiallyExplicitUniformTurnoverArguments;
-#[cfg(not(feature = "spatially-explicit-uniform-turnover"))]
-type UniformTurnoverArguments = !;
-
-#[cfg(feature = "spatially-explicit-turnover-map")]
-type TurnoverMapArguments = map::SpatiallyExplicitTurnoverMapArguments;
-#[cfg(not(feature = "spatially-explicit-turnover-map"))]
-type TurnoverMapArguments = !;
+pub enum SpatiallyExplicitArgumentVariants {
+    #[cfg(feature = "spatially-explicit-uniform-turnover")]
+    UniformTurnover(uniform::SpatiallyExplicitUniformTurnoverArguments),
+    #[cfg(feature = "spatially-explicit-turnover-map")]
+    TurnoverMap(map::SpatiallyExplicitTurnoverMapArguments),
+}
 
 impl SpatiallyExplicitArguments {
-    #[allow(clippy::missing_errors_doc)]
-    pub fn try_load(
-        self,
-    ) -> Result<Either<UniformTurnoverArguments, TurnoverMapArguments>, String> {
+    #[expect(clippy::missing_errors_doc)]
+    pub fn try_load(self) -> Result<SpatiallyExplicitArgumentVariants, String> {
         match self {
             #[cfg(feature = "spatially-explicit-uniform-turnover")]
             Self {
@@ -55,7 +48,7 @@ impl SpatiallyExplicitArguments {
                 turnover_rate,
                 loading_mode,
             )
-            .map(Either::Left),
+            .map(SpatiallyExplicitArgumentVariants::UniformTurnover),
             #[cfg(feature = "spatially-explicit-turnover-map")]
             Self {
                 habitat_map,
@@ -68,7 +61,7 @@ impl SpatiallyExplicitArguments {
                 turnover_map,
                 loading_mode,
             )
-            .map(Either::Right),
+            .map(SpatiallyExplicitArgumentVariants::TurnoverMap),
         }
     }
 

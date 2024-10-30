@@ -6,7 +6,7 @@ use necsim_core_bond::PositiveF64;
 
 use super::EmigrationChoice;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug, Default)]
 pub struct AlwaysEmigrationChoice([u8; 0]);
 

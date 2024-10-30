@@ -10,8 +10,6 @@ use necsim_partitioning_core::LocalPartition;
 mod live;
 mod recorded;
 
-#[allow(clippy::inline_always, clippy::inline_fn_without_body)]
-#[allow(clippy::no_effect_underscore_binding)]
 #[contract_trait]
 pub trait WaterLevelReporterProxy<'l, 'p, R: Reporter, P: LocalPartition<'p, R>>:
     Sized
@@ -32,7 +30,6 @@ pub trait WaterLevelReporterProxy<'l, 'p, R: Reporter, P: LocalPartition<'p, R>>
     fn local_partition(&mut self) -> &mut P;
 }
 
-#[allow(clippy::empty_enum)]
 pub enum WaterLevelReporterStrategy {}
 
 pub trait WaterLevelReporterConstructor<

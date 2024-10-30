@@ -25,7 +25,7 @@ pub trait Partitioning: Sized {
 
     fn get_size(&self) -> PartitionSize;
 
-    #[allow(clippy::missing_errors_doc)]
+    #[expect(clippy::missing_errors_doc)]
     fn with_local_partition<
         R: Reporter,
         P: ReporterContext<Reporter = R>,
@@ -74,7 +74,7 @@ pub trait LocalPartition<'p, R: Reporter>: Sized {
 
     fn reduce_vote_any(&mut self, vote: bool) -> bool;
 
-    #[allow(clippy::missing_errors_doc)]
+    #[expect(clippy::missing_errors_doc)]
     fn reduce_vote_min_time(&mut self, local_time: PositiveF64)
         -> Result<PositiveF64, PositiveF64>;
 

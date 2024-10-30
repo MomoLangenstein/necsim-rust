@@ -20,7 +20,7 @@ use rust_cuda::lend::RustToCuda;
 mod link;
 mod patch;
 
-#[allow(clippy::type_complexity)]
+#[expect(clippy::type_complexity)]
 pub struct SimulationKernelPtx<
     M: MathsCore + Sync,
     H: Habitat<M> + RustToCuda + Sync,

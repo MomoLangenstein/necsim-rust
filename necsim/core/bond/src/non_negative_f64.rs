@@ -14,7 +14,7 @@ use necsim_core_maths::MathsCore;
 use crate::{ClosedOpenUnitF64, ClosedUnitF64, NonPositiveF64, OpenClosedUnitF64, PositiveF64};
 
 #[derive(Debug)]
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct NonNegativeF64Error(f64);
 
 impl fmt::Display for NonNegativeF64Error {
@@ -23,7 +23,7 @@ impl fmt::Display for NonNegativeF64Error {
     }
 }
 
-#[allow(clippy::unsafe_derive_deserialize)]
+#[expect(clippy::unsafe_derive_deserialize)]
 #[derive(Copy, Clone, Serialize, Deserialize, TypeLayout)]
 #[repr(transparent)]
 #[serde(try_from = "f64", into = "f64")]
@@ -123,14 +123,14 @@ impl From<u32> for NonNegativeF64 {
 }
 
 impl From<u64> for NonNegativeF64 {
-    #[allow(clippy::cast_precision_loss)]
+    #[expect(clippy::cast_precision_loss)]
     fn from(value: u64) -> Self {
         Self(value as f64)
     }
 }
 
 impl From<usize> for NonNegativeF64 {
-    #[allow(clippy::cast_precision_loss)]
+    #[expect(clippy::cast_precision_loss)]
     fn from(value: usize) -> Self {
         Self(value as f64)
     }
@@ -161,7 +161,6 @@ impl From<ClosedOpenUnitF64> for NonNegativeF64 {
 }
 
 impl PartialEq for NonNegativeF64 {
-    #[allow(clippy::unconditional_recursion)]
     fn eq(&self, other: &Self) -> bool {
         self.0.eq(&other.0)
     }

@@ -17,7 +17,6 @@ use necsim_core::{
 
 necsim_plugins_core::export_plugin!(Csv => CsvReporter);
 
-#[allow(clippy::module_name_repetitions)]
 #[derive(Deserialize)]
 #[serde(try_from = "CsvReporterArgs")]
 pub struct CsvReporter {

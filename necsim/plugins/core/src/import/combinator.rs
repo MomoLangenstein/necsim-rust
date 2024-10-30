@@ -83,7 +83,7 @@ impl<ReportSpeciation: Boolean, ReportDispersal: Boolean, ReportProgress: Boolea
     for ReporterPluginVec<ReportSpeciation, ReportDispersal, ReportProgress>
 {
     impl_report!(speciation(&mut self, speciation: MaybeUsed<ReportSpeciation>) {
-        for plugin in self.plugins.iter_mut() {
+        for plugin in &mut self.plugins {
             if plugin.filter.report_speciation {
                 plugin.reporter.report_speciation(speciation.into());
             }
@@ -91,7 +91,7 @@ impl<ReportSpeciation: Boolean, ReportDispersal: Boolean, ReportProgress: Boolea
     });
 
     impl_report!(dispersal(&mut self, dispersal: MaybeUsed<ReportDispersal>) {
-        for plugin in self.plugins.iter_mut() {
+        for plugin in &mut self.plugins {
             if plugin.filter.report_dispersal {
                 plugin.reporter.report_dispersal(dispersal.into());
             }
@@ -99,7 +99,7 @@ impl<ReportSpeciation: Boolean, ReportDispersal: Boolean, ReportProgress: Boolea
     });
 
     impl_report!(progress(&mut self, progress: MaybeUsed<ReportProgress>) {
-        for plugin in self.plugins.iter_mut() {
+        for plugin in &mut self.plugins {
             if plugin.filter.report_progress {
                 plugin.reporter.report_progress(progress.into());
             }
@@ -113,7 +113,7 @@ impl<ReportSpeciation: Boolean, ReportDispersal: Boolean, ReportProgress: Boolea
     });
 
     fn initialise(&mut self) -> Result<(), String> {
-        for plugin in self.plugins.iter_mut() {
+        for plugin in &mut self.plugins {
             plugin.reporter.initialise()?;
         }
 

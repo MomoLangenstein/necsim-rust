@@ -4,11 +4,6 @@ use crate::landscape::{IndexedLocation, LandscapeExtent, Location};
 
 use super::{MathsCore, RngCore};
 
-#[allow(
-    clippy::inline_always,
-    clippy::inline_fn_without_body,
-    clippy::no_effect_underscore_binding
-)]
 #[contract_trait]
 pub trait Habitat<M: MathsCore>: crate::cogs::Backup + core::fmt::Debug + Sized {
     type LocationIterator<'a>: Iterator<Item = Location> + 'a
@@ -60,12 +55,7 @@ pub trait Habitat<M: MathsCore>: crate::cogs::Backup + core::fmt::Debug + Sized 
     fn iter_habitable_locations(&self) -> Self::LocationIterator<'_>;
 }
 
-#[allow(clippy::module_name_repetitions)]
-#[allow(
-    clippy::inline_always,
-    clippy::inline_fn_without_body,
-    clippy::no_effect_underscore_binding
-)]
+#[expect(clippy::module_name_repetitions)]
 #[contract_trait]
 pub trait UniformlySampleableHabitat<M: MathsCore, G: RngCore<M>>: Habitat<M> {
     #[debug_ensures(

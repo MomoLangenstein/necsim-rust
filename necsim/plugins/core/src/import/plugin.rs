@@ -5,7 +5,7 @@ use crate::{
     import::serde::PluginLibrary,
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub struct ReporterPlugin {
     pub(crate) library: Rc<PluginLibrary>,
 

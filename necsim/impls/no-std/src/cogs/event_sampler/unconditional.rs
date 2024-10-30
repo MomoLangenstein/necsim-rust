@@ -12,7 +12,7 @@ use necsim_core::{
 };
 use necsim_core_bond::PositiveF64;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct UnconditionalEventSampler<
     M: MathsCore,
@@ -25,7 +25,7 @@ pub struct UnconditionalEventSampler<
     T: TurnoverRate<M, H>,
     N: SpeciationProbability<M, H>,
 > {
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     marker: PhantomData<(M, H, G, S, X, D, C, T, N)>,
 }
 

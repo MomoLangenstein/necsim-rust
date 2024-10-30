@@ -20,7 +20,7 @@ pub mod fixup;
 pub mod genesis;
 pub mod resume;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 pub trait IndependentLineageStoreSampleInitialiser<
     M: MathsCore,
     G: PrimeableRng<M>,
@@ -42,7 +42,7 @@ pub trait IndependentLineageStoreSampleInitialiser<
         >, NeverImmigrationEntry,
     >;
 
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     fn init<
         'h,
         T: TrustedOriginSampler<'h, M, Habitat = O::Habitat>,

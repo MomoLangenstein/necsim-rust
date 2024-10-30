@@ -10,6 +10,7 @@ edition = "2021"
 [features]
 almost-infinite-normal-dispersal-scenario = []
 almost-infinite-clark2dt-dispersal-scenario = []
+almost-infinite-downscaled-scenario = []
 non-spatial-scenario = []
 spatially-explicit-uniform-turnover-scenario = []
 spatially-explicit-turnover-map-scenario = []
@@ -23,4 +24,4 @@ necsim-impls-no-std = { path = "../../../../necsim/impls/no-std", features = ["c
 necsim-impls-cuda = { path = "../../../../necsim/impls/cuda" }
 rustcoalescence-algorithms-cuda-gpu-kernel = { path = "../gpu-kernel" }
 
-rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "f2a377d", features = ["host"] }
+rust-cuda = { git = "https://github.com/juntyr/rust-cuda", rev = "62e96a9", features = ["host"] }

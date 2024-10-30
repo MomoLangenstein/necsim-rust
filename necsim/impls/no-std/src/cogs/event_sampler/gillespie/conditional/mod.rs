@@ -23,7 +23,7 @@ mod probability;
 
 use probability::ProbabilityAtLocation;
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct ConditionalGillespieEventSampler<
     M: MathsCore,
@@ -35,7 +35,7 @@ pub struct ConditionalGillespieEventSampler<
     T: TurnoverRate<M, H>,
     N: SpeciationProbability<M, H>,
 > {
-    #[allow(clippy::type_complexity)]
+    #[expect(clippy::type_complexity)]
     marker: PhantomData<(M, H, G, S, X, D, T, N)>,
 }
 

@@ -71,7 +71,7 @@ impl<T: Clone> Vote<T> {
     }
 }
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Clone)]
 pub struct AsyncVote<T: Clone> {
     shared: Arc<SharedAsyncVote<T>>,
@@ -91,7 +91,7 @@ struct AsyncGenerationalData<T> {
 }
 
 impl<T: Clone> AsyncVote<T> {
-    #[allow(dead_code)]
+    #[expect(dead_code)] // FIXME
     #[must_use]
     pub fn new(n: usize) -> Self
     where

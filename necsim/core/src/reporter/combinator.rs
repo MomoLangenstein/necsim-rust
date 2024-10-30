@@ -3,7 +3,7 @@ use crate::{
     reporter::{boolean::Or, Reporter},
 };
 
-#[allow(clippy::module_name_repetitions)]
+#[expect(clippy::module_name_repetitions)]
 #[derive(Debug)]
 pub struct ReporterCombinator<F: Reporter, T: Reporter> {
     front: F,
